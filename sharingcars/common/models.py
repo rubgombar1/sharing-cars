@@ -9,7 +9,8 @@ from sharingcars.helpers.User import path_generator
 
 
 class Actor(models.Model):
-    user_account = models.OneToOneField(DjangoUser, primary_key=True)
+    user_account = models.OneToOneField(DjangoUser, primary_key=True,
+                                        on_delete=models.CASCADE)
 
     def __unicode__(self):
         return self.user_account.username
@@ -30,7 +31,9 @@ class User(Actor):
     photo = models.ImageField(upload_to=path_generator, null=True,
                               default='default')
 
-
+    def delete(self):
+        self.user_account.delete()
+        return super(User, self).delete()
 
 
 class Comment(models.Model):
