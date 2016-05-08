@@ -11,6 +11,9 @@ from sharingcars.helpers.User import path_generator
 class Actor(models.Model):
     user_account = models.OneToOneField(DjangoUser, primary_key=True)
 
+    def __unicode__(self):
+        return self.user_account.username
+
 
 class Administrator(Actor):
     pass
@@ -23,9 +26,11 @@ class User(Actor):
     birthdate = models.DateField(blank=False)
     phone = models.CharField(max_length=256, blank=False,
                              validators=[RegexValidator('^\+?\d+$')])
-    searchinCar = models.BooleanField(default=False)
+    searchingCar = models.BooleanField(default=False)
     photo = models.ImageField(upload_to=path_generator, null=True,
                               default='default')
+
+
 
 
 class Comment(models.Model):

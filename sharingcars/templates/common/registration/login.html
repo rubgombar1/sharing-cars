@@ -1,0 +1,45 @@
+{% extends 'master-page/master-page.html' %}
+{% load i18n %}
+{% block title %} {% trans "Login" %} {% endblock %}
+{% block jumbotron %}
+
+    <div class="jumbotron">
+    {{ form.non_field_errors }}
+<form method="post" action="{% url 'django.contrib.auth.views.login' %}">
+	{% csrf_token %}
+	<div class='form-horizontal'>
+        <div class="row">
+		<div class='col-lg-3 col-md-3 col-sm-4 col-xs-12 form-group'>
+            <div class="col-lg-12">
+			    {{ form.username.label_tag }}
+            </div>
+		</div>
+
+		<div class='col-lg-9 col-md-9 col-sm-8 col-xs-12 form-group'>
+            <div class="col-lg-6 col-md-10 col-sm-12 col-xs-12">
+                {{ form.username }}
+                {{ form.username.errors }}
+            </div>
+		</div>
+
+		<div class='col-lg-3 col-md-3 col-sm-4 col-xs-12 form-group'>
+            <div class="col-lg-12">
+			    {{ form.password.label_tag }}
+            </div>
+		</div>
+
+		<div class='col-lg-9 col-md-9 col-sm-8 col-xs-12 form-group'>
+            <div class="col-lg-6 col-md-10 col-sm-12 col-xs-12">
+                {{ form.password }}
+                {{ form.password.errors }}
+            </div>
+		</div>
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+            <input class='btn btn-success' type="submit" value="Conectar" />
+            <input type="hidden" name="next" value="{{ next }}" />
+        </div>
+        </div>
+	</div>
+</form>
+    </div>
+{% endblock %}

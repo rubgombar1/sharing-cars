@@ -3,7 +3,7 @@ from routes.models import Route
 
 
 class RouteAdmin(admin.ModelAdmin):
-    pass
+    list_display = ('origin', 'destination', 'kind', 'user')
 
 
 admin.site.register(Route, RouteAdmin)

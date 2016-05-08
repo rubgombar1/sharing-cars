@@ -9,7 +9,7 @@ class AdministratorAdmin(admin.ModelAdmin):
 
 
 class UserAdmin(admin.ModelAdmin):
-    pass
+    list_display = ('name', 'surnames', 'user_account', 'city', 'searchingCar')
 
 
 admin.site.register(Administrator, AdministratorAdmin)

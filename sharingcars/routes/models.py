@@ -6,11 +6,15 @@ from common.models import User
 
 
 class Route(models.Model):
+    KINDS = (
+        ('offer', 'Offer'),
+        ('demand', 'Demand'),
+    )
     origin = models.CharField(max_length=256, blank=False)
     destination = models.CharField(max_length=256, blank=False)
     visibility = models.BooleanField(default=True)
     description = models.TextField(blank=False)
-    kind = models.CharField(max_length=64, blank=False)
+    kind = models.CharField(max_length=64, choices=KINDS, blank=False)
     seating = models.IntegerField(validators=[MinValueValidator(0)],
                                   blank=False)
     unitPrice = models.DecimalField(max_digits=5, decimal_places=2,

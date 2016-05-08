@@ -10,10 +10,6 @@ from announcements.models import (Announcement, ApplyAnnouncement,
 from routes.models import (ApplyRoute, CommentRoute, Day, Route, StopRoute)
 
 
-class AppluRoute(object):
-    pass
-
-
 class Command(BaseCommand):
     args = '<foo bar ...>'
     help = 'our help string comes here'
@@ -62,10 +58,10 @@ class Command(BaseCommand):
 
         print('Create users...')
         user1 = User(user_account = user_account1,name = "Nombre", surnames = "Apellido1 Apellido2", city = "Sevilla",
-                     birthdate = date(1993, 4, 6), phone = "666999888",searchinCar = True)
+                     birthdate = date(1993, 4, 6), phone = "666999888",searchingCar = True)
         user1.save()
         user2 = User(user_account = user_account2,name = "Nombre2", surnames = "Apellido1 Apellido2", city = "Sevilla",
-                     birthdate = date(1993, 4, 6), phone = "666999888",searchinCar = True)
+                     birthdate = date(1993, 4, 6), phone = "666999888",searchingCar = True)
         user2.save()
         print('Create user OK!')
 
