@@ -17,8 +17,4 @@ from django.conf.urls import include, url
 from django.contrib import admin
 
 urlpatterns = [
-    url(r'^admin/', include(admin.site.urls)),
-    url(r'^', include('common.urls')),
-    url(r'announcements/^', include('announcements.urls')),
-    url(r'routes/^', include('routes.urls')),
 ]
