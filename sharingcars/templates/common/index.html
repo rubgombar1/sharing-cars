@@ -1,0 +1,17 @@
+{% extends 'master-page/master-page.html' %}
+{% block title %} SharingCars {% endblock %}
+{% load i18n %}
+{% block jumbotron %}{% load staticfiles %}
+
+    <div class="jumbotron">
+          <h1>{% trans "Welcome to SharingCars" %}</h1>
+          {% blocktrans %}
+            <p class="text-justify">
+              Welcome to SharingCars, an application that you will can found
+              people for sharing car in your university, work, etc, routes or
+              in your ocassional routes. Register now and begin to save money!
+            </p>
+          {% endblocktrans %}
+          <p><a class="btn btn-success btn-lg">{% trans "Register now!" %}</a></p>
+    </div>
+{% endblock %}

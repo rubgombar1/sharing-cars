@@ -1,0 +1,141 @@
+
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+      {% load staticfiles %}
+    <meta charset="utf-8">
+    <title>SharingCars</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+
+      <script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
+      <script type="text/javascript" src="http://weareoutman.github.io/clockpicker/dist/jquery-clockpicker.min.js"></script>
+      <link rel="stylesheet" type="text/css" href="http://weareoutman.github.io/clockpicker/dist/jquery-clockpicker.min.css">
+    <script src="{% static 'js/bootstrap.min.js' %}"></script>
+    <script src="{% static 'js/custom.js' %}"></script>
+      <link href="{% static 'css/bootstrap.css' %}" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'css/bootstrap.css' %}" media="screen">
+    <link rel="stylesheet" href="{% static 'css/custom.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+
+      <script type="text/javascript">//<![CDATA[
+        $(function(){
+            var clock = $('.clockpicker');
+            clock.clockpicker({
+                donetext: 'Hecho'
+            });
+            });
+
+        </script>
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script src="../bower_components/html5shiv/dist/html5shiv.js"></script>
+      <script src="../bower_components/respond/dest/respond.min.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+    <div class="navbar navbar-default navbar-fixed-top">
+      <div class="container">
+        <div class="navbar-header">
+          <a href="/" class="navbar-brand">SharingCars</a>
+          <button class="navbar-toggle" type="button" data-toggle="collapse" data-target="#navbar-main">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+        </div>
+        <div class="navbar-collapse collapse" id="navbar-main">
+          <ul class="nav navbar-nav">
+            <li class="dropdown">
+              <a class="dropdown-toggle" data-toggle="dropdown" href="#" id="download">Anuncios <span class="caret"></span></a>
+              <ul class="dropdown-menu" aria-labelledby="download">
+                  <li><a href="/announcement/all">Todas los anuncios</a></li>
+                  {% if user.is_authenticated %}
+                    <li class="divider"></li>
+                    <li><a href="/announcement/user/create">Crear anuncio</a></li>
+                    <li class="divider"></li>
+                    <li><a href="/announcement/user/recommendations">Recomendaciones</a></li>
+                  {% endif %}
+              </ul>
+            </li>
+                <li class="dropdown">
+                  <a class="dropdown-toggle" data-toggle="dropdown" href="#" id="download">Rutas <span class="caret"></span></a>
+                  <ul class="dropdown-menu" aria-labelledby="download">
+                      <li><a href="/route/all">Todas las rutas</a></li>
+                      {% if user.is_authenticated %}
+                        <li class="divider"></li>
+                        <li><a href="/route/user/create">Crear ruta</a></li>
+                        <li class="divider"></li>
+                        <li><a href="/route/user/recommendations">Recomendaciones</a></li>
+                      {% endif %}
+                  </ul>
+                </li>
+
+          </ul>
+
+          <ul class="nav navbar-nav navbar-right">
+            {% if user.is_authenticated %}
+              <li class="dropdown">
+                <a class="dropdown-toggle" data-toggle="dropdown" href="#" id="download">{{ user.username }} <span class="caret"></span></a>
+                <ul class="dropdown-menu" aria-labelledby="download">
+                    <li><a href="/route/all">Todas los anuncios</a></li>
+                    {% if user.is_authenticated %}
+                      <li class="divider"></li>
+                      <li><a href="/route/user/create">Crear anuncio</a></li>
+                      <li class="divider"></li>
+                      <li><a href="/route/user/recommendations">Recomendaciones</a></li>
+                      <li class="divider"></li>
+                      <li><a href="/logout">Cerrar sesion</a></li>
+                    {% endif %}
+                </ul>
+              </li>
+            {% else %}
+              <li>
+                <a href="/login">Iniciar sesion</a>
+              </li>
+              <li>
+                <a href="/user/register">Registrate</a>
+              </li>
+            {% endif %}
+          </ul>
+
+        </div>
+      </div>
+    </div>
+
+    {% block pre_container %}{% endblock %}
+    {% block  no_container%}
+        <div class="container">
+            {% block not_jumbotron %}
+                    {% block jumbotron %}{% endblock %}
+            {% endblock %}
+        </div>
+    {% endblock %}
+    {% block post_container %}{% endblock %}
+
+
+      <footer>
+        <div id="footer">
+				<div class="container">
+
+					<!-- Lists -->
+
+
+					<!-- Copyright -->
+						<div class="copyright">
+							Todos los derechos reservados.
+						</div>
+
+				</div>
+			</div>
+
+      </footer>
+
+
+    </div>
+
+
+
+
+</body>
+</html>
