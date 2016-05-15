@@ -3,7 +3,6 @@ from django.core.urlresolvers import reverse_lazy
 
 from announcements.models import Announcement
 from common.models import User
-# from common.forms import UserRegisterForm
 
 
 class AnnouncementCreateView(CreateView):
