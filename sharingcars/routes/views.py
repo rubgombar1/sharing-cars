@@ -1,5 +1,4 @@
 from django.views.generic.edit import CreateView
-from django.views.generic.list import ListView
 from django.core.urlresolvers import reverse_lazy
 
 from routes.models import Route
@@ -21,8 +20,3 @@ class RouteCreateView(CreateView):
         user = User.objects.get(user_account__id=self.request.user.id)
         instance.user = user
         return super(RouteCreateView, self).form_valid(form)
-
-
-class RouteListView(ListView):
-    template_name = 'routes/list.html'
-    model = Route

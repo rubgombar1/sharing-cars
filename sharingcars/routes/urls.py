@@ -1,9 +1,15 @@
 from django.conf.urls import url
-from routes.views import RouteCreateView, RouteListView
+from routes.views import RouteCreateView
+from django.views.generic.detail import DetailView
+from django.views.generic.list import ListView
 from routes.models import Route
 
 urlpatterns = [
     url(r'^create$', RouteCreateView.as_view(), name='create-route'),
-    url(r'^all$', RouteListView.as_view(queryset=Route.objects.order_by('-creationMoment')),
+    url(r'^all$', ListView.as_view(queryset=Route.objects.order_by('-creationMoment'),
+                                   model=Route, template_name='routes/list.html'),
         name='all-routes'),
+    url(r'^details/(?P<pk>[-\w]+)$', DetailView.as_view(template_name='routes/show.html',
+                                                        queryset=Route.objects.all()),
+        name='details-route'),
 ]

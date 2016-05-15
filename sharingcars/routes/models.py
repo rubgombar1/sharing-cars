@@ -1,5 +1,5 @@
 from __future__ import unicode_literals
-
+from django.utils.translation import ugettext as _
 from django.db import models
 from django.core.validators import MinValueValidator, MaxValueValidator
 from common.models import User
@@ -7,8 +7,8 @@ from common.models import User
 
 class Route(models.Model):
     KINDS = (
-        ('offer', 'Offer'),
-        ('demand', 'Demand'),
+        ('offer', _('Offer')),
+        ('demand', _('Demand')),
     )
     origin = models.CharField(max_length=256, blank=False)
     destination = models.CharField(max_length=256, blank=False)
