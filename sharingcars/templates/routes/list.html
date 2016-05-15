@@ -1,0 +1,144 @@
+{% extends 'master-page/master-page.html' %}
+{% block title %} SharingCars {% endblock %}
+{% block jumbotron %}{% load staticfiles %}
+
+    <div class="jumbotron">
+          {% for route in route_list %}
+              <div class="row col-lg-12">
+                <div class="col-lg-3">
+                    <div class="col-lg-12">
+                        {% if route.user.photo == 'default' %}
+                            <img class="img-circle img-responsive center-block"  src="{% static 'user/image/default.jpg' %}" style="width:auto;height:200px" alt="">
+                        {% else %}
+                            <img class="img-circle img-responsive center-block"  src="{% static route.user.photo %}" style="width:auto;height:200px" alt="">
+                        {% endif %}
+                    </div>
+                    <div class="col-lg-12 text-center">
+                        <a href="/user/profile?userId={{ route.user.id }}">{{ route.user.name }}</a>
+                    </div>
+                    <div class="col-lg-12 text-center">
+                        <a href="/user/profile?userId={{ route.user.id }}">{{ route.user.surnames|truncatechars:50 }}</a>
+                    </div>
+                </div>
+                <div class="col-lg-9">
+                    <div class="col-lg-12">
+                        <div class="col-lg-6">
+                            <b>Tipo de anuncio: </b> {% if route.kind == "1" %}Oferta{% else %}Demanda{% endif %}
+                        </div>
+                        <div class="col-lg-6">
+                            <b>{{ route.unitPrice }}<span class="glyphicon glyphicon-euro" aria-hidden="true"></span> por persona  </b>
+                        </div>
+                    </div>
+                    <div class="col-lg-12">
+                        <div class="col-lg-6">
+                            <b>Origen: </b>{{ route.origin }}
+                        </div>
+                        <div class="col-lg-6">
+                            <b>Destino: </b>{{ route.destination }}
+                        </div>
+                    </div>
+                    <div class="col-lg-12">
+                        <div class="col-lg-12">
+                            <b>Fecha de creaci&oacute;n: </b>{{ route.creationMoment }}
+                        </div>
+                        <div class="col-lg-12">
+                            <b>Plazas: </b>{{ route.seating }}
+                        </div>
+                    </div>
+                    <div class="col-lg-12">
+                        <div class="col-lg-12">
+                            <b>Descripci&oacute;n: </b>{{ route.description }}
+                        </div>
+                    </div>
+                      <div class="col-lg-12">
+                        <div class="col-lg-12 text-center">
+                            <h2>Horario</h2>
+                        </div>
+                        <div class="col-lg-12">
+                            {% for day in route.day_set.all %}
+                                {% if forloop.counter <= 4 %}
+                                    <div class="col-lg-3 text-center">
+                                        <div class="col-lg-12">
+                                            {% if day.day == 1 %}
+                                                <b>Lunes</b>
+                                            {% elif day.day == 2 %}
+                                                <b>Martes</b>
+                                            {% elif day.day == 3 %}
+                                                <b>Mi&ecaute;rcoles</b>
+                                            {% elif day.day == 4 %}
+                                                <b>Jueves</b>
+                                            {% endif %}
+                                        </div>
+                                        <div class="col-lg-12">
+                                            {% if day.active %}
+                                                <div class="text-success"><span class="glyphicon glyphicon-ok" aria-hidden="true"></span></div>
+                                            {% else %}
+                                                <div class="text-danger"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></div>
+                                            {% endif %}
+                                        </div>
+                                        <div class="col-lg-12">
+                                            {% if day.departTime != "" %}
+                                                Salida: {{ day.departTime }}
+                                            {% else %}
+                                                <span class="text-warning glyphicon glyphicon-remove" aria-hidden="true"></span>
+                                            {% endif %}
+                                        </div>
+                                        <div class="col-lg-12">
+                                            {% if day.returnTime != "" %}
+                                                Vuelta: {{ day.returnTime }}
+                                            {% else %}
+                                                <span class="text-warning glyphicon glyphicon-remove" aria-hidden="true"></span>
+                                            {% endif %}
+                                        </div>
+                                    </div>
+                                {% else %}
+                                    <div class="col-lg-4 text-center">
+                                        <div class="col-lg-12">
+                                            {% if day.day == 5 %}
+                                                <b>Viernes</b>
+                                            {% elif day.day == 6 %}
+                                                <b>S&aacute;bado</b>
+                                            {% elif day.day == 7 %}
+                                                <b>Domingo</b>
+                                            {% endif %}
+                                        </div>
+                                        <div class="col-lg-12">
+                                            {% if day.active %}
+                                                <div class="text-success"><span class="glyphicon glyphicon-ok" aria-hidden="true"></span></div>
+                                            {% else %}
+                                                <div class="text-danger"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></div>
+                                            {% endif %}
+                                        </div>
+                                        <div class="col-lg-12">
+                                            {% if day.departTime != "" %}
+                                                Salida: {{ day.departTime }}
+                                            {% else %}
+                                                <span class="text-warning glyphicon glyphicon-remove" aria-hidden="true"></span>
+                                            {% endif %}
+                                        </div>
+                                        <div class="col-lg-12">
+                                            {% if day.returnTime != "" %}
+                                                Vuelta: {{ day.returnTime }}
+                                            {% else %}
+                                                <span class="text-warning glyphicon glyphicon-remove" aria-hidden="true"></span>
+                                            {% endif %}
+                                        </div>
+                                    </div>
+                                {% endif %}
+                            {% endfor %}
+                        </div>
+                      </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-12"><br></div>
+                    <div class="col-lg-12 text-center"><a href="/route/show?routeId={{ route.id }}" class="btn btn-primary">Ver m&aacute;s detalles</a> {% if request.user.id != route.user.user_account.id and user.is_authenticated %}<a href="/route/user/apply?routeId={{ route.id }}" class="btn btn-primary">Solicitar</a>{% endif %}</div>
+                    <div class="col-lg-12"><br></div>
+                    {% if not forloop.last %}
+                        <div class="col-lg-12 text-center"><span class="text-primary glyphicon glyphicon-minus" aria-hidden="true"></span><span class="text-primary glyphicon glyphicon-minus" aria-hidden="true"></span><span class="text-primary glyphicon glyphicon-minus" aria-hidden="true"></span><span class="text-primary glyphicon glyphicon-minus" aria-hidden="true"></span><span class="text-primary glyphicon glyphicon-minus" aria-hidden="true"></span><span class="text-primary glyphicon glyphicon-minus" aria-hidden="true"></span><span class="text-primary glyphicon glyphicon-minus" aria-hidden="true"></span><span class="text-primary glyphicon glyphicon-minus" aria-hidden="true"></span><span class="text-primary glyphicon glyphicon-minus" aria-hidden="true"></span><span class="text-primary glyphicon glyphicon-minus" aria-hidden="true"></span><span class="text-primary glyphicon glyphicon-minus" aria-hidden="true"></span><span class="text-primary glyphicon glyphicon-minus" aria-hidden="true"></span><span class="text-primary glyphicon glyphicon-minus" aria-hidden="true"></span><span class="text-primary glyphicon glyphicon-minus" aria-hidden="true"></span><span class="text-primary glyphicon glyphicon-minus" aria-hidden="true"></span><span class="text-primary glyphicon glyphicon-minus" aria-hidden="true"></span><span class="text-primary glyphicon glyphicon-minus" aria-hidden="true"></span><span class="text-primary glyphicon glyphicon-minus" aria-hidden="true"></span><span class="text-primary glyphicon glyphicon-minus" aria-hidden="true"></span><span class="text-primary glyphicon glyphicon-minus" aria-hidden="true"></span><span class="text-primary glyphicon glyphicon-minus" aria-hidden="true"></span><span class="text-primary glyphicon glyphicon-minus" aria-hidden="true"></span><span class="text-primary glyphicon glyphicon-minus" aria-hidden="true"></span></div>
+                        <div class="col-lg-12"><br></div>
+                    {% endif %}
+
+        {% endfor %}
+    <b style="color: transparent">Desarrollado por: Rub&eacute;n G&oacute;mez Barrera</b>
+    </div>
+{% endblock %}
