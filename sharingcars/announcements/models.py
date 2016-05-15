@@ -24,7 +24,7 @@ class Announcement(models.Model):
     creationMoment = models.DateTimeField(auto_now=False, auto_now_add=True)
     departTime = models.CharField(max_length=64)
 
-    user = models.OneToOneField(User)
+    user = models.ForeignKey(User)
 
     def __unicode__(self):
         return '%s - %s - %s' % (self.origin, self.destination, self.departTime)
@@ -35,8 +35,8 @@ class ApplyAnnouncement(models.Model):
     comment = models.TextField(blank=False)
     state = models.CharField(max_length=64, default="1")
 
-    announcement = models.OneToOneField(Announcement)
-    user = models.OneToOneField(User)
+    announcement = models.ForeignKey(Announcement)
+    user = models.ForeignKey(User)
 
 
 class CommentAnnouncement(models.Model):
@@ -44,8 +44,8 @@ class CommentAnnouncement(models.Model):
     comment = models.TextField(blank=False)
     rating = models.IntegerField(validators=[MinValueValidator(0),
                                  MaxValueValidator(10)])
-    user = models.OneToOneField(User)
-    announcement = models.OneToOneField(Announcement)
+    user = models.ForeignKey(User)
+    announcement = models.ForeignKey(Announcement)
 
 
 class StopAnnouncement(models.Model):
