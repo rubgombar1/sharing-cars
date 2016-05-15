@@ -8,7 +8,6 @@ from common.models import User
 
 class AnnouncementCreateView(CreateView):
     model = Announcement
-    # form_class = UserRegisterForm
     template_name = 'common/registration/register.html'
     success_url = reverse_lazy('index')
     fields = ('origin', 'destination', 'description', 'kind',
@@ -18,7 +17,6 @@ class AnnouncementCreateView(CreateView):
         return self.success_url.format()
 
     def form_valid(self, form):
-        # import ipdb; ipdb.set_trace()
         instance = form.save(commit=False)
         user = User.objects.get(user_account__id=self.request.user.id)
         instance.user = user
