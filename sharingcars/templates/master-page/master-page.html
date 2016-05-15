@@ -2,6 +2,7 @@
 <!DOCTYPE html>
 <html lang="es">
   <head>
+      {% load i18n %}
       {% load staticfiles %}
     <meta charset="utf-8">
     <title>SharingCars</title>
@@ -47,26 +48,26 @@
         <div class="navbar-collapse collapse" id="navbar-main">
           <ul class="nav navbar-nav">
             <li class="dropdown">
-              <a class="dropdown-toggle" data-toggle="dropdown" href="#" id="download">Anuncios <span class="caret"></span></a>
+              <a class="dropdown-toggle" data-toggle="dropdown" href="#" id="download">{% trans 'Announcements' %} <span class="caret"></span></a>
               <ul class="dropdown-menu" aria-labelledby="download">
-                  <li><a href="/announcement/all">Todas los anuncios</a></li>
+                  <li><a href="/announcements">{% trans 'All announcements' %}</a></li>
                   {% if user.is_authenticated %}
                     <li class="divider"></li>
-                    <li><a href="/announcement/user/create">Crear anuncio</a></li>
+                    <li><a href="/announcements/create">{% trans 'Create announcement' %}</a></li>
                     <li class="divider"></li>
-                    <li><a href="/announcement/user/recommendations">Recomendaciones</a></li>
+                    <li><a href="/announcements/recommendations">{% trans 'Recomendations' %}</a></li>
                   {% endif %}
               </ul>
             </li>
                 <li class="dropdown">
-                  <a class="dropdown-toggle" data-toggle="dropdown" href="#" id="download">Rutas <span class="caret"></span></a>
+                  <a class="dropdown-toggle" data-toggle="dropdown" href="#" id="download">{% trans 'Routes' %} <span class="caret"></span></a>
                   <ul class="dropdown-menu" aria-labelledby="download">
-                      <li><a href="/route/all">Todas las rutas</a></li>
+                      <li><a href="/routes/all">{% trans 'All routes' %}</a></li>
                       {% if user.is_authenticated %}
                         <li class="divider"></li>
-                        <li><a href="/route/user/create">Crear ruta</a></li>
+                        <li><a href="/routes/create">{% trans 'Create route' %}</a></li>
                         <li class="divider"></li>
-                        <li><a href="/route/user/recommendations">Recomendaciones</a></li>
+                        <li><a href="/routes/recommendations">{% trans 'Recommendations' %}</a></li>
                       {% endif %}
                   </ul>
                 </li>
@@ -78,23 +79,17 @@
               <li class="dropdown">
                 <a class="dropdown-toggle" data-toggle="dropdown" href="#" id="download">{{ user.username }} <span class="caret"></span></a>
                 <ul class="dropdown-menu" aria-labelledby="download">
-                    <li><a href="/route/all">Todas los anuncios</a></li>
                     {% if user.is_authenticated %}
-                      <li class="divider"></li>
-                      <li><a href="/route/user/create">Crear anuncio</a></li>
-                      <li class="divider"></li>
-                      <li><a href="/route/user/recommendations">Recomendaciones</a></li>
-                      <li class="divider"></li>
-                      <li><a href="/logout">Cerrar sesion</a></li>
+                      <li><a href="/logout">{% trans 'Log out' %}</a></li>
                     {% endif %}
                 </ul>
               </li>
             {% else %}
               <li>
-                <a href="/login">Iniciar sesion</a>
+                <a href="/login">{% trans 'Log in' %}</a>
               </li>
               <li>
-                <a href="/user/register">Registrate</a>
+                <a href="/user/register">{% trans 'Register' %}</a>
               </li>
             {% endif %}
           </ul>
@@ -123,7 +118,7 @@
 
 					<!-- Copyright -->
 						<div class="copyright">
-							Todos los derechos reservados.
+							{% trans 'All rights reserved' %}
 						</div>
 
 				</div>
