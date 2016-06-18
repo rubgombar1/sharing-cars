@@ -49,24 +49,26 @@
             <li class="dropdown">
               <a class="dropdown-toggle" data-toggle="dropdown" href="#" id="download">Anuncios <span class="caret"></span></a>
               <ul class="dropdown-menu" aria-labelledby="download">
-                  <li><a href="/announcement/all">Todas los anuncios</a></li>
+                  <li><a href="/announcements/all">Todas los anuncios</a></li>
                   {% if user.is_authenticated %}
                     <li class="divider"></li>
-                    <li><a href="/announcement/user/create">Crear anuncio</a></li>
+                    <li><a href="/announcements/user/create">Crear anuncio</a></li>
                     <li class="divider"></li>
-                    <li><a href="/announcement/user/recommendations">Recomendaciones</a></li>
+                    <li><a href="/announcements/user/recommendations">Recomendaciones</a></li>
                   {% endif %}
               </ul>
             </li>
                 <li class="dropdown">
                   <a class="dropdown-toggle" data-toggle="dropdown" href="#" id="download">Rutas <span class="caret"></span></a>
                   <ul class="dropdown-menu" aria-labelledby="download">
-                      <li><a href="/route/all">Todas las rutas</a></li>
+                      <li><a href="/routes/all">Todas las rutas</a></li>
                       {% if user.is_authenticated %}
                         <li class="divider"></li>
-                        <li><a href="/route/user/create">Crear ruta</a></li>
+                        <li><a href="/routes/user">Mis rutas</a></li>
                         <li class="divider"></li>
-                        <li><a href="/route/user/recommendations">Recomendaciones</a></li>
+                        <li><a href="/routes/create">Crear ruta</a></li>
+                        <li class="divider"></li>
+                        <li><a href="/routes/recommendations">Recomendaciones</a></li>
                       {% endif %}
                   </ul>
                 </li>
@@ -81,9 +83,11 @@
                     <li><a href="/route/all">Todas los anuncios</a></li>
                     {% if user.is_authenticated %}
                       <li class="divider"></li>
-                      <li><a href="/route/user/create">Crear anuncio</a></li>
+                      <li><a href="/routes/user">Mis rutas</a></li>
                       <li class="divider"></li>
-                      <li><a href="/route/user/recommendations">Recomendaciones</a></li>
+                      <li><a href="/routes/create">Crear anuncio</a></li>
+                      <li class="divider"></li>
+                      <li><a href="/routes/recommendations">Recomendaciones</a></li>
                       <li class="divider"></li>
                       <li><a href="/logout">Cerrar sesion</a></li>
                     {% endif %}

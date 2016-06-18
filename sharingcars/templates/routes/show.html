@@ -1,4 +1,4 @@
-{% extends 'master-page/master-page.html' %}
+{% extends 'common/master-page/master-page.html' %}
 {% block title %} SharingCars {% endblock %}
 {% block jumbotron %}{% load staticfiles %}
 
@@ -43,7 +43,7 @@
                             <b>{{ route.unitPrice }}<span class="glyphicon glyphicon-euro" aria-hidden="true"></span> por persona  </b>
                         </div>
                         <div class="col-lg-6">
-                            <b>Publicación: </b>{{ route.creationMoment }}
+                            <b>Publicaciï¿½n: </b>{{ route.creationMoment }}
                         </div>
                     </div>
                   <div class="col-lg-1"></div>
@@ -63,7 +63,7 @@
                         <div class="col-lg-1"></div>
                         <div class="col-lg-11">
                             <div class="col-lg-12">
-                            <b>Descripción: </b>{{ route.description }}
+                            <b>Descripciï¿½n: </b>{{ route.description }}
                                 </div>
                         </div>
                     </div>
@@ -81,7 +81,7 @@
                                             {% elif day.day == 2 %}
                                                 <b>Martes</b>
                                             {% elif day.day == 3 %}
-                                                <b>Miércoles</b>
+                                                <b>Miï¿½rcoles</b>
                                             {% elif day.day == 4 %}
                                                 <b>Jueves</b>
                                             {% endif %}
@@ -114,7 +114,7 @@
                                             {% if day.day == 5 %}
                                                 <b>Viernes</b>
                                             {% elif day.day == 6 %}
-                                                <b>Sábado</b>
+                                                <b>Sï¿½bado</b>
                                             {% elif day.day == 7 %}
                                                 <b>Domingo</b>
                                             {% endif %}
@@ -145,7 +145,7 @@
                             {% endfor %}
                         </div>
                 <div class="col-lg-12"><br></div>
-                <div class="col-lg-12 text-center"><h2>Comentarios</h2> <b>Valoración de la ruta: {{ ratingRoute }}/10</b></div>
+                <div class="col-lg-12 text-center"><h2>Comentarios</h2> <b>Valoraciï¿½n de la ruta: {{ ratingRoute }}/10</b></div>
                 <div class="col-lg-12"><br></div>
                 <div class="col-lg-12">
                     {% if route.commentroute_set.all|length > 0 %}
@@ -157,7 +157,7 @@
                                         <b>Asunto: </b>{{ comment.subject }}
                                     </div>
                                     <div class="col-lg-3">
-                                        <b>Valoración: </b>{{ comment.rating }}
+                                        <b>Valoraciï¿½n: </b>{{ comment.rating }}
                                     </div>
                                 </div>
                             </div>
