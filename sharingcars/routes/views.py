@@ -1,11 +1,11 @@
 from django.views.generic.edit import CreateView
 from django.views.generic.list import ListView
-from django.core.urlresolvers import reverse_lazy
+from django.core.urlresolvers import reverse_lazy, reverse
 from django.db.models import Q
 
-from routes.models import Route
+from routes.models import Route, ApplyRoute
 from common.models import User
-from routes.forms import RouteCreateForm
+from routes.forms import RouteCreateForm, ApplyRouteCreateForm
 
 
 class RouteCreateView(CreateView):
@@ -48,3 +48,21 @@ class RouteUserRecommendationsListView(ListView):
                     recommendations.add(route)
         context['route_list'] = recommendations
         return context
+
+
+class RouteApplyCreate(CreateView):
+    model = ApplyRoute
+    template_name = 'common/form.html'
+    form_class = ApplyRouteCreateForm
+
+    def get_success_url(self):
+
+        return reverse('details-route', kwargs={'pk': self.kwargs['pk']})
+
+    def form_valid(self, form):
+        instance = form.save(commit=False)
+        user = User.objects.get(user_account__id=self.request.user.id)
+        route = Route.objects.get(pk=self.kwargs['pk'])
+        instance.user = user
+        instance.route = route
+        return super(RouteApplyCreate, self).form_valid(form)

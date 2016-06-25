@@ -1,6 +1,7 @@
 from __future__ import unicode_literals
 from django.utils.translation import ugettext as _
 from django.db import models
+from common.models import APPLY_STATUS
 from django.core.validators import MinValueValidator, MaxValueValidator
 from common.models import User
 
@@ -27,7 +28,7 @@ class Route(models.Model):
 class ApplyRoute(models.Model):
     creationDate = models.DateTimeField(auto_now_add=True)
     comment = models.TextField(blank=False)
-    state = models.CharField(max_length=64, default="1")
+    state = models.CharField(max_length=64, choices=APPLY_STATUS, default="waiting")
 
     route = models.ForeignKey(Route)
     user = models.ForeignKey(User)

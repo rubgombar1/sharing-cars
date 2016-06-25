@@ -2,7 +2,7 @@ from __future__ import unicode_literals
 
 from django.db import models
 from django.core.validators import MinValueValidator, MaxValueValidator
-
+from common.models import APPLY_STATUS
 from common.models import User
 
 
@@ -33,7 +33,7 @@ class Announcement(models.Model):
 class ApplyAnnouncement(models.Model):
     creationDate = models.DateTimeField(auto_now_add=True)
     comment = models.TextField(blank=False)
-    state = models.CharField(max_length=64, default="1")
+    state = models.CharField(max_length=64, choices=APPLY_STATUS, default="waiting")
 
     announcement = models.ForeignKey(Announcement)
     user = models.ForeignKey(User)

@@ -3,7 +3,7 @@ from django import forms
 from django.core.validators import MinValueValidator
 from django.utils.translation import ugettext as _
 
-from routes.models import Route, Day
+from routes.models import Route, Day, ApplyRoute
 
 
 class RouteCreateForm(forms.ModelForm):
@@ -242,3 +242,17 @@ class RouteCreateForm(forms.ModelForm):
             day.active = False
         day.route = route
         day.save()
+
+
+class ApplyRouteCreateForm(forms.ModelForm):
+    comment = forms.CharField(widget=forms.Textarea(attrs={'class': 'form-control', 'placeholder': 'Escriba lo que quiera comunicarle al dueño del anuncio.'}), label="Comentario", required=True)
+
+    def save(self, commit=True):
+        instance = super(ApplyRouteCreateForm, self).save(commit=False)
+        if commit:
+            instance.save()
+        return instance
+
+    class Meta:
+        model = ApplyRoute
+        fields = ('comment', )

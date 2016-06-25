@@ -1,5 +1,6 @@
 from django.conf.urls import url
-from routes.views import RouteCreateView, RouteUserListView, RouteUserRecommendationsListView
+from routes.views import (RouteCreateView, RouteUserListView,
+                          RouteUserRecommendationsListView, RouteApplyCreate)
 from django.views.generic.detail import DetailView
 from django.views.generic.list import ListView
 from routes.models import Route
@@ -14,4 +15,5 @@ urlpatterns = [
     url(r'^details/(?P<pk>[-\w]+)$', DetailView.as_view(template_name='routes/show.html',
                                                         queryset=Route.objects.all()),
         name='details-route'),
+    url(r'^apply/(?P<pk>[-\w]+)$', RouteApplyCreate.as_view(), name='create-apply-route'),
 ]

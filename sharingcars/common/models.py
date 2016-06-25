@@ -8,6 +8,13 @@ from django.core.validators import MinValueValidator, MaxValueValidator
 from sharingcars.helpers.User import path_generator
 
 
+APPLY_STATUS = (
+    ('waiting', 'Waiting'),
+    ('approach', 'Approach'),
+    ('rejected', 'Rejected')
+)
+
+
 class Actor(models.Model):
     user_account = models.OneToOneField(DjangoUser, primary_key=True,
                                         on_delete=models.CASCADE)
