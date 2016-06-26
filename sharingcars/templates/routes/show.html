@@ -175,6 +175,42 @@
                             <h2 class="text-danger">No hay comentarios para esta ruta.</h2>
                         </div>
                     {% endif %}
+                    {% if applicationsRoute %}
+                      <div class="col-lg-12"><br></div>
+                      <div class="col-lg-12 text-center"><h2>Solicitudes</h2></div>
+                      <div class="col-lg-12"><br></div>
+                      {% for apply_route in applicationsRoute %}
+                        <div class="col-lg-12">
+                            <div class="col-lg-1"></div>
+                            <div class="col-lg-11">
+                                <div class="col-lg-3">
+                                    <b>Usuario: </b>{{ apply_route.user }}
+                                </div>
+                                <div class="col-lg-3">
+                                    <b>Estado: </b>{{ apply_route.get_state_display }}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-12">
+                            <div class="col-lg-1"></div>
+                            <div class="col-lg-11">
+                                <div class="col-lg-12">
+                                    <b>Comentario: </b>{{ apply_route.comment }}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-12"><br></div>
+                        <div class="col-lg-12 text-center">
+                          {% if apply_route.state == 'waiting' or apply_route.state == 'rejected' %}
+                            <a href="{% url 'resolve-apply-route' apply_route.id  'accept' %}" class="btn btn-success">Aceptar</a>
+                          {% endif %}
+                          {% if apply_route.state == 'waiting' or apply_route.state == 'approach' %}
+                            <a href="{% url 'resolve-apply-route' apply_route.id 'reject' %}" class="btn btn-danger">Rechazar</a>
+                          {% endif %}
+                        </div>
+                        <div class="col-lg-12"><br></div>
+                      {% endfor %}
+                    {% endif %}
                 </div>
           </div>
     </div>

@@ -1,7 +1,10 @@
 from django.views.generic.edit import CreateView
 from django.views.generic.list import ListView
+from django.views.generic.detail import DetailView
 from django.core.urlresolvers import reverse_lazy, reverse
+from django.shortcuts import redirect
 from django.db.models import Q
+from django.contrib.auth.decorators import login_required
 
 from routes.models import Route, ApplyRoute
 from common.models import User
@@ -22,6 +25,17 @@ class RouteCreateView(CreateView):
         user = User.objects.get(user_account__id=self.request.user.id)
         instance.user = user
         return super(RouteCreateView, self).form_valid(form)
+
+
+class RouteDetailsView(DetailView):
+    template_name = 'routes/show.html'
+    queryset = Route.objects.all()
+
+    def get_context_data(self, object):
+        context = super(RouteDetailsView, self).get_context_data()
+        if object.user.user_account_id == self.request.user.id:
+            context['applicationsRoute'] = object.applyroute_set.all()
+        return context
 
 
 class RouteUserListView(ListView):
@@ -56,7 +70,6 @@ class RouteApplyCreate(CreateView):
     form_class = ApplyRouteCreateForm
 
     def get_success_url(self):
-
         return reverse('details-route', kwargs={'pk': self.kwargs['pk']})
 
     def form_valid(self, form):
@@ -66,3 +79,14 @@ class RouteApplyCreate(CreateView):
         instance.user = user
         instance.route = route
         return super(RouteApplyCreate, self).form_valid(form)
+
+
+@login_required
+def resolve_apply(request, pk, action):
+    apply_route = ApplyRoute.objects.get(pk=pk)
+    if action == 'accept':
+        apply_route.state = 'approach'
+    elif action == 'reject':
+        apply_route.state = 'rejected'
+    apply_route.save()
+    return redirect('details-route', pk=apply_route.route.pk)
