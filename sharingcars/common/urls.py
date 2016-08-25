@@ -21,7 +21,7 @@ urlpatterns = [
     url(r'^$', TemplateView.as_view(template_name='common/index.html'),
         name='index'),
     url(r'^login/?$', 'django.contrib.auth.views.login',
-        {'template_name': 'common/registration/login.html'}),
-    url(r'^logout/?$', 'django.contrib.auth.views.logout', {'next_page': '/'}),
+        {'template_name': 'common/registration/login.html'}, name="login"),
+    url(r'^logout/?$', 'django.contrib.auth.views.logout', {'next_page': '/'}, name="logout"),
     url(r'^user/register$', UserCreateView.as_view(), name='create-user'),
 ]

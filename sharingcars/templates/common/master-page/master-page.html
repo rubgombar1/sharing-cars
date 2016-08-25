@@ -1,141 +1,298 @@
+<!doctype html>
+{% load staticfiles %}
+<!--[if IE 8 ]>
+<html class="ie ie8" lang="en"> <![endif]-->
+<!--[if (gte IE 9)|!(IE)]>
+<html lang="en" class="no-js"> <![endif]-->
+<html lang="en">
 
-<!DOCTYPE html>
-<html lang="es">
-  <head>
-      {% load staticfiles %}
+<head>
+
+    <!-- Basic -->
+    <title>Margo | Home</title>
+
+    <!-- Define Charset -->
     <meta charset="utf-8">
-    <title>SharingCars</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 
-      <script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
-      <script type="text/javascript" src="http://weareoutman.github.io/clockpicker/dist/jquery-clockpicker.min.js"></script>
-      <link rel="stylesheet" type="text/css" href="http://weareoutman.github.io/clockpicker/dist/jquery-clockpicker.min.css">
-    <script src="{% static 'js/bootstrap.min.js' %}"></script>
-    <script src="{% static 'js/custom.js' %}"></script>
-      <link href="{% static 'css/bootstrap.css' %}" rel="stylesheet">
-    <link rel="stylesheet" href="{% static 'css/bootstrap.css' %}" media="screen">
-    <link rel="stylesheet" href="{% static 'css/custom.min.css' %}">
-    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <!-- Responsive Metatag -->
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
-      <script type="text/javascript">//<![CDATA[
-        $(function(){
+    <!-- Page Description and Author -->
+    <meta name="description" content="Margo - Responsive HTML5 Template">
+    <meta name="author" content="iThemesLab">
+
+
+    <!-- Bootstrap CSS  -->
+    <link rel="stylesheet" href="{% static 'asset/css/bootstrap.min.css' %}" type="text/css" media="screen">
+
+    <!-- Font Awesome CSS -->
+    <link rel="stylesheet" href="{% static 'css/font-awesome.min.css' %}" type="text/css" media="screen">
+
+    <!-- Slicknav -->
+    <link rel="stylesheet" type="text/css" href="{% static 'css/slicknav.css' %}" media="screen">
+
+    <!-- Margo CSS Styles  -->
+    <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}" media="screen">
+
+    <!-- Responsive CSS Styles  -->
+    <link rel="stylesheet" type="text/css" href="{% static 'css/responsive.css' %}" media="screen">
+
+    <!-- Css3 Transitions Styles  -->
+    <link rel="stylesheet" type="text/css" href="{% static 'css/animate.css' %}" media="screen">
+
+    <!-- Color CSS Styles  -->
+    <link rel="stylesheet" type="text/css" href="{% static 'css/colors/red.css' %}" title="red" media="screen"/>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/colors/jade.css' %}" title="jade" media="screen"/>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/colors/blue.css' %}" title="blue" media="screen"/>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/colors/beige.css' %}" title="beige" media="screen"/>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/colors/cyan.css' %}" title="cyan" media="screen"/>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/colors/green.css' %}" title="green" media="screen"/>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/colors/orange.css' %}" title="orange" media="screen"/>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/colors/peach.css' %}" title="peach" media="screen"/>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/colors/pink.css' %}" title="pink" media="screen"/>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/colors/purple.css' %}" title="purple" media="screen"/>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/colors/sky-blue.css' %}" title="sky-blue"
+          media="screen"/>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/colors/yellow.css' %}" title="yellow" media="screen"/>
+    <link rel="stylesheet" type="text/css"
+          href="http://weareoutman.github.io/clockpicker/dist/jquery-clockpicker.min.css">
+    <link rel="stylesheet" href="{% static 'css/main.css' %}" type="text/css" media="screen">
+
+    <!-- Margo JS  -->
+    <script type="text/javascript" src="{% static 'js/jquery-2.1.4.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/jquery.migrate.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/modernizrr.js' %}"></script>
+    <script type="text/javascript" src="{% static 'asset/js/bootstrap.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/jquery.fitvids.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/owl.carousel.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/nivo-lightbox.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/jquery.isotope.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/jquery.appear.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/count-to.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/jquery.textillate.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/jquery.lettering.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/jquery.easypiechart.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/jquery.nicescroll.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/jquery.parallax.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/jquery.slicknav.js' %}"></script>
+    <script type="text/javascript"
+            src="http://weareoutman.github.io/clockpicker/dist/jquery-clockpicker.min.js"></script>
+    <script type="text/javascript">//<![CDATA[
+        $(function () {
             var clock = $('.clockpicker');
             clock.clockpicker({
                 donetext: 'Hecho'
             });
-            });
+        });
 
-        </script>
-    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    </script>
+
+    <!--[if IE 8]>
+    <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
     <!--[if lt IE 9]>
-      <script src="../bower_components/html5shiv/dist/html5shiv.js"></script>
-      <script src="../bower_components/respond/dest/respond.min.js"></script>
-    <![endif]-->
-  </head>
-  <body>
-    <div class="navbar navbar-default navbar-fixed-top">
-      <div class="container">
-        <div class="navbar-header">
-          <a href="/" class="navbar-brand">SharingCars</a>
-          <button class="navbar-toggle" type="button" data-toggle="collapse" data-target="#navbar-main">
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-          </button>
-        </div>
-        <div class="navbar-collapse collapse" id="navbar-main">
-          <ul class="nav navbar-nav">
-            <li class="dropdown">
-              <a class="dropdown-toggle" data-toggle="dropdown" href="#" id="download">Anuncios <span class="caret"></span></a>
-              <ul class="dropdown-menu" aria-labelledby="download">
-                  <li><a href="/announcements/all">Todas los anuncios</a></li>
-                  {% if user.is_authenticated %}
-                    <li class="divider"></li>
-                    <li><a href="{% url 'create-announcement' %}">Crear anuncio</a></li>
-                    <li class="divider"></li>
-                    <li><a href="/announcements/user/recommendations">Recomendaciones</a></li>
-                  {% endif %}
-              </ul>
-            </li>
-                <li class="dropdown">
-                  <a class="dropdown-toggle" data-toggle="dropdown" href="#" id="download">Rutas <span class="caret"></span></a>
-                  <ul class="dropdown-menu" aria-labelledby="download">
-                      <li><a href="{% url 'all-routes' %}">Todas las rutas</a></li>
-                      {% if user.is_authenticated %}
-                        <li class="divider"></li>
-                        <li><a href="{% url 'user-routes' %}">Mis rutas</a></li>
-                        <li class="divider"></li>
-                        <li><a href="{% url 'create-route' %}">Crear ruta</a></li>
-                        <li class="divider"></li>
-                        <li><a href="{% url 'recommendations-routes' %}">Recomendaciones</a></li>
-                      {% endif %}
-                  </ul>
-                </li>
+    <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
 
-          </ul>
+</head>
 
-          <ul class="nav navbar-nav navbar-right">
-            {% if user.is_authenticated %}
-              <li class="dropdown">
-                <a class="dropdown-toggle" data-toggle="dropdown" href="#" id="download">{{ user.username }} <span class="caret"></span></a>
-                <ul class="dropdown-menu" aria-labelledby="download">
-                    {% if user.is_authenticated %}
-                      <li><a href="{% url 'user-routes' %}">Mis rutas</a></li>
-                      <li class="divider"></li>
-                      <li><a href="{% url 'recommendations-routes' %}">Recomendaciones</a></li>
-                      <li class="divider"></li>
-                      <li><a href="/logout">Cerrar sesion</a></li>
-                    {% endif %}
-                </ul>
-              </li>
-            {% else %}
-              <li>
-                <a href="/login">Iniciar sesion</a>
-              </li>
-              <li>
-                <a href="{% url 'create-user' %}">Registrate</a>
-              </li>
-            {% endif %}
-          </ul>
+<body>
 
-        </div>
-      </div>
-    </div>
+<!-- Container -->
+<div id="container">
 
-    {% block pre_container %}{% endblock %}
-    {% block  no_container%}
-        <div class="container">
-            {% block not_jumbotron %}
-                    {% block jumbotron %}{% endblock %}
-            {% endblock %}
-        </div>
+    {% include 'common/header.html' %}
+
+
+    {% block contents %}
     {% endblock %}
-    {% block post_container %}{% endblock %}
+
+    <!-- Start Footer -->
+    <footer>
+        <div class="container">
+            <div class="row footer-widgets">
+
+                <!-- Start Subscribe & Social Links Widget -->
+                <div class="col-md-3">
+                    <div class="footer-widget mail-subscribe-widget">
+                        <h4>Get in touch<span class="head-line"></span></h4>
+                        <p>Join our mailing list to stay up to date and get notices about our new releases!</p>
+                        <form class="subscribe">
+                            <input type="text" placeholder="mail@example.com">
+                            <input type="submit" class="btn-system" value="Send">
+                        </form>
+                    </div>
+                    <div class="footer-widget social-widget">
+                        <h4>Follow Us<span class="head-line"></span></h4>
+                        <ul class="social-icons">
+                            <li>
+                                <a class="facebook" href="#"><i class="fa fa-facebook"></i></a>
+                            </li>
+                            <li>
+                                <a class="twitter" href="#"><i class="fa fa-twitter"></i></a>
+                            </li>
+                            <li>
+                                <a class="google" href="#"><i class="fa fa-google-plus"></i></a>
+                            </li>
+                            <li>
+                                <a class="dribbble" href="#"><i class="fa fa-dribbble"></i></a>
+                            </li>
+                            <li>
+                                <a class="linkdin" href="#"><i class="fa fa-linkedin"></i></a>
+                            </li>
+                            <li>
+                                <a class="flickr" href="#"><i class="fa fa-flickr"></i></a>
+                            </li>
+                            <li>
+                                <a class="tumblr" href="#"><i class="fa fa-tumblr"></i></a>
+                            </li>
+                            <li>
+                                <a class="instgram" href="#"><i class="fa fa-instagram"></i></a>
+                            </li>
+                            <li>
+                                <a class="vimeo" href="#"><i class="fa fa-vimeo-square"></i></a>
+                            </li>
+                            <li>
+                                <a class="skype" href="#"><i class="fa fa-skype"></i></a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <!-- .col-md-3 -->
+                <!-- End Subscribe & Social Links Widget -->
 
 
-      <footer>
-        <div id="footer">
-				<div class="container">
+                <!-- Start Twitter Widget -->
+                <div class="col-md-3">
+                    <div class="footer-widget twitter-widget">
+                        <h4>Twitter Feed<span class="head-line"></span></h4>
+                        <ul>
+                            <li>
+                                <p><a href="#">@GrayGrids </a> Lorem ipsum dolor et, consectetur adipiscing eli.</p>
+                                <span>28 February 2014</span>
+                            </li>
+                            <li>
+                                <p><a href="#">@GrayGrids </a> Lorem ipsum dolor et, consectetur adipiscing eli.An Fusce
+                                    eleifend aliquet nis application.</p>
+                                <span>26 February 2014</span>
+                            </li>
+                            <li>
+                                <p><a href="#">@GrayGrids </a> Lorem ipsum dolor et, consectetur adipiscing eli.</p>
+                                <span>28 February 2014</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <!-- .col-md-3 -->
+                <!-- End Twitter Widget -->
 
-					<!-- Lists -->
+
+                <!-- Start Flickr Widget -->
+                <div class="col-md-3">
+                    <div class="footer-widget flickr-widget">
+                        <h4>Flicker Feed<span class="head-line"></span></h4>
+                        <ul class="flickr-list">
+                            <li>
+                                <a href="images/flickr-01.jpg" class="lightbox">
+                                    <img alt="" src="images/flickr-01.jpg">
+                                </a>
+                            </li>
+                            <li>
+                                <a href="images/flickr-02.jpg" class="lightbox">
+                                    <img alt="" src="images/flickr-02.jpg">
+                                </a>
+                            </li>
+                            <li>
+                                <a href="images/flickr-03.jpg" class="lightbox">
+                                    <img alt="" src="images/flickr-03.jpg">
+                                </a>
+                            </li>
+                            <li>
+                                <a href="images/flickr-04.jpg" class="lightbox">
+                                    <img alt="" src="images/flickr-04.jpg">
+                                </a>
+                            </li>
+                            <li>
+                                <a href="images/flickr-05.jpg" class="lightbox">
+                                    <img alt="" src="images/flickr-05.jpg">
+                                </a>
+                            </li>
+                            <li>
+                                <a href="images/flickr-06.jpg" class="lightbox">
+                                    <img alt="" src="images/flickr-06.jpg">
+                                </a>
+                            </li>
+                            <li>
+                                <a href="images/flickr-07.jpg" class="lightbox">
+                                    <img alt="" src="images/flickr-07.jpg">
+                                </a>
+                            </li>
+                            <li>
+                                <a href="images/flickr-08.jpg" class="lightbox">
+                                    <img alt="" src="images/flickr-08.jpg">
+                                </a>
+                            </li>
+                            <li>
+                                <a href="images/flickr-09.jpg" class="lightbox">
+                                    <img alt="" src="images/flickr-09.jpg">
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <!-- .col-md-3 -->
+                <!-- End Flickr Widget -->
 
 
-					<!-- Copyright -->
-						<div class="copyright">
-							Todos los derechos reservados.
-						</div>
+                <!-- Start Contact Widget -->
+                <div class="col-md-3">
+                    <div class="footer-widget contact-widget">
+                        <h4><img src="images/footer-margo.png" class="img-responsive" alt="Footer Logo"/></h4>
+                        <p>At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium
+                            voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati
+                            cupiditate non provident</p>
+                        <ul>
+                            <li><span>Phone Number:</span> +01 234 567 890</li>
+                            <li><span>Email:</span> company@company.com</li>
+                            <li><span>Website:</span> www.yourdomain.com</li>
+                        </ul>
+                    </div>
+                </div>
+                <!-- .col-md-3 -->
+                <!-- End Contact Widget -->
 
-				</div>
-			</div>
 
-      </footer>
+            </div>
+            <!-- .row -->
+
+            <!-- Start Copyright -->
+            <div class="copyright-section">
+                <div class="row">
+                    <div class="col-md-6">
+                        <p>&copy; 2014 Margo - All Rights Reserved <a href="http://graygrids.com">GrayGrids</a></p>
+                    </div>
+                    <div class="col-md-6">
+                        <ul class="footer-nav">
+                            <li><a href="#">Sitemap</a></li>
+                            <li><a href="#">Privacy Policy</a></li>
+                            <li><a href="#">Contact</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <!-- End Copyright -->
+
+        </div>
+    </footer>
+    <!-- End Footer -->
+
+</div>
+<!-- End Container -->
+
+<!-- Go To Top Link -->
+<a href="#" class="back-to-top"><i class="fa fa-angle-up"></i></a>
 
 
-    </div>
-
-
-
+<script type="text/javascript" src="{% static 'js/script.js' %}"></script>
 
 </body>
+
 </html>

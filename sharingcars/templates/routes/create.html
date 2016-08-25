@@ -1,345 +1,169 @@
 {% extends 'common/master-page/master-page.html' %}
 {% block title %} SharingCars {% endblock %}
-{% block jumbotron %}
-
-
-    <div class="jumbotron">
-        <form action="" method="post" class="form" enctype="multipart/form-data">
-            {% csrf_token %}
-            <h2 class="text-center">Crear una ruta</h2>
-
-        <fieldset>
-            {% if form.errors %}
-                {% for error in form.non_field_errors %}
-                    <div class="alert alert-error">
-                        <strong>{{ error|escape }}</strong>
+{% load common_extras %}
+{% block contents %}
+<div id="content">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-10 col-lg-offset-1">
+                <h2 class="text-center margin-top-35">Crear una nueva ruta</h2>
+                <form method="post"> {% csrf_token %}
+                    <div class="form-group col-lg-6">
+                        {{ form.origin.label }} {{form.origin|required_field|safe}}
+                        {{ form.origin }}
                     </div>
-                {% endfor %}
-            {% endif %}
-            {# Origin #}
-            <div class="col-lg-6">
-                <div class="form-group-lg-6">
-
-                    <label class="col-lg-12 control-label" for="{{ form.origin.id }}">{{ form.origin.label }}
-                    {% for error in form.origin.errors %}
-                            - <strong class="text-danger">{{ error|escape }}</strong>
-                    {% endfor %}
-                    </label>
-                    <div class="col-lg-12">
-                        {{ form.origin}}
+                    <div class="form-group col-lg-6">
+                        {{ form.destination.label }} {{form.destination|required_field|safe}}
+                        {{ form.destination }}
                     </div>
-                </div>
-            </div>
-            {# Origin #}
-            {# Destination #}
-            <div class="col-lg-6">
-                <div class="form-group-lg-6">
-                    <label class="col-lg-12 control-label" for="{{ form.destination.id }}">{{ form.destination.label }}
-                    {% for error in form.destination.errors %}
-                            - <strong class="text-danger">{{ error|escape }}</strong>
-                    {% endfor %}
-                    </label>
-                    </label>
-                    <div class="col-lg-12">
-                        {{ form.destination}}
-                    </div>
-                </div>
-            </div>
-            {# Destination #}
-            <div class="col-lg-12"><br></div>
-            {# Kind #}
-            <div class="col-lg-4">
-                <div class="form-group-lg-4">
-                    <label class="col-lg-12 control-label" for="{{ form.kind.id }}">{{ form.kind.label }}
-                    {% for error in form.kind.errors %}
-                            - <strong class="text-danger">{{ error|escape }}</strong>
-                    {% endfor %}
-                    </label>
-                    </label>
-                    <div class="col-lg-12">
+                    <div class="form-group col-lg-4">
+                        {{ form.kind.label }} {{form.kind|required_field|safe}}
                         {{ form.kind }}
                     </div>
-                </div>
-            </div>
-            {# Kind #}
-            {# Seating #}
-            <div class="col-lg-4">
-                <div class="form-group-lg-4">
-                    <label class="col-lg-12 control-label" for="{{ form.seating.id }}">{{ form.seating.label }}
-                    {% for error in form.seating.errors %}
-                            - <strong class="text-danger">{{ error|escape }}</strong>
-                    {% endfor %}
-                    </label>
-                    </label>
-                    <div class="col-lg-12">
-                        {{ form.seating}}
+                    <div class="form-group col-lg-4">
+                        {{ form.seating.label }} {{form.seating|required_field|safe}}
+                        {{ form.seating }}
                     </div>
-                </div>
-            </div>
-            {# Seating #}
-            {# Unit price #}
-            <div class="col-lg-4">
-                <div class="form-group-lg-4">
-                    <label class="col-lg-12 control-label" for="{{ form.unitPrice.id }}">{{ form.unitPrice.label }}
-                    {% for error in form.unitPrice.errors %}
-                            - <strong class="text-danger">{{ error|escape }}</strong>
-                    {% endfor %}
-                    </label>
-                    </label>
-                    <div class="col-lg-12">
-                        {{ form.unitPrice}}
+                    <div class="form-group col-lg-4">
+                        {{ form.unitPrice.label }} {{form.unitPrice|required_field|safe}}
+                        {{ form.unitPrice }}
                     </div>
-                </div>
-            </div>
-            {# Unit price #}
-
-            <div class="col-lg-12 text-center"><br></div>
-
-            <div class="col-lg-12 text-center"><h2>Horario de la semana</h2></div>
-
-            {% for error in form.monday_departTime.errors %}
-                <div class="text-danger text-center">
-                    <strong>{{ error|escape }}</strong>
-                </div>
-            {% endfor %}
-
-            {% for error in form.tuesday_departTime.errors %}
-                <div class="text-danger text-center">
-                    <strong>{{ error|escape }}</strong>
-                </div>
-            {% endfor %}
-
-            {% for error in form.wednesday_departTime.errors %}
-                <div class="text-danger text-center">
-                    <strong>{{ error|escape }}</strong>
-                </div>
-            {% endfor %}
-
-            {% for error in form.thursday_departTime.errors %}
-                <div class="text-danger text-center">
-                    <strong>{{ error|escape }}</strong>
-                </div>
-            {% endfor %}
-
-            {% for error in form.friday_departTime.errors %}
-                <div class="text-danger text-center">
-                    <strong>{{ error|escape }}</strong>
-                </div>
-            {% endfor %}
-
-            {% for error in form.saturday_departTime.errors %}
-                <div class="text-danger text-center">
-                    <strong>{{ error|escape }}</strong>
-                </div>
-            {% endfor %}
-
-            {% for error in form.sunday_departTime.errors %}
-                <div class="text-danger text-center">
-                    <strong>{{ error|escape }}</strong>
-                </div>
-            {% endfor %}
-            {# Monday #}
-            <div class="col-lg-3">
-                <div class="form-group-lg-3">
-                    <div class="col-lg-12">
-
+                    <!--Monday-->
+                    <div class="form-group col-lg-3">
                         <div class="col-lg-12">
-                            <h3 class="text-center">Lunes</h3>
+                            <h3 class="text-center margin-top-35">Lunes</h3>
                         </div>
-                        <div class="col-lg-12"><br></div>
-                        <div class="col-lg-12 input-group clockpicker">
+                        <div class="input-group clockpicker">
                             {{ form.monday_departTime}}
                             <span class="input-group-addon">
-                                <span class="glyphicon glyphicon-time"></span>
-                            </span>
+                    <span class="fa fa-clock-o"></span>
+                </span>
                         </div>
-                        <div class="col-lg-12"><br></div>
-                        <div class="col-lg-12 input-group clockpicker">
+                        <div class="input-group clockpicker">
                             {{ form.monday_returnTime}}
                             <span class="input-group-addon">
-                                <span class="glyphicon glyphicon-time"></span>
-                            </span>
+                    <span class="fa fa-clock-o"></span>
+                </span>
                         </div>
                     </div>
-                </div>
-            </div>
-            {# Monday #}
-
-            {# Tuesday #}
-            <div class="col-lg-3">
-                <div class="form-group-lg-3">
-                    <div class="col-lg-12">
+                    <!--Tuesday-->
+                    <div class="form-group col-lg-3">
                         <div class="col-lg-12">
-                            <h3 class="text-center">Martes</h3>
+                            <h3 class="text-center margin-top-35">Martes</h3>
                         </div>
-                        <div class="col-lg-12"><br></div>
-                        <div class="col-lg-12 input-group clockpicker">
+                        <div class="input-group clockpicker">
                             {{ form.tuesday_departTime}}
                             <span class="input-group-addon">
-                                <span class="glyphicon glyphicon-time"></span>
-                            </span>
+                    <span class="fa fa-clock-o"></span>
+                </span>
                         </div>
-                        <div class="col-lg-12"><br></div>
-                        <div class="col-lg-12 input-group clockpicker">
+                        <div class="input-group clockpicker">
                             {{ form.tuesday_returnTime}}
                             <span class="input-group-addon">
-                                <span class="glyphicon glyphicon-time"></span>
-                            </span>
+                    <span class="fa fa-clock-o"></span>
+                </span>
                         </div>
                     </div>
-                </div>
-            </div>
-            {# Tuesday #}
-
-            {# Wednesday #}
-            <div class="col-lg-3">
-                <div class="form-group-lg-3">
-                    <div class="col-lg-12">
+                    <!--Wednesday-->
+                    <div class="form-group col-lg-3">
                         <div class="col-lg-12">
-                            <h3 class="text-center">Mi&eacute;rcoles</h3>
+                            <h3 class="text-center margin-top-35">Mi&eacute;rcoles</h3>
                         </div>
-                        <div class="col-lg-12"><br></div>
-                        <div class="col-lg-12 input-group clockpicker">
+                        <div class="input-group clockpicker">
                             {{ form.wednesday_departTime}}
                             <span class="input-group-addon">
-                                <span class="glyphicon glyphicon-time"></span>
-                            </span>
+                    <span class="fa fa-clock-o"></span>
+                </span>
                         </div>
-                        <div class="col-lg-12"><br></div>
-                        <div class="col-lg-12 input-group clockpicker">
+                        <div class="input-group clockpicker">
                             {{ form.wednesday_returnTime}}
                             <span class="input-group-addon">
-                                <span class="glyphicon glyphicon-time"></span>
-                            </span>
+                    <span class="fa fa-clock-o"></span>
+                </span>
                         </div>
                     </div>
-                </div>
-            </div>
-            {# Wednesday #}
-
-            {# Thursday #}
-            <div class="col-lg-3">
-                <div class="form-group-lg-3">
-                    <div class="col-lg-12">
+                    <!--Thursday-->
+                    <div class="form-group col-lg-3">
                         <div class="col-lg-12">
-                            <h3 class="text-center">Jueves</h3>
+                            <h3 class="text-center margin-top-35">Jueves</h3>
                         </div>
-                        <div class="col-lg-12"><br></div>
-                        <div class="col-lg-12 input-group clockpicker">
+                        <div class="input-group clockpicker">
                             {{ form.thursday_departTime}}
                             <span class="input-group-addon">
-                                <span class="glyphicon glyphicon-time"></span>
-                            </span>
+                    <span class="fa fa-clock-o"></span>
+                </span>
                         </div>
-                        <div class="col-lg-12"><br></div>
-                        <div class="col-lg-12 input-group clockpicker">
+                        <div class="input-group clockpicker">
                             {{ form.thursday_returnTime}}
                             <span class="input-group-addon">
-                                <span class="glyphicon glyphicon-time"></span>
-                            </span>
+                    <span class="fa fa-clock-o"></span>
+                </span>
                         </div>
                     </div>
-                </div>
-            </div>
-            {# Thursday #}
-
-            {# Friday #}
-            <div class="col-lg-4">
-                <div class="form-group-lg-4">
-                    <div class="col-lg-12">
+                    <!--Friday-->
+                    <div class="form-group col-lg-4">
                         <div class="col-lg-12">
-                            <h3 class="text-center">Viernes</h3>
+                            <h3 class="text-center margin-top-35">Viernes</h3>
                         </div>
-                        <div class="col-lg-12"><br></div>
-                        <div class="col-lg-12 input-group clockpicker">
+                        <div class="input-group clockpicker">
                             {{ form.friday_departTime}}
                             <span class="input-group-addon">
-                                <span class="glyphicon glyphicon-time"></span>
-                            </span>
+                    <span class="fa fa-clock-o"></span>
+                </span>
                         </div>
-                        <div class="col-lg-12"><br></div>
-                        <div class="col-lg-12 input-group clockpicker">
+                        <div class="input-group clockpicker">
                             {{ form.friday_returnTime}}
                             <span class="input-group-addon">
-                                <span class="glyphicon glyphicon-time"></span>
-                            </span>
+                    <span class="fa fa-clock-o"></span>
+                </span>
                         </div>
                     </div>
-                </div>
-            </div>
-            {# Friday #}
-
-            {# Saturday #}
-            <div class="col-lg-4">
-                <div class="form-group-lg-4">
-                    <div class="col-lg-12">
+                    <!--Saturday-->
+                    <div class="form-group col-lg-4">
                         <div class="col-lg-12">
-                            <h3 class="text-center">S&aacute;bado</h3>
+                            <h3 class="text-center margin-top-35">S&aacute;bado</h3>
                         </div>
-                        <div class="col-lg-12"><br></div>
-                        <div class="col-lg-12 input-group clockpicker">
+                        <div class="input-group clockpicker">
                             {{ form.saturday_departTime}}
                             <span class="input-group-addon">
-                                <span class="glyphicon glyphicon-time"></span>
-                            </span>
+                    <span class="fa fa-clock-o"></span>
+                </span>
                         </div>
-                        <div class="col-lg-12"><br></div>
-                        <div class="col-lg-12 input-group clockpicker">
+                        <div class="input-group clockpicker">
                             {{ form.saturday_returnTime}}
                             <span class="input-group-addon">
-                                <span class="glyphicon glyphicon-time"></span>
-                            </span>
+                    <span class="fa fa-clock-o"></span>
+                </span>
                         </div>
                     </div>
-                </div>
-            </div>
-            {# Saturday #}
-
-            {# Sunday #}
-            <div class="col-lg-4">
-                <div class="form-group-lg-4">
-                    <div class="col-lg-12">
+                    <!--Sunday-->
+                    <div class="form-group col-lg-4">
                         <div class="col-lg-12">
-                            <h3 class="text-center">Domingo</h3>
+                            <h3 class="text-center margin-top-35">Domingo</h3>
                         </div>
-                        <div class="col-lg-12"><br></div>
-                        <div class="col-lg-12 input-group clockpicker">
+                        <div class="input-group clockpicker">
                             {{ form.sunday_departTime}}
                             <span class="input-group-addon">
-                                <span class="glyphicon glyphicon-time"></span>
-                            </span>
+                    <span class="fa fa-clock-o"></span>
+                </span>
                         </div>
-                        <div class="col-lg-12"><br></div>
-                        <div class="col-lg-12 input-group clockpicker">
+                        <div class="input-group clockpicker">
                             {{ form.sunday_returnTime}}
                             <span class="input-group-addon">
-                                <span class="glyphicon glyphicon-time"></span>
-                            </span>
+                    <span class="fa fa-clock-o"></span>
+                </span>
                         </div>
                     </div>
-                </div>
-            </div>
-            {# Sunday #}
-            <div class="col-lg-12"><br></div>
-            {# Description #}
-            <div class="col-lg-12">
-                <div class="form-group-lg-12">
-                    <label class="col-lg-12 control-label" for="{{ form.description.id }}">{{ form.description.label }}
-                    {% for error in form.description.errors %}
-                            - <strong class="text-danger">{{ error|escape }}</strong>
-                    {% endfor %}
-                    </label>
                     <div class="col-lg-12">
-                        {{ form.description}}
+                        {{ form.description.label }} {{form.description|required_field|safe}}
+                        {{ form.description }}
                     </div>
-                </div>
+                    <div class="col-lg-12 text-center margin-top-35">
+                        <input class="btn btn-primary btn-large" type="submit" value="Enviar"/>
+                    </div>
+                </form>
             </div>
-            {# Description #}
-        </fieldset>
-        <div class="col-lg-12"><br></div>
-            <button type="submit" class="btn btn-success center-block">
-                <span class="glyphicon glyphicon-floppy-saved"></span>  Guardar ruta
-            </button>
-        </form>
+        </div>
     </div>
+</div>
 {% endblock %}

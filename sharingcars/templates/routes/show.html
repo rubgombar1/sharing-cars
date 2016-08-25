@@ -1,9 +1,10 @@
 {% extends 'common/master-page/master-page.html' %}
 {% block title %} SharingCars {% endblock %}
-{% block jumbotron %}{% load staticfiles %}
+{% block contents %}{% load staticfiles %}
 
-    <div class="jumbotron">
-          <div class="row">
+<div id="content">
+    <div class="container">
+        <div class="row">
               <div class="col-lg-12">
                   <div class="col-lg-4 text-center">
                       {% if route.user.photo == 'default' %}
@@ -214,4 +215,5 @@
                 </div>
           </div>
     </div>
+     </div>
 {% endblock %}
