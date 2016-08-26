@@ -79,12 +79,12 @@ WSGI_APPLICATION = 'sharingcars.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'sharingcar',
-        'USER': 'sharingcar',
-        'PASSWORD': 'sharingcar',
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'sharingcars',
+        'USER': 'sharingcars',
+        'PASSWORD': '',
         'HOST': '',
-        'PORT': '3306'
+        'PORT': ''
     }
 }
 
@@ -121,3 +121,5 @@ LOGIN_REDIRECT_URL = 'index'
 # media files
 MEDIA_URL = '/static/item/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'static')
+
+MESSAGE_STORAGE = 'django.contrib.messages.storage.cookie.CookieStorage'

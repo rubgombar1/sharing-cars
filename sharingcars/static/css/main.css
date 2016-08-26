@@ -15,8 +15,12 @@
     margin-top: 20px;
 }
 
-.navbar-brand{
+.brand{
     padding: 0px !important;
+    margin-top: 25px !important;
+    font-size: 30px;
+    font-weight: bold;
+    text-decoration: none !important;
 }
 
 .navbar-brand img{
@@ -26,7 +30,15 @@
 }
 
 .slider-img{
-    min-height: 500px;
+    min-height: 480px;
+}
+
+.slider-content{
+    margin-top: -240px !important;
+}
+
+.slider-content div{
+    margin-top: 80px;
 }
 
 .margin-top-35{
@@ -44,4 +56,44 @@ ul.social-list {
 
 .contact-details{
     float: right;
+}
+
+.dropdown li a{
+    border-style: solid;
+    border-width: 1px;
+    border-top-style: solid !important;
+}
+
+.dropdown li{
+    border-width: 0 !important;
+}
+
+.navbar-top {
+    border-bottom-style: solid;
+    border-width: 1px;
+}
+
+.messages .success{
+    background-color: #91ce8d;
+    opacity: 0.6;
+    margin-bottom: 0;
+    padding: 10px;
+    color: #111111;
+    font-size: 16px;
+}
+
+#home{
+    background-color: #cccccc;
+}
+
+.color-orange{
+    color: #ee3733;
+}
+
+.color-black{
+    color: #222;
+}
+
+.color-white{
+    color: #eee;
 }

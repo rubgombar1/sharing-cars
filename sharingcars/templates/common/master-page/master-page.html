@@ -101,7 +101,13 @@
 
     {% include 'common/header.html' %}
 
-
+    {% if messages %}
+    <ul class="messages">
+        {% for message in messages %}
+        <li{% if message.tags %} class="{{ message.tags }} text-center"{% else %}class="text-center"{% endif %}>{{ message }}</li>
+        {% endfor %}
+    </ul>
+    {% endif %}
     {% block contents %}
     {% endblock %}
 
@@ -245,7 +251,7 @@
                 <!-- Start Contact Widget -->
                 <div class="col-md-3">
                     <div class="footer-widget contact-widget">
-                        <h4><img src="images/footer-margo.png" class="img-responsive" alt="Footer Logo"/></h4>
+                        <a class="brand" href="/"><span class="color-orange">SHARING</span> <span class="color-white">CARS</span></a>
                         <p>At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium
                             voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati
                             cupiditate non provident</p>
@@ -292,6 +298,13 @@
 
 
 <script type="text/javascript" src="{% static 'js/script.js' %}"></script>
+<script type="application/javascript">
+    $(document).ready(function() {
+      setTimeout(function() {
+        $(".messages").slideUp();
+      }, 5000);
+    });
+</script>
 
 </body>
 

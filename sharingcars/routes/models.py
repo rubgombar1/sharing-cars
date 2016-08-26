@@ -50,6 +50,9 @@ class Day(models.Model):
     active = models.BooleanField()
     route = models.ForeignKey(Route)
 
+    class Meta:
+        ordering = ['day']
+
 
 class StopRoute(models.Model):
     stop = models.CharField(max_length=256, blank=False)
