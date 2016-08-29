@@ -1,6 +1,7 @@
 from django.views.generic.edit import CreateView
 from django.core.urlresolvers import reverse_lazy
 from django.views.generic.list import ListView
+from django.db.models import Q
 
 from announcements.models import Announcement, ApplyAnnouncement
 from common.models import User
@@ -41,10 +42,18 @@ class AnnouncementUserListView(ListView):
 
 class ApplyAnnouncementsUser(ListView):
     model = ApplyAnnouncement
-    template_name = 'announcements/apply/list.html'
+    template_name = 'common/apply/list.html'
 
     def get_queryset(self):
-        return ApplyAnnouncement.objects.filter(announcement__user__user_account__id=self.request.user.id)
+        return ApplyAnnouncement.objects.filter(~Q(state='rejected'),
+                                                announcement__user__user_account__id=self.request.user.id)
+
+    def get_context_data(self, **kwargs):
+        context = super(ApplyAnnouncementsUser, self).get_context_data(**kwargs)
+        context['title'] = u'Solicitudes de anuncios recibidas'
+        context['kind_apply'] = u'Ir al anuncio'
+        return context
+
 
 
 class AnnouncementApplyCreate(CreateView):

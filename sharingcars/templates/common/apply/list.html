@@ -5,15 +5,18 @@
     <div class="container">
         <div class="row">
             <div class="col-md-10 col-md-offset-1">
+                <h2 class="text-center">{{ title }}</h2>
                 <br>
-                <table class="table table-responsive" id="id_table_manage_proposed_activity">
+                <table class="table table-responsive" id="id_table_apply">
                     <thead>
                     <tr>
-                        <th class="text-center">Ir al anuncio</th>
+                        <th class="text-center">{{ kind_apply }}</th>
+                        <th class="text-center">Usuario</th>
                         <th class="text-center">Origen</th>
                         <th class="text-center">Destino</th>
                         <th class="text-center">Estado</th>
-                        <th class="text-center" data-sortable="false">Editar</th>
+                        <th class="text-center" data-sortable="false">Aprobar</th>
+                        <th class="text-center" data-sortable="false">Rechazar</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -24,12 +27,18 @@
                                 Ir al anuncio
                             </a>
                         </td>
+                        <td class="text-center"><a href="#">{{ apply.user.user_account }}</a></td>
                         <td class="text-center">{{ apply.announcement.origin|truncatechars:20 }}</td>
                         <td class="text-center">{{ apply.announcement.destination }}</td>
                         <td class="text-center">{{ apply.get_state_display }}</td>
                         <td class="text-center">
                             <a href="">
-                                <span class="glyphicon glyphicon-edit"></span>
+                                <i class="fa fa-check text-success"></i>
+                            </a>
+                        </td>
+                        <td class="text-center">
+                            <a href="">
+                                <i class="fa fa-times text-danger"></i>
                             </a>
                         </td>
                     </tr>
@@ -43,18 +52,10 @@
 </div>
 <script>
     $(document).ready(function() {
-        $('#id_table_manage_proposed_activity').DataTable({
+        $('#id_table_apply').DataTable({
             "order": [[ 0, "asc" ]],
             "language": {
                 "url": "//cdn.datatables.net/plug-ins/1.10.12/i18n/Spanish.json"
-            }
-        });
-        $('.activity-selection').on('click', function (){
-            debugger;
-            if (this.checked){
-                $('#activities-inputs').append('<input type="hidden" id="activity-'+this.value+'" name="activities[]" value="'+this.value+'"/>');
-            }else{
-                $('#activity-'+this.value).remove();
             }
         });
     });
