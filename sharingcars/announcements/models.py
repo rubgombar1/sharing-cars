@@ -21,9 +21,8 @@ class Announcement(models.Model):
     unitPrice = models.DecimalField(max_digits=5, decimal_places=2,
                                     validators=[MinValueValidator(0)],
                                     blank=False)
-    date = models.DateField(blank=False)
+    date = models.DateTimeField(blank=False)
     creationMoment = models.DateTimeField(auto_now=False, auto_now_add=True)
-    departTime = models.CharField(max_length=64)
 
     user = models.ForeignKey(User)
 

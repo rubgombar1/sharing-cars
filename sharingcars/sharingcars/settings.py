@@ -40,6 +40,7 @@ INSTALLED_APPS = (
     'common',
     'announcements',
     'routes',
+    'datetimewidget',
 )
 
 MIDDLEWARE_CLASSES = (

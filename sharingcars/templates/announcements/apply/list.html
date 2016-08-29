@@ -1,0 +1,62 @@
+{% extends 'common/master-page/master-page.html' %}
+{% block title %} SharingCars {% endblock %}
+{% block contents %}{% load staticfiles %}
+<div id="content">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-10 col-md-offset-1">
+                <br>
+                <table class="table table-responsive" id="id_table_manage_proposed_activity">
+                    <thead>
+                    <tr>
+                        <th class="text-center">Ir al anuncio</th>
+                        <th class="text-center">Origen</th>
+                        <th class="text-center">Destino</th>
+                        <th class="text-center">Estado</th>
+                        <th class="text-center" data-sortable="false">Editar</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for apply in object_list %}
+                    <tr>
+                        <td class="text-center">
+                            <a href="">
+                                Ir al anuncio
+                            </a>
+                        </td>
+                        <td class="text-center">{{ apply.announcement.origin|truncatechars:20 }}</td>
+                        <td class="text-center">{{ apply.announcement.destination }}</td>
+                        <td class="text-center">{{ apply.get_state_display }}</td>
+                        <td class="text-center">
+                            <a href="">
+                                <span class="glyphicon glyphicon-edit"></span>
+                            </a>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+                <div id="activities-inputs"></div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    $(document).ready(function() {
+        $('#id_table_manage_proposed_activity').DataTable({
+            "order": [[ 0, "asc" ]],
+            "language": {
+                "url": "//cdn.datatables.net/plug-ins/1.10.12/i18n/Spanish.json"
+            }
+        });
+        $('.activity-selection').on('click', function (){
+            debugger;
+            if (this.checked){
+                $('#activities-inputs').append('<input type="hidden" id="activity-'+this.value+'" name="activities[]" value="'+this.value+'"/>');
+            }else{
+                $('#activity-'+this.value).remove();
+            }
+        });
+    });
+</script>
+{% endblock %}}

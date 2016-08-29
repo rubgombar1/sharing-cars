@@ -44,7 +44,7 @@
                                 <b>Fecha de creaci&oacute;n: </b>{{ announcement.creationMoment }}
                             </div>
                             <div class="col-lg-6">
-                                <b>Fecha de salida: </b>{{ announcement.date }} a las {{ announcement.departTime }}
+                                <b>Fecha de salida: </b>{{ announcement.date }}
                             </div>
                             <div class="col-lg-12">
                                 <b>Plazas: </b>{{ announcement.seating }}
@@ -58,40 +58,40 @@
 
                             </div>
                         </div>
-                    </div>
+
                 <div class="col-lg-12"><br></div>
                 <div class="col-lg-12 text-center">
-                    <a href="#" class="btn btn-primary">Ver m&aacute;s detalles</a>
+                    <a href="#" class="btn btn-system btn-large">Ver m&aacute;s detalles</a>
                     {% if request.user.id != announcement.user.user_account.id and user.is_authenticated %}
-                        <a href="#" class="btn btn-primary">Solicitar</a>
+                        <a href="{% url 'create-apply-announcement' announcement.pk %}" class="btn btn-system btn-large">Solicitar</a>
                     {% endif %}
                 </div>
                 <div class="col-lg-12"><br></div>
                 {% if not forloop.last %}
-                    <div class="col-lg-12 text-center"><span class="text-primary glyphicon glyphicon-minus"
+                    <div class="col-lg-12 text-center"><span class="color-orange glyphicon glyphicon-minus"
                                                              aria-hidden="true"></span><span
-                            class="text-primary glyphicon glyphicon-minus" aria-hidden="true"></span><span
-                            class="text-primary glyphicon glyphicon-minus" aria-hidden="true"></span><span
-                            class="text-primary glyphicon glyphicon-minus" aria-hidden="true"></span><span
-                            class="text-primary glyphicon glyphicon-minus" aria-hidden="true"></span><span
-                            class="text-primary glyphicon glyphicon-minus" aria-hidden="true"></span><span
-                            class="text-primary glyphicon glyphicon-minus" aria-hidden="true"></span><span
-                            class="text-primary glyphicon glyphicon-minus" aria-hidden="true"></span><span
-                            class="text-primary glyphicon glyphicon-minus" aria-hidden="true"></span><span
-                            class="text-primary glyphicon glyphicon-minus" aria-hidden="true"></span><span
-                            class="text-primary glyphicon glyphicon-minus" aria-hidden="true"></span><span
-                            class="text-primary glyphicon glyphicon-minus" aria-hidden="true"></span><span
-                            class="text-primary glyphicon glyphicon-minus" aria-hidden="true"></span><span
-                            class="text-primary glyphicon glyphicon-minus" aria-hidden="true"></span><span
-                            class="text-primary glyphicon glyphicon-minus" aria-hidden="true"></span><span
-                            class="text-primary glyphicon glyphicon-minus" aria-hidden="true"></span><span
-                            class="text-primary glyphicon glyphicon-minus" aria-hidden="true"></span><span
-                            class="text-primary glyphicon glyphicon-minus" aria-hidden="true"></span><span
-                            class="text-primary glyphicon glyphicon-minus" aria-hidden="true"></span><span
-                            class="text-primary glyphicon glyphicon-minus" aria-hidden="true"></span><span
-                            class="text-primary glyphicon glyphicon-minus" aria-hidden="true"></span><span
-                            class="text-primary glyphicon glyphicon-minus" aria-hidden="true"></span><span
-                            class="text-primary glyphicon glyphicon-minus" aria-hidden="true"></span>
+                            class="color-orange glyphicon glyphicon-minus" aria-hidden="true"></span><span
+                            class="color-orange glyphicon glyphicon-minus" aria-hidden="true"></span><span
+                            class="color-orange glyphicon glyphicon-minus" aria-hidden="true"></span><span
+                            class="color-orange glyphicon glyphicon-minus" aria-hidden="true"></span><span
+                            class="color-orange glyphicon glyphicon-minus" aria-hidden="true"></span><span
+                            class="color-orange glyphicon glyphicon-minus" aria-hidden="true"></span><span
+                            class="color-orange glyphicon glyphicon-minus" aria-hidden="true"></span><span
+                            class="color-orange glyphicon glyphicon-minus" aria-hidden="true"></span><span
+                            class="color-orange glyphicon glyphicon-minus" aria-hidden="true"></span><span
+                            class="color-orange glyphicon glyphicon-minus" aria-hidden="true"></span><span
+                            class="color-orange glyphicon glyphicon-minus" aria-hidden="true"></span><span
+                            class="color-orange glyphicon glyphicon-minus" aria-hidden="true"></span><span
+                            class="color-orange glyphicon glyphicon-minus" aria-hidden="true"></span><span
+                            class="color-orange glyphicon glyphicon-minus" aria-hidden="true"></span><span
+                            class="color-orange glyphicon glyphicon-minus" aria-hidden="true"></span><span
+                            class="color-orange glyphicon glyphicon-minus" aria-hidden="true"></span><span
+                            class="color-orange glyphicon glyphicon-minus" aria-hidden="true"></span><span
+                            class="color-orange glyphicon glyphicon-minus" aria-hidden="true"></span><span
+                            class="color-orange glyphicon glyphicon-minus" aria-hidden="true"></span><span
+                            class="color-orange glyphicon glyphicon-minus" aria-hidden="true"></span><span
+                            class="color-orange glyphicon glyphicon-minus" aria-hidden="true"></span><span
+                            class="color-orange glyphicon glyphicon-minus" aria-hidden="true"></span>
                     </div>
                     <div class="col-lg-12"><br></div>
                 {% endif %}
