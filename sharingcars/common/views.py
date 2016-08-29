@@ -3,6 +3,7 @@ from django.views.generic.edit import CreateView
 from django.core.urlresolvers import reverse_lazy
 from django.contrib.auth import authenticate, login
 from django.contrib.messages.views import SuccessMessageMixin
+from django.views.generic.detail import DetailView
 
 from common.models import User
 from common.forms import UserRegisterForm
@@ -20,3 +21,12 @@ class UserCreateView(SuccessMessageMixin, CreateView):
         new_user = authenticate(username=form.data['username'], password=form.data['password'])
         login(self.request, new_user)
         return self.success_url.format()
+
+
+class UserProfileView(DetailView):
+    model = User
+    template_name = 'common/user/profile.html'
+
+    def get_context_data(self, **kwargs):
+        context = super(UserProfileView, self).get_context_data(**kwargs)
+        return context

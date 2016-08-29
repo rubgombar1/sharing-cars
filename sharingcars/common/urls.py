@@ -15,7 +15,7 @@ Including another URLconf
 """
 from django.conf.urls import url
 from django.views.generic import TemplateView
-from common.views import UserCreateView
+from common.views import UserCreateView, UserProfileView
 
 urlpatterns = [
     url(r'^$', TemplateView.as_view(template_name='common/index.html'),
@@ -24,4 +24,5 @@ urlpatterns = [
         {'template_name': 'common/registration/login.html'}, name="login"),
     url(r'^logout/?$', 'django.contrib.auth.views.logout', {'next_page': '/'}, name="logout"),
     url(r'^user/register$', UserCreateView.as_view(), name='create-user'),
+    url(r'^user/(?P<pk>\d+)/', UserProfileView.as_view(), name='user-profile'),
 ]

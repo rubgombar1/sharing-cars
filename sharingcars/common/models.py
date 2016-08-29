@@ -1,5 +1,7 @@
 from __future__ import unicode_literals
 
+from datetime import date
+
 from django.db import models
 from django.contrib.auth.models import User as DjangoUser
 from django.core.validators import RegexValidator
@@ -41,6 +43,10 @@ class User(Actor):
     def delete(self):
         self.user_account.delete()
         return super(User, self).delete()
+
+    def calculate_age(self):
+        today = date.today()
+        return today.year - self.birthdate.year - ((today.month, today.day) < (self.birthdate.month, self.birthdate.day))
 
 
 class Comment(models.Model):
