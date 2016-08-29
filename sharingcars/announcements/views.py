@@ -1,5 +1,6 @@
 from django.views.generic.edit import CreateView
 from django.core.urlresolvers import reverse_lazy
+from django.views.generic.list import ListView
 
 from announcements.models import Announcement
 from common.models import User
@@ -20,3 +21,19 @@ class AnnouncementCreateView(CreateView):
         user = User.objects.get(user_account__id=self.request.user.id)
         instance.user = user
         return super(AnnouncementCreateView, self).form_valid(form)
+
+
+class AnnouncementListView(ListView):
+    model = Announcement
+    template_name = 'announcements/announcement/list.html'
+
+    def get_queryset(self):
+        return Announcement.objects.filter(visibility=True)
+
+
+class AnnouncementUserListView(ListView):
+    model = Announcement
+    template_name = 'announcements/announcement/list.html'
+
+    def get_queryset(self):
+        return Announcement.objects.filter(visibility=True, user__user_account__id=self.request.user.id)

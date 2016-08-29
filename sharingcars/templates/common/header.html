@@ -90,21 +90,25 @@
                 <!-- Start Navigation List -->
                 <ul class="nav navbar-nav navbar-right">
                     <li>
-                        <a class="active" href="#">Anuncios</a>
+                        <a class="active" href="{% url 'announcement-all' %}">Anuncios</a>
                         <ul class="dropdown">
-                            <li><a href="#">Todos los anuncios</a></li>
-                            <li><a href="{% url 'create-announcement' %}">Crear anuncio</a></li>
-                            <li><a href="#">Mis anuncios</a></li>
-                            <li><a href="#">Anuncios recomendados para mi</a></li>
+                            <li><a href="{% url 'announcement-all' %}">Todos los anuncios</a></li>
+                            {% if user.is_authenticated %}
+                                <li><a href="{% url 'create-announcement' %}">Crear anuncio</a></li>
+                                <li><a href="{% url 'announcement-user' %}">Mis anuncios</a></li>
+                                <li><a href="#">Anuncios recomendados para mi</a></li>
+                            {% endif %}
                         </ul>
                     </li>
                     <li>
                         <a href="{% url 'all-routes' %}">Rutas</a>
                         <ul class="dropdown">
                             <li><a href="{% url 'all-routes' %}">Todas las rutas</a></li>
-                            <li><a href="{% url 'create-route' %}">Create ruta</a></li>
-                            <li><a href="{% url 'user-routes' %}">Mis rutas</a></li>
-                            <li><a href="{% url 'recommendations-routes' %}">Rutas recomendadas para mi</a></li>
+                            {% if user.is_authenticated %}
+                                <li><a href="{% url 'create-route' %}">Crear ruta</a></li>
+                                <li><a href="{% url 'user-routes' %}">Mis rutas</a></li>
+                                <li><a href="{% url 'recommendations-routes' %}">Rutas recomendadas para mi</a></li>
+                            {% endif %}
                         </ul>
                     </li>
                     <li>

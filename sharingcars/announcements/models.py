@@ -15,6 +15,7 @@ class Announcement(models.Model):
     destination = models.CharField(max_length=256, blank=False)
     description = models.TextField(blank=False)
     kind = models.CharField(max_length=64, choices=KINDS, blank=False)
+    visibility = models.BooleanField(default=True)
     seating = models.IntegerField(validators=[MinValueValidator(0)],
                                   blank=False)
     unitPrice = models.DecimalField(max_digits=5, decimal_places=2,

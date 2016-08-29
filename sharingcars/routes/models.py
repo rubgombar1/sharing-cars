@@ -13,7 +13,7 @@ class Route(models.Model):
     )
     origin = models.CharField(max_length=256, blank=False)
     destination = models.CharField(max_length=256, blank=False)
-    visibility = models.BooleanField(default=True)
+    visibility = models.BooleanField(default=False)
     description = models.TextField(blank=False)
     kind = models.CharField(max_length=64, choices=KINDS, blank=False)
     seating = models.IntegerField(validators=[MinValueValidator(0)],
