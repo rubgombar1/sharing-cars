@@ -2,6 +2,7 @@
 {% block title %} SharingCars {% endblock %}
 {% load common_extras %}
 {% block contents %}
+<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAmQVomBtRa3niHzm039NE9mcBriJGsbQs&libraries=places"></script>
 <div id="content">
     <div class="container">
         <div class="row">
@@ -166,4 +167,11 @@
         </div>
     </div>
 </div>
+ <script>
+      var input = document.getElementById('id_origin');
+      var autocomplete = new google.maps.places.Autocomplete(input);
+
+      var input2 = document.getElementById('id_destination');
+      var autocomplete2 = new google.maps.places.Autocomplete(input2);
+    </script>
 {% endblock %}
