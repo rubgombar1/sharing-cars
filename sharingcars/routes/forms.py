@@ -13,10 +13,10 @@ class RouteCreateForm(forms.ModelForm):
 
     origin = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control',
                                                            'placeholder': _('Origin')}),
-                             max_length=64, label=_('Origin'), required=True)
+                             max_length=256, label=_('Origin'), required=True)
     destination = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control',
                                                                 'placeholder': _('Destination')}),
-                                  max_length=64, label=_('Destination'), required=True)
+                                  max_length=256, label=_('Destination'), required=True)
     kind = forms.ChoiceField(widget=forms.Select(attrs={'class': 'form-control'}),
                              label=_('Kind'), required=True, choices=Route.KINDS)
     seating = forms.IntegerField(widget=forms.NumberInput(attrs={'class': 'form-control',
