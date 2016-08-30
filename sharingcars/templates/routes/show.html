@@ -13,62 +13,51 @@
                           <img class="img-circle img-responsive center-block"  src="{% static route.user.photo %}" style="width:auto;height:200px" alt="">
                       {% endif %}
                   </div>
-                  <div class="col-lg-8 text-center">
+                  <div class="col-lg-8 ">
                       <div class="col-lg-12"><br></div>
                       <div class="col-lg-12"><br></div>
-                      <div class="col-lg-12"><br></div>
-                      <div class="col-lg-12"><br></div>
-                      <div class="col-lg-6">
-                         <b>Nombre:</b> <a href="/user/profile?userId={{ route.user.id }}">{{ route.user.name }} {{ route.user.surnames }}</a>
+                      <div class="col-lg-6 padding-0">
+                         <b>Nombre completo:</b> <a href="{% url 'user-profile' route.user.user_account.pk %}">{{ route.user.name }} {{ route.user.surnames }}</a>
                       </div>
-                      <div class="col-lg-6 text-center">
+                      <div class="col-lg-6 padding-0">
                           <b>Rutas publicadas:</b> {{ route.user.route_set.all|length }}
                       </div>
-                      <div class="col-lg-6 text-center">
-                          <b>Fecha de nacimiento:</b> {{ route.user.birthdate }}
+                      <div class="col-lg-6 padding-0">
+                          <b>Edad:</b> {{ route.user.calculate_age }} a&ntilde;os
                       </div>
-                      <div class="col-lg-3 text-center">
-                          <b>Rating: </b>{{rating}}/10
+                      <div class="col-lg-3 padding-0">
+                          <b>Rating: </b>{{ route.user.get_rating }}/10
                       </div>
-                      <div class="col-lg-3 text-center">
-                          <b>Evaluaciones: </b>{{ quantity }}
+                      <div class="col-lg-3 padding-0">
+                          <b>Evaluaciones: </b>{{ route.user.get_num_assessments }}
+                      </div>
+                      <div class="col-lg-6 padding-0">
+                          <b>Tipo de ruta:</b> {{ route.get_kind_display }}
+                      </div>
+                      <div class="col-lg-6 padding-0">
+                          <b>Publicaci&oacute;n:</b> {{ route.creationMoment }}
+                      </div>
+                      <div class="col-lg-6 padding-0">
+                          <b>N&uacute;mero de plazas:</b> {{ route.seating }}
+                      </div>
+                      <div class="col-lg-6 padding-0">
+                          <b>Precio por persona:</b> {{ route.unitPrice }} &euro;
+                      </div>
+                      <div class="col-lg-6 padding-0">
+                          <b>Origen:</b> {{ route.origin }}
+                      </div>
+                      <div class="col-lg-6 padding-0">
+                          <b>Destino:</b> {{ route.destination }}
                       </div>
                   </div>
               </div>
-              <div class="col-lg-12 ">
-                  <div class="col-lg-12 text-center">
-                        <div class="col-lg-4">
-                            <b>Tipo de anuncio: </b> {% if route.kind == "1" %}Oferta{% else %}Demanda{% endif %}
-                        </div>
-                        <div class="col-lg-2">
-                            <b>{{ route.unitPrice }}<span class="glyphicon glyphicon-euro" aria-hidden="true"></span> por persona  </b>
-                        </div>
-                        <div class="col-lg-6">
-                            <b>Publicaci�n: </b>{{ route.creationMoment }}
-                        </div>
-                    </div>
-                  <div class="col-lg-1"></div>
-                  <div class="col-lg-11 ">
-                        <div class="col-lg-4">
-                            <b>Origen: </b>{{ route.origin }}
-                        </div>
-                        <div class="col-lg-4">
-                            <b>Destino: </b>{{ route.destination }}
-                        </div>
-                        <div class="col-lg-4">
-                            <b>Plazas: </b>{{ route.seating }}
-                        </div>
-                    </div>
-
-                    <div class="col-lg-12">
-                        <div class="col-lg-1"></div>
-                        <div class="col-lg-11">
-                            <div class="col-lg-12">
-                            <b>Descripci�n: </b>{{ route.description }}
-                                </div>
-                        </div>
-                    </div>
+              <div class="col-lg-12 margin-bottom-35">
+                  <h2 class="text-center">Descripci&oacute;n de la ruta</h2>
+                  <p class="col-lg-10 col-lg-offset-1 padding-0 description-route">
+                      {{ route.description }}
+                  </p>
               </div>
+
               <div class="col-lg-12">
                 <div class="col-lg-12 text-center">
                             <h2>Horario</h2>
@@ -82,7 +71,7 @@
                                             {% elif day.day == 2 %}
                                                 <b>Martes</b>
                                             {% elif day.day == 3 %}
-                                                <b>Mi�rcoles</b>
+                                                <b>Mi&eacute;rcoles</b>
                                             {% elif day.day == 4 %}
                                                 <b>Jueves</b>
                                             {% endif %}
@@ -115,7 +104,7 @@
                                             {% if day.day == 5 %}
                                                 <b>Viernes</b>
                                             {% elif day.day == 6 %}
-                                                <b>S�bado</b>
+                                                <b>S&aacute;bado</b>
                                             {% elif day.day == 7 %}
                                                 <b>Domingo</b>
                                             {% endif %}
@@ -146,29 +135,37 @@
                             {% endfor %}
                         </div>
                 <div class="col-lg-12"><br></div>
-                <div class="col-lg-12 text-center"><h2>Comentarios</h2> <b>Valoraci�n de la ruta: {{ ratingRoute }}/10</b></div>
+                <div class="col-lg-12 text-center"><h2>Comentarios</h2> <b>Valoraci&oacute;n de la ruta: {{ route.get_rating }}/10</b></div>
                 <div class="col-lg-12"><br></div>
                 <div class="col-lg-12">
                     {% if route.commentroute_set.all|length > 0 %}
                         {% for comment in route.commentroute_set.all %}
-                            <div class="col-lg-12">
-                                <div class="col-lg-1"></div>
-                                <div class="col-lg-11">
-                                    <div class="col-lg-3">
-                                        <b>Asunto: </b>{{ comment.subject }}
+                            <div class="col-lg-12 padding-bottom-15 {% if forloop.counter|divisibleby:2 %}background-ccc{% else %}background-ddd{% endif %}">
+                                <a href="{% url 'user-profile' comment.user.user_account.pk %}">
+                                    <div class="col-lg-4">
+                                        <div class="col-lg-4 padding-0">
+                                            {% if comment.user.photo == 'default' %}
+                                                <img class="img-circle img-responsive image-comment-list margin-top-25-100"
+                                                     src="{% static 'user/image/default.jpg' %}" alt="">
+                                            {% else %}
+                                                <img class="img-circle img-responsive image-comment-list margin-top-25-100" src="{% static comment.user.photo %}"
+                                                      alt="">
+                                            {% endif %}
+                                        </div>
+                                        <div class="col-lg-8">
+                                            <h6 class="text-center margin-top-40-100">
+                                                {{ comment.user.user_account.username }}
+                                            </h6>
+                                        </div>
                                     </div>
-                                    <div class="col-lg-3">
-                                        <b>Valoraci�n: </b>{{ comment.rating }}
-                                    </div>
+                                </a>
+                                <div class="col-lg-8 comment">
+                                    <h4 class="text-center">{{ comment.subject }} | {{ comment.rating }}/10</h4>
+                                    <p class="text-justify">
+                                        {{ comment.comment }}
+                                    </p>
                                 </div>
-                            </div>
-                            <div class="col-lg-12">
-                                <div class="col-lg-1"></div>
-                                <div class="col-lg-11">
-                                    <div class="col-lg-12">
-                                        <b>Comentario: </b>{{ comment.comment }}
-                                    </div>
-                                </div>
+
                             </div>
                         {% endfor %}
                     {% else %}
@@ -176,44 +173,62 @@
                             <h2 class="text-danger">No hay comentarios para esta ruta.</h2>
                         </div>
                     {% endif %}
-                    {% if applicationsRoute %}
+                    {% if user.is_authenticated and user.pk == route.user.user_account.pk and route.applyroute_set.all %}
                       <div class="col-lg-12"><br></div>
                       <div class="col-lg-12 text-center"><h2>Solicitudes</h2></div>
                       <div class="col-lg-12"><br></div>
-                      {% for apply_route in applicationsRoute %}
-                        <div class="col-lg-12">
-                            <div class="col-lg-1"></div>
-                            <div class="col-lg-11">
-                                <div class="col-lg-3">
-                                    <b>Usuario: </b>{{ apply_route.user }}
-                                </div>
-                                <div class="col-lg-3">
-                                    <b>Estado: </b>{{ apply_route.get_state_display }}
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-12">
-                            <div class="col-lg-1"></div>
-                            <div class="col-lg-11">
-                                <div class="col-lg-12">
-                                    <b>Comentario: </b>{{ apply_route.comment }}
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-12"><br></div>
-                        <div class="col-lg-12 text-center">
-                          {% if apply_route.state == 'waiting' or apply_route.state == 'rejected' %}
-                            <a href="{% url 'resolve-apply-route' apply_route.id  'accept' %}" class="btn btn-success">Aceptar</a>
-                          {% endif %}
-                          {% if apply_route.state == 'waiting' or apply_route.state == 'approach' %}
-                            <a href="{% url 'resolve-apply-route' apply_route.id 'reject' %}" class="btn btn-danger">Rechazar</a>
-                          {% endif %}
-                        </div>
-                        <div class="col-lg-12"><br></div>
-                      {% endfor %}
+                      <br>
+                        <table class="table table-responsive" id="id_table_apply">
+                            <thead>
+                            <tr>
+                                <th class="text-center">Usuario</th>
+                                <th class="text-center">Origen</th>
+                                <th class="text-center">Destino</th>
+                                <th class="text-center">Estado</th>
+                                <th class="text-center" data-sortable="false">Aprobar</th>
+                                <th class="text-center" data-sortable="false">Rechazar</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {% for apply in route.applyroute_set.all %}
+                            <tr>
+                                <td class="text-center"><a href="{% url 'user-profile' apply.user.user_account.pk %}">{{ apply.user.user_account }}</a></td>
+                                <td class="text-center">{{ apply.route.origin|truncatechars:20 }}</td>
+                                <td class="text-center">{{ apply.route.destination }}</td>
+                                <td class="text-center">{{ apply.get_state_display }}</td>
+
+                                <td class="text-center">
+                                    {% if apply.state != 'approach' %}
+                                        <a href="">
+                                            <i class="fa fa-check text-success"></i>
+                                        </a>
+                                    {% endif %}
+                                </td>
+                                <td class="text-center">
+                                    {% if apply.state != 'rejected' %}
+                                        <a href="">
+                                            <i class="fa fa-times text-danger"></i>
+                                        </a>
+                                    {% endif %}
+                                </td>
+
+                            </tr>
+                            {% endfor %}
+                            </tbody>
+                        </table>
                     {% endif %}
                 </div>
           </div>
     </div>
      </div>
+<script>
+    $(document).ready(function() {
+        $('#id_table_apply').DataTable({
+            "order": [[ 0, "asc" ]],
+            "language": {
+                "url": "//cdn.datatables.net/plug-ins/1.10.12/i18n/Spanish.json"
+            }
+        });
+    });
+</script>
 {% endblock %}

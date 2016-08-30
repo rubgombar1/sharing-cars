@@ -24,6 +24,12 @@ class Route(models.Model):
     creationMoment = models.DateTimeField(auto_now=False, auto_now_add=True)
     user = models.ForeignKey(User)
 
+    def get_rating(self):
+        rating = 0
+        if self.commentroute_set.all():
+            rating = round(self.commentroute_set.all().aggregate(models.Sum('rating')).get('rating__sum', 0)/self.commentroute_set.all().count(), 1)
+        return rating
+
 
 class ApplyRoute(models.Model):
     creationDate = models.DateTimeField(auto_now_add=True)

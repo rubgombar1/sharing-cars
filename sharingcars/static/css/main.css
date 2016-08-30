@@ -182,3 +182,12 @@ h3{
 .padding-bottom-15{
     padding: 0 0 15px 0;
 }
+
+.description-route{
+    padding: 15px;
+    background-color: #ccc;
+}
+
+.margin-bottom-35{
+    margin-bottom: 35px;
+}
