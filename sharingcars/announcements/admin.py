@@ -1,11 +1,14 @@
 from django.contrib import admin
-from announcements.models import (Announcement)
+from announcements.models import (Announcement, CommentAnnouncement)
 
 
 class AnnouncementAdmin(admin.ModelAdmin):
     list_display = ('origin', 'destination', 'kind', 'user')
 
 
-admin.site.register(Announcement, AnnouncementAdmin)
+class CommentAnnouncementAdmin(admin.ModelAdmin):
+    pass
 
-# Register your models here.
+
+admin.site.register(Announcement, AnnouncementAdmin)
+admin.site.register(CommentAnnouncement, CommentAnnouncementAdmin)

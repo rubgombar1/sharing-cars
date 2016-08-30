@@ -57,15 +57,20 @@ class User(Actor):
             'rating__sum', 0)
         user_rating_sum = Comment.objects.filter(evaluated=self).aggregate(models.Sum('rating')).get(
             'rating__sum', 0)
-        rating_sum = routes_rating_sum if routes_rating_sum else 0 + announcements_rating_sum if announcements_rating_sum else 0 \
-                 + user_rating_sum if user_rating_sum else 0
+        rating_sum = 0
+        if routes_rating_sum:
+            rating_sum += routes_rating_sum
+        if announcements_rating_sum:
+            rating_sum += announcements_rating_sum
+        if user_rating_sum:
+            rating_sum += user_rating_sum
         rating_count = (CommentRoute.objects.filter(route__user=self).count() +
                         Comment.objects.filter(evaluated=self).count() +
                         CommentAnnouncement.objects.filter(announcement__user=self).count())
         if rating_count is 0:
             rating = 0
         else:
-            rating = rating_sum / rating_count
+            rating = round(rating_sum / float(rating_count), 1)
         return rating
 
     def get_num_assessments(self):
@@ -78,7 +83,7 @@ class User(Actor):
 
 class Comment(models.Model):
     subject = models.CharField(max_length=256, blank=False)
-    comment = models.TextField(blank=False)
+    comment = models.TextField(blank=False, max_length=395)
     rating = models.IntegerField(validators=[MinValueValidator(0),
                                  MaxValueValidator(10)])
     referrer = models.ForeignKey(User, related_name='referrer')

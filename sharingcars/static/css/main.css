@@ -153,3 +153,32 @@ h3{
      border: 0;
 }
 
+.background-ccc{
+    background-color: #cccccc;
+}
+
+.background-ddd{
+    background-color: #dddddd;
+}
+
+.image-comment-list{
+    width:auto;
+    height:100px
+}
+
+.margin-top-25-100{
+    margin-top: 25%;
+}
+
+.margin-top-40-100{
+    margin-top: 40%;
+}
+
+.comment h4{
+    margin-top: 15px;
+    margin-bottom: 5px;
+}
+
+.padding-bottom-15{
+    padding: 0 0 15px 0;
+}

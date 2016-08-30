@@ -27,7 +27,7 @@ class Announcement(models.Model):
     user = models.ForeignKey(User)
 
     def __unicode__(self):
-        return '%s - %s - %s' % (self.origin, self.destination, self.departTime)
+        return '%s - %s - %s' % (self.origin, self.destination, self.date)
 
 
 class ApplyAnnouncement(models.Model):

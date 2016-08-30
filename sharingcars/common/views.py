@@ -9,6 +9,9 @@ from django.utils.translation import ugettext as _
 
 from common.models import User
 from common.forms import UserRegisterForm
+from routes.models import CommentRoute
+from announcements.models import CommentAnnouncement
+
 
 
 class UserCreateView(SuccessMessageMixin, CreateView):
@@ -41,4 +44,6 @@ class UserProfileView(DetailView):
 
     def get_context_data(self, **kwargs):
         context = super(UserProfileView, self).get_context_data(**kwargs)
+        context['comments_routes'] = CommentRoute.objects.filter(route__user__user_account__pk=self.request.user.pk)
+        context['comments_announcements'] = CommentAnnouncement.objects.filter(announcement__user__user_account__pk=self.request.user.pk)
         return context
