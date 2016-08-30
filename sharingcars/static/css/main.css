@@ -98,8 +98,8 @@ ul.social-list {
     color: #eee;
 }
 
-.margin-top-75{
-    margin-top: 75px;
+.margin-top-60{
+    margin-top: 60px;
 }
 
 .pagination>.active>a, .pagination>.active>a:focus, .pagination>.active>a:hover, .pagination>.active>span,
@@ -137,3 +137,19 @@ h3{
 .font-weight-300 {
     font-weight: 300;
 }
+
+.user-biography{
+    margin-top: 20px;
+    background-color: #cccccc;
+    padding: 25px;
+}
+
+.user-biography p{
+    font-size: 16px;
+    font-weight: 400;
+}
+
+.tab-content{
+     border: 0;
+}
+

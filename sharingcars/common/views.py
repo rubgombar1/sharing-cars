@@ -4,6 +4,8 @@ from django.core.urlresolvers import reverse_lazy
 from django.contrib.auth import authenticate, login
 from django.contrib.messages.views import SuccessMessageMixin
 from django.views.generic.detail import DetailView
+from django.http import Http404
+from django.utils.translation import ugettext as _
 
 from common.models import User
 from common.forms import UserRegisterForm
@@ -26,6 +28,16 @@ class UserCreateView(SuccessMessageMixin, CreateView):
 class UserProfileView(DetailView):
     model = User
     template_name = 'common/user/profile.html'
+    context_object_name = 'custom_user'
+
+    def get_object(self, queryset=None):
+        user_account_pk = self.kwargs.get('pk')
+        try:
+            obj = User.objects.get(user_account__pk=user_account_pk)
+        except queryset.model.DoesNotExist:
+            raise Http404(_("No %(verbose_name)s found matching the query") %
+                          {'verbose_name': User._meta.verbose_name})
+        return obj
 
     def get_context_data(self, **kwargs):
         context = super(UserProfileView, self).get_context_data(**kwargs)

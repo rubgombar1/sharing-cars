@@ -39,6 +39,7 @@ class User(Actor):
     searchingCar = models.BooleanField(default=False)
     photo = models.ImageField(upload_to=path_generator, null=True,
                               default='default')
+    biography = models.TextField(null=True)
 
     def delete(self):
         self.user_account.delete()
@@ -48,6 +49,32 @@ class User(Actor):
         today = date.today()
         return today.year - self.birthdate.year - ((today.month, today.day) < (self.birthdate.month, self.birthdate.day))
 
+    def get_rating(self):
+        from routes.models import CommentRoute
+        from announcements.models import CommentAnnouncement
+        routes_rating_sum = CommentRoute.objects.filter(route__user=self).aggregate(models.Sum('rating')).get('rating__sum', 0)
+        announcements_rating_sum = CommentAnnouncement.objects.filter(announcement__user=self).aggregate(models.Sum('rating')).get(
+            'rating__sum', 0)
+        user_rating_sum = Comment.objects.filter(evaluated=self).aggregate(models.Sum('rating')).get(
+            'rating__sum', 0)
+        rating_sum = routes_rating_sum if routes_rating_sum else 0 + announcements_rating_sum if announcements_rating_sum else 0 \
+                 + user_rating_sum if user_rating_sum else 0
+        rating_count = (CommentRoute.objects.filter(route__user=self).count() +
+                        Comment.objects.filter(evaluated=self).count() +
+                        CommentAnnouncement.objects.filter(announcement__user=self).count())
+        if rating_count is 0:
+            rating = 0
+        else:
+            rating = rating_sum / rating_count
+        return rating
+
+    def get_num_assessments(self):
+        from routes.models import CommentRoute
+        from announcements.models import CommentAnnouncement
+        rating_count = (CommentRoute.objects.filter(route__user=self).count() +
+                        Comment.objects.filter(evaluated=self).count() +
+                        CommentAnnouncement.objects.filter(announcement__user=self).count())
+        return rating_count
 
 class Comment(models.Model):
     subject = models.CharField(max_length=256, blank=False)
