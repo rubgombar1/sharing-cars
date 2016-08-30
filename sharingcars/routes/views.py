@@ -84,9 +84,13 @@ class RouteApplyCreate(CreateView):
 @login_required
 def resolve_apply(request, pk, action):
     apply_route = ApplyRoute.objects.get(pk=pk)
-    if action == 'accept':
+    if action == 'approach':
         apply_route.state = 'approach'
     elif action == 'reject':
         apply_route.state = 'rejected'
     apply_route.save()
-    return redirect('details-route', pk=apply_route.route.pk)
+    previous_url = request.META.get('HTTP_REFERER', None)
+    if previous_url:
+        return redirect(previous_url)
+    else:
+        return redirect('details-route', pk=apply_route.route.pk)

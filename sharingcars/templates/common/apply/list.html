@@ -32,15 +32,19 @@
                         <td class="text-center">{{ apply.announcement.destination }}</td>
                         <td class="text-center">{{ apply.get_state_display }}</td>
                         <td class="text-center">
-                            <a href="">
-                                <i class="fa fa-check text-success"></i>
-                            </a>
-                        </td>
-                        <td class="text-center">
-                            <a href="">
-                                <i class="fa fa-times text-danger"></i>
-                            </a>
-                        </td>
+                                    {% if apply.state != 'approach' %}
+                                        <a href="{% url 'resolve-apply-announcement' apply.pk 'approach'%}">
+                                            <i class="fa fa-check text-success"></i>
+                                        </a>
+                                    {% endif %}
+                                </td>
+                                <td class="text-center">
+                                    {% if apply.state != 'rejected' %}
+                                        <a href="{% url 'resolve-apply-announcement' apply.pk 'reject'%}">
+                                            <i class="fa fa-times text-danger"></i>
+                                        </a>
+                                    {% endif %}
+                                </td>
                     </tr>
                     {% endfor %}
                     </tbody>

@@ -2,6 +2,8 @@ from django.views.generic.edit import CreateView
 from django.core.urlresolvers import reverse_lazy
 from django.views.generic.list import ListView
 from django.db.models import Q
+from django.shortcuts import redirect
+from django.contrib.auth.decorators import login_required
 
 from announcements.models import Announcement, ApplyAnnouncement
 from common.models import User
@@ -69,3 +71,18 @@ class AnnouncementApplyCreate(CreateView):
         instance.user = user
         instance.announcement = announcement
         return super(AnnouncementApplyCreate, self).form_valid(form)
+
+
+@login_required
+def resolve_apply(request, pk, action):
+    apply_announcement = ApplyAnnouncement.objects.get(pk=pk)
+    if action == 'approach':
+        apply_announcement.state = 'approach'
+    elif action == 'reject':
+        apply_announcement.state = 'rejected'
+    apply_announcement.save()
+    previous_url = request.META.get('HTTP_REFERER', None)
+    if previous_url:
+        return redirect(previous_url)
+    else:
+        return redirect('details-announcement', pk=apply_announcement.announcement.pk)

@@ -199,14 +199,14 @@
 
                                 <td class="text-center">
                                     {% if apply.state != 'approach' %}
-                                        <a href="">
+                                        <a href="{% url 'resolve-apply-route' apply.pk 'approach'%}">
                                             <i class="fa fa-check text-success"></i>
                                         </a>
                                     {% endif %}
                                 </td>
                                 <td class="text-center">
                                     {% if apply.state != 'rejected' %}
-                                        <a href="">
+                                        <a href="{% url 'resolve-apply-route' apply.pk 'reject'%}">
                                             <i class="fa fa-times text-danger"></i>
                                         </a>
                                     {% endif %}
