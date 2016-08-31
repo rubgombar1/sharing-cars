@@ -3,7 +3,7 @@ from django import forms
 from django.core.validators import MinValueValidator
 from django.utils.translation import ugettext as _
 
-from routes.models import Route, Day, ApplyRoute
+from routes.models import Route, Day, ApplyRoute, StopRoute
 
 
 class RouteBaseForm(forms.ModelForm):
@@ -296,3 +296,18 @@ class ApplyRouteCreateForm(forms.ModelForm):
     class Meta:
         model = ApplyRoute
         fields = ('comment', )
+
+
+class StopRouteForm(forms.ModelForm):
+    class Meta:
+        model = StopRoute
+        exclude = ('route', )
+
+    stop = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control',
+                                                           'placeholder': _('Parada')}),
+                             max_length=256, label=_('Parada'), required=True)
+
+    sequence = forms.IntegerField(widget=forms.NumberInput(attrs={'class': 'form-control col-lg-6',
+                                                                 'placeholder': _('Orden'),
+                                                                 'min': '0'}),
+                                 validators=[MinValueValidator(0)], label=_('Orden'))

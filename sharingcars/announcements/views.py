@@ -7,9 +7,9 @@ from django.contrib.auth.decorators import login_required
 from django.views.generic.detail import DetailView
 from django.views.generic.edit import UpdateView
 
-from announcements.models import Announcement, ApplyAnnouncement
+from announcements.models import Announcement, ApplyAnnouncement, StopAnnouncement
 from common.models import User
-from announcements.forms import AnnouncementCreateForm, ApplyAnnouncementCreateForm
+from announcements.forms import AnnouncementCreateForm, ApplyAnnouncementCreateForm, StopAnnouncementForm
 
 
 class AnnouncementCreateView(CreateView):
@@ -106,3 +106,19 @@ class EditAnnouncementView(UpdateView):
 
     def get_success_url(self):
         return self.success_url.format()
+
+
+class StopAnnouncementCreateView(CreateView):
+    model = StopAnnouncement
+    template_name = 'announcements/stop/create.html'
+    success_url = reverse_lazy('index')
+    form_class = StopAnnouncementForm
+
+    def get_success_url(self):
+        return self.success_url.format()
+
+    def form_valid(self, form):
+        instance = form.save(commit=False)
+        announcement = Announcement.objects.get(pk=self.kwargs['pk'])
+        instance.announcement = announcement
+        return super(StopAnnouncementCreateView, self).form_valid(form)

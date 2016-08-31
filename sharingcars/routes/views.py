@@ -7,9 +7,9 @@ from django.db.models import Q
 from django.contrib.auth.decorators import login_required
 from django.views.generic.edit import UpdateView
 
-from routes.models import Route, ApplyRoute
+from routes.models import Route, ApplyRoute, StopRoute
 from common.models import User
-from routes.forms import RouteCreateForm, ApplyRouteCreateForm, RouteEditForm
+from routes.forms import RouteCreateForm, ApplyRouteCreateForm, RouteEditForm, StopRouteForm
 
 
 
@@ -136,3 +136,19 @@ def resolve_apply(request, pk, action):
         return redirect(previous_url)
     else:
         return redirect('details-route', pk=apply_route.route.pk)
+
+
+class StopRouteCreateView(CreateView):
+    model = StopRoute
+    template_name = 'routes/stop/create.html'
+    success_url = reverse_lazy('index')
+    form_class = StopRouteForm
+
+    def get_success_url(self):
+        return self.success_url.format()
+
+    def form_valid(self, form):
+        instance = form.save(commit=False)
+        route = Route.objects.get(pk=self.kwargs['pk'])
+        instance.route = route
+        return super(StopRouteCreateView, self).form_valid(form)
