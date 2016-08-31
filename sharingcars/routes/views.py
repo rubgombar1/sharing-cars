@@ -152,3 +152,13 @@ class StopRouteCreateView(CreateView):
         route = Route.objects.get(pk=self.kwargs['pk'])
         instance.route = route
         return super(StopRouteCreateView, self).form_valid(form)
+
+
+class StopRouteUpdateView(UpdateView):
+    model = StopRoute
+    template_name = 'routes/stop/create.html'
+    success_url = reverse_lazy('index')
+    form_class = StopRouteForm
+
+    def get_success_url(self):
+        return self.success_url.format()

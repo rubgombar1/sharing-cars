@@ -2,7 +2,7 @@ from django.conf.urls import url
 from routes.views import (RouteCreateView, RouteUserListView,
                           RouteUserRecommendationsListView, RouteApplyCreate,
                           RouteDetailsView, resolve_apply, RouteListView, RouteEditView,
-                          StopRouteCreateView)
+                          StopRouteCreateView, StopRouteUpdateView)
 
 
 urlpatterns = [
@@ -18,4 +18,6 @@ urlpatterns = [
         name='edit-route'),
     url(r'^stop/create/(?P<pk>[-\w]+)$', StopRouteCreateView.as_view(),
             name='stop-route-create'),
+    url(r'^stop/edit/(?P<pk>[-\w]+)$', StopRouteUpdateView.as_view(),
+            name='stop-route-edit'),
 ]

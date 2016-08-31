@@ -122,3 +122,13 @@ class StopAnnouncementCreateView(CreateView):
         announcement = Announcement.objects.get(pk=self.kwargs['pk'])
         instance.announcement = announcement
         return super(StopAnnouncementCreateView, self).form_valid(form)
+
+
+class StopAnnouncementUpdateView(UpdateView):
+    model = StopAnnouncement
+    template_name = 'announcements/stop/create.html'
+    success_url = reverse_lazy('index')
+    form_class = StopAnnouncementForm
+
+    def get_success_url(self):
+        return self.success_url.format()

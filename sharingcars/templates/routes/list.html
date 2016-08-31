@@ -143,6 +143,7 @@
                     <a href="{% url 'create-apply-route' route.id %}" class="btn btn-system btn-large">Solicitar</a>
                     {% else %}
                         <a href="{% url 'edit-route' route.pk %}" class="btn btn-system btn-large">Editar</a>
+                        <a href="{% url 'stop-route-create' route.pk %}" class="btn btn-system btn-large">A&ntilde;adir parada</a>
                     {% endif %}
                 </div>
                 <div class="col-lg-12"><br></div>

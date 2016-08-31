@@ -195,3 +195,7 @@ h3{
 .form-group{
     min-height: 55px;
 }
+
+.dataTables_filter{
+    float: right;
+}
