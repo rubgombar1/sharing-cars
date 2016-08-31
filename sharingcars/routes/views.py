@@ -5,10 +5,12 @@ from django.core.urlresolvers import reverse_lazy, reverse
 from django.shortcuts import redirect
 from django.db.models import Q
 from django.contrib.auth.decorators import login_required
+from django.views.generic.edit import UpdateView
 
 from routes.models import Route, ApplyRoute
 from common.models import User
-from routes.forms import RouteCreateForm, ApplyRouteCreateForm
+from routes.forms import RouteCreateForm, ApplyRouteCreateForm, RouteEditForm
+
 
 
 class RouteCreateView(CreateView):
@@ -25,6 +27,42 @@ class RouteCreateView(CreateView):
         user = User.objects.get(user_account__id=self.request.user.id)
         instance.user = user
         return super(RouteCreateView, self).form_valid(form)
+
+
+class RouteEditView(UpdateView):
+    model = Route
+    form_class = RouteEditForm
+    template_name = 'routes/create.html'
+    success_url = reverse_lazy('index')
+
+    def get_success_url(self):
+        return self.success_url.format()
+
+    def get_initial(self):
+        initial = super(RouteEditView, self).get_initial()
+        for day in self.object.day_set.all():
+            if day.day == 1:
+                initial['monday_departTime'] = day.departTime
+                initial['monday_returnTime'] = day.returnTime
+            elif day.day == 2:
+                initial['tuesday_departTime'] = day.departTime
+                initial['tuesday_returnTime'] = day.returnTime
+            elif day.day == 3:
+                initial['wednesday_departTime'] = day.departTime
+                initial['wednesday_returnTime'] = day.returnTime
+            elif day.day == 4:
+                initial['thursday_departTime'] = day.departTime
+                initial['thursday_returnTime'] = day.returnTime
+            elif day.day == 5:
+                initial['friday_departTime'] = day.departTime
+                initial['friday_returnTime'] = day.returnTime
+            elif day.day == 6:
+                initial['saturday_departTime'] = day.departTime
+                initial['saturday_returnTime'] = day.returnTime
+            elif day.day == 7:
+                initial['sunday_departTime'] = day.departTime
+                initial['sunday_returnTime'] = day.returnTime
+        return initial
 
 
 class RouteListView(ListView):

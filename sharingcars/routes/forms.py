@@ -6,10 +6,10 @@ from django.utils.translation import ugettext as _
 from routes.models import Route, Day, ApplyRoute
 
 
-class RouteCreateForm(forms.ModelForm):
+class RouteBaseForm(forms.ModelForm):
     class Meta:
         model = Route
-        exclude = ('visibility', 'creationMoment', 'user')
+        exclude = ('creationMoment', 'user')
 
     origin = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control',
                                                            'placeholder': _('Origin')}),
@@ -212,6 +212,11 @@ class RouteCreateForm(forms.ModelForm):
                 error = True
         return error
 
+class RouteCreateForm(RouteBaseForm):
+    class Meta:
+        model = Route
+        exclude = ('creationMoment', 'user')
+
     def save(self, commit=True):
         instance = super(RouteCreateForm, self).save(commit=commit)
         if commit:
@@ -242,6 +247,41 @@ class RouteCreateForm(forms.ModelForm):
             day.active = False
         day.route = route
         day.save()
+
+
+class RouteEditForm(RouteBaseForm):
+    class Meta:
+        model = Route
+        exclude = ('creationMoment', 'user')
+
+    def save(self, commit=True):
+        instance = super(RouteEditForm, self).save(commit=commit)
+        if commit:
+            self.update_day(self.data['monday_departTime'], self.data['monday_returnTime'],
+                           1)
+            self.update_day(self.data['tuesday_departTime'], self.data['tuesday_returnTime'],
+                           2)
+            self.update_day(self.data['wednesday_departTime'], self.data['wednesday_returnTime'],
+                           3)
+            self.update_day(self.data['thursday_departTime'], self.data['thursday_returnTime'],
+                           4)
+            self.update_day(self.data['friday_departTime'], self.data['friday_returnTime'],
+                           5)
+            self.update_day(self.data['saturday_departTime'], self.data['saturday_returnTime'],
+                           6)
+            self.update_day(self.data['sunday_departTime'], self.data['sunday_returnTime'],
+                           7)
+        return instance
+
+    def update_day(self, depart_time, return_time, day):
+        day_db = self.instance.day_set.get(day=day)
+        day_db.departTime = depart_time
+        day_db.returnTime = return_time
+        if depart_time and return_time:
+            day_db.active = True
+        else:
+            day_db.active = False
+        day_db.save()
 
 
 class ApplyRouteCreateForm(forms.ModelForm):

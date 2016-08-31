@@ -1,7 +1,7 @@
 from django.conf.urls import url
 from routes.views import (RouteCreateView, RouteUserListView,
                           RouteUserRecommendationsListView, RouteApplyCreate,
-                          RouteDetailsView, resolve_apply, RouteListView)
+                          RouteDetailsView, resolve_apply, RouteListView, RouteEditView)
 
 
 urlpatterns = [
@@ -13,4 +13,6 @@ urlpatterns = [
         name='details-route'),
     url(r'^apply/(?P<pk>[-\w]+)$', RouteApplyCreate.as_view(), name='create-apply-route'),
     url(r'^apply/resolve/(?P<pk>[-\w]+)/(?P<action>[-\w]+)$', resolve_apply, name='resolve-apply-route'),
+    url(r'^edit/(?P<pk>[-\w]+)$', RouteEditView.as_view(),
+        name='edit-route'),
 ]

@@ -6,6 +6,7 @@
 <div id="content">
     <div class="container">
         <div class="row">
+            {{ form.errors }}
             <div class="col-lg-10 col-lg-offset-1">
                 <h2 class="text-center margin-top-35">Crear una nueva ruta</h2>
                 <form method="post"> {% csrf_token %}
@@ -17,17 +18,21 @@
                         {{ form.destination.label }} {{form.destination|required_field|safe}}
                         {{ form.destination }}
                     </div>
-                    <div class="form-group col-lg-4">
+                    <div class="form-group col-lg-3">
                         {{ form.kind.label }} {{form.kind|required_field|safe}}
                         {{ form.kind }}
                     </div>
-                    <div class="form-group col-lg-4">
+                    <div class="form-group col-lg-3">
                         {{ form.seating.label }} {{form.seating|required_field|safe}}
                         {{ form.seating }}
                     </div>
-                    <div class="form-group col-lg-4">
+                    <div class="form-group col-lg-3">
                         {{ form.unitPrice.label }} {{form.unitPrice|required_field|safe}}
                         {{ form.unitPrice }}
+                    </div>
+                    <div class="form-group col-lg-3">
+                        {{ form.visibility.label }} {{form.visibility|required_field|safe}}
+                        {{ form.visibility }}
                     </div>
                     <!--Monday-->
                     <div class="form-group col-lg-3">

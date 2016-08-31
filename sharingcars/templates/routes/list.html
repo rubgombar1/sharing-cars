@@ -141,6 +141,8 @@
                     m&aacute;s detalles</a>
                     {% if request.user.id != route.user.user_account.id and user.is_authenticated %}
                     <a href="{% url 'create-apply-route' route.id %}" class="btn btn-system btn-large">Solicitar</a>
+                    {% else %}
+                        <a href="{% url 'edit-route' route.pk %}" class="btn btn-system btn-large">Editar</a>
                     {% endif %}
                 </div>
                 <div class="col-lg-12"><br></div>
