@@ -27,15 +27,15 @@ class RouteCreateView(CreateView):
         return super(RouteCreateView, self).form_valid(form)
 
 
+class RouteListView(ListView):
+    queryset = Route.objects.filter(visibility=True).order_by('-creationMoment')
+    model = Route
+    template_name = 'routes/list.html'
+
+
 class RouteDetailsView(DetailView):
     template_name = 'routes/show.html'
-    queryset = Route.objects.all()
-
-    def get_context_data(self, object):
-        context = super(RouteDetailsView, self).get_context_data()
-        if object.user.user_account_id == self.request.user.id:
-            context['applicationsRoute'] = object.applyroute_set.all()
-        return context
+    queryset = Route.objects.filter(visibility=True)
 
 
 class RouteUserListView(ListView):
@@ -43,7 +43,7 @@ class RouteUserListView(ListView):
     template_name = 'routes/list.html'
 
     def get_queryset(self):
-        return Route.objects.filter(user__user_account__id=self.request.user.id)
+        return Route.objects.filter(user__user_account__id=self.request.user.id, visibility=True)
 
 
 class RouteUserRecommendationsListView(ListView):

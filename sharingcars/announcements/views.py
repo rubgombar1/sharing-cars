@@ -4,6 +4,7 @@ from django.views.generic.list import ListView
 from django.db.models import Q
 from django.shortcuts import redirect
 from django.contrib.auth.decorators import login_required
+from django.views.generic.detail import DetailView
 
 from announcements.models import Announcement, ApplyAnnouncement
 from common.models import User
@@ -86,3 +87,9 @@ def resolve_apply(request, pk, action):
         return redirect(previous_url)
     else:
         return redirect('details-announcement', pk=apply_announcement.announcement.pk)
+
+
+class AnnouncementDetailsView(DetailView):
+    template_name = 'announcements/announcement/show.html'
+    model = Announcement
+    queryset = Announcement.objects.filter(visibility=True)

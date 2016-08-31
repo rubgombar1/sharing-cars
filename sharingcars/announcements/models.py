@@ -15,7 +15,7 @@ class Announcement(models.Model):
     destination = models.CharField(max_length=256, blank=False)
     description = models.TextField(blank=False)
     kind = models.CharField(max_length=64, choices=KINDS, blank=False)
-    visibility = models.BooleanField(default=True)
+    visibility = models.BooleanField(default=False)
     seating = models.IntegerField(validators=[MinValueValidator(0)],
                                   blank=False)
     unitPrice = models.DecimalField(max_digits=5, decimal_places=2,
@@ -28,6 +28,12 @@ class Announcement(models.Model):
 
     def __unicode__(self):
         return '%s - %s - %s' % (self.origin, self.destination, self.date)
+
+    def get_rating(self):
+        rating = 0
+        if self.commentannouncement_set.all():
+            rating = round(self.commentannouncement_set.all().aggregate(models.Sum('rating')).get('rating__sum', 0)/self.commentannouncement_set.all().count(), 1)
+        return rating
 
 
 class ApplyAnnouncement(models.Model):
