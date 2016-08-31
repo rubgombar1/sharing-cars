@@ -6,9 +6,10 @@ from django.contrib.messages.views import SuccessMessageMixin
 from django.views.generic.detail import DetailView
 from django.http import Http404
 from django.utils.translation import ugettext as _
+from django.views.generic.edit import UpdateView
 
 from common.models import User
-from common.forms import UserRegisterForm
+from common.forms import UserRegisterForm, UserBaseForm
 from routes.models import CommentRoute
 from announcements.models import CommentAnnouncement
 
@@ -47,3 +48,14 @@ class UserProfileView(DetailView):
         context['comments_routes'] = CommentRoute.objects.filter(route__user__user_account__pk=self.request.user.pk)
         context['comments_announcements'] = CommentAnnouncement.objects.filter(announcement__user__user_account__pk=self.request.user.pk)
         return context
+
+
+class UserUpdateView(SuccessMessageMixin, UpdateView):
+    model = User
+    form_class = UserBaseForm
+    template_name = 'common/registration/register.html'
+    success_url = reverse_lazy('index')
+    success_message = u"Has actualizado los datos de tu perfil correctamente"
+
+    def get_success_url(self):
+        return self.success_url.format()
