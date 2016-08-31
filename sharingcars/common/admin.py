@@ -1,5 +1,5 @@
 from django.contrib import admin
-from common.models import (Administrator, User, Comment)
+from common.models import (Administrator, User, Comment, Folder)
 
 # Register your models here.
 
@@ -16,6 +16,11 @@ class CommentAdmin(admin.ModelAdmin):
     pass
 
 
+class FolderAdmin(admin.ModelAdmin):
+    pass
+
+
 admin.site.register(Comment, CommentAdmin)
+admin.site.register(Folder, FolderAdmin)
 admin.site.register(Administrator, AdministratorAdmin)
 admin.site.register(User, UserAdmin)

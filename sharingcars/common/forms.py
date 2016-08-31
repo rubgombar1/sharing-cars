@@ -3,7 +3,7 @@ from datetime import date
 from django import forms
 from django.utils.translation import ugettext as _
 from django.contrib.auth.models import User as DjangoUser
-from common.models import User
+from common.models import User, Folder
 from django.core.validators import RegexValidator
 
 phone_regex = RegexValidator(regex=r'^\+?1?\d{9,15}$',
@@ -66,7 +66,11 @@ class UserRegisterForm(UserBaseForm):
                                                       email=self.data['email'],
                                                       password=self.data['password'])
         self.instance.user_account = user_account
-        super(UserBaseForm, self).save(commit)
+        instance = super(UserBaseForm, self).save(commit)
+        if commit:
+            Folder.objects.get_or_create(name=_('Bandeja de entrada'), actor=instance)
+            Folder.objects.get_or_create(name=_('Bandeja de salida'), actor=instance)
+            Folder.objects.get_or_create(name=_('Papelera'), actor=instance)
 
     def clean(self):
         password = self.cleaned_data['password']

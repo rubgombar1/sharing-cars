@@ -24,6 +24,6 @@ urlpatterns = [
         {'template_name': 'common/registration/login.html'}, name="login"),
     url(r'^logout/?$', 'django.contrib.auth.views.logout', {'next_page': '/'}, name="logout"),
     url(r'^user/register$', UserCreateView.as_view(), name='create-user'),
-    url(r'^user/(?P<pk>\d+)/$', UserProfileView.as_view(), name='user-profile'),
-    url(r'^user/(?P<pk>\d+)/update/', UserUpdateView.as_view(), name='user-update'),
+    url(r'^user/(?P<username>.*)/$', UserProfileView.as_view(), name='user-profile'),
+    url(r'^user/(?P<username>.*)/update/', UserUpdateView.as_view(), name='user-update'),
 ]

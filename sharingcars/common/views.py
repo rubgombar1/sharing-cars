@@ -35,9 +35,9 @@ class UserProfileView(DetailView):
     context_object_name = 'custom_user'
 
     def get_object(self, queryset=None):
-        user_account_pk = self.kwargs.get('pk')
+        username = self.kwargs.get('username')
         try:
-            obj = User.objects.get(user_account__pk=user_account_pk)
+            obj = User.objects.get(user_account__username=username)
         except queryset.model.DoesNotExist:
             raise Http404(_("No %(verbose_name)s found matching the query") %
                           {'verbose_name': User._meta.verbose_name})
@@ -56,6 +56,16 @@ class UserUpdateView(SuccessMessageMixin, UpdateView):
     template_name = 'common/registration/register.html'
     success_url = reverse_lazy('index')
     success_message = u"Has actualizado los datos de tu perfil correctamente"
+    context_object_name = 'custom_user'
 
     def get_success_url(self):
         return self.success_url.format()
+
+    def get_object(self, queryset=None):
+        username = self.kwargs.get('username')
+        try:
+            obj = User.objects.get(user_account__username=username)
+        except queryset.model.DoesNotExist:
+            raise Http404(_("No %(verbose_name)s found matching the query") %
+                          {'verbose_name': User._meta.verbose_name})
+        return obj

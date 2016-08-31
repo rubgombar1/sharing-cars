@@ -43,6 +43,7 @@ class User(Actor):
 
     def delete(self):
         self.user_account.delete()
+        self.folder_set.all().delete()
         return super(User, self).delete()
 
     def calculate_age(self):
@@ -80,6 +81,7 @@ class User(Actor):
                         Comment.objects.filter(evaluated=self).count() +
                         CommentAnnouncement.objects.filter(announcement__user=self).count())
         return rating_count
+
 
 class Comment(models.Model):
     subject = models.CharField(max_length=256, blank=False)

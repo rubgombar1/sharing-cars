@@ -57,7 +57,7 @@
                     <!-- Start Contact Info -->
                     <ul class="contact-details">
                         {% if user.is_authenticated %}
-                            <li><a href="{% url 'user-profile' user.pk %}"><i class="fa fa-user"></i> Conectado como {{ user.username }}</a>
+                            <li><a href="{% url 'user-profile' user.username %}"><i class="fa fa-user"></i> Conectado como {{ user.username }}</a>
                             </li>
                             <li><a href="{% url 'logout' %}"><i class="fa fa-sign-out"></i> Cerrar seci&oacute;n</a>
                             </li>

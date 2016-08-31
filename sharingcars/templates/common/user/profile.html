@@ -59,7 +59,7 @@
                       {% if custom_user.evaluated.all|length != 0%}
                         {% for comment in custom_user.evaluated.all %}
                             <div class="col-lg-12 padding-bottom-15 {% if forloop.counter|divisibleby:2 %}background-ccc{% else %}background-ddd{% endif %}">
-                                <a href="{% url 'user-profile' comment.referrer.user_account.pk %}">
+                                <a href="{% url 'user-profile' comment.referrer.user_account.username %}">
                                     <div class="col-lg-4">
                                         <div class="col-lg-4 padding-0">
                                             {% if comment.referrer.photo == 'default' %}
@@ -97,7 +97,7 @@
                       {% if comments_routes|length != 0%}
                         {% for comment in comments_routes %}
                             <div class="col-lg-12 padding-bottom-15 {% if forloop.counter|divisibleby:2 %}background-ccc{% else %}background-ddd{% endif %}">
-                                <a href="{% url 'user-profile' comment.user.user_account.pk %}">
+                                <a href="{% url 'user-profile' comment.user.user_account.username %}">
                                     <div class="col-lg-4">
                                         <div class="col-lg-4 padding-0">
                                             {% if comment.user.photo == 'default' %}
@@ -135,7 +135,7 @@
                       {% if comments_announcements|length != 0%}
                         {% for comment in comments_announcements %}
                             <div class="col-lg-12 padding-bottom-15 {% if forloop.counter|divisibleby:2 %}background-ccc{% else %}background-ddd{% endif %}">
-                                <a href="{% url 'user-profile' comment.user.user_account.pk %}">
+                                <a href="{% url 'user-profile' comment.user.user_account.username %}">
                                     <div class="col-lg-4">
                                         <div class="col-lg-4 padding-0">
                                             {% if comment.user.photo == 'default' %}
