@@ -38,7 +38,7 @@ class Announcement(models.Model):
 
 class ApplyAnnouncement(models.Model):
     creationDate = models.DateTimeField(auto_now_add=True)
-    comment = models.TextField(blank=False)
+    comment = models.TextField(blank=False, max_length=395)
     state = models.CharField(max_length=64, choices=APPLY_STATUS, default="waiting")
 
     announcement = models.ForeignKey(Announcement)

@@ -42,7 +42,7 @@ class ApplyRoute(models.Model):
 
 class CommentRoute(models.Model):
     subject = models.CharField(max_length=128, blank=False)
-    comment = models.TextField(blank=False)
+    comment = models.TextField(blank=False, max_length=395)
     rating = models.IntegerField(validators=[MinValueValidator(0),
                                  MaxValueValidator(10)])
     user = models.ForeignKey(User)
