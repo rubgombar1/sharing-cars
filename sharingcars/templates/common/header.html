@@ -115,9 +115,9 @@
                         <a href="#">Mensajes</a>
                         <ul class="dropdown">
                             <li><a href="{% url 'messages-send' %}">Mandar mensaje</a></li>
-                            <li><a href="{% url 'messages-income' %}">Bandeja de entrada</a></li>
-                            <li><a href="{% url 'messages-outcome' %}">Bandeja de salida</a></li>
-                            <li><a href="{% url 'messages-draft' %}">Papelera</a></li>
+                            <li><a href="{% url 'messages-details' 'income' %}">Bandeja de entrada</a></li>
+                            <li><a href="{% url 'messages-details' 'outcome' %}">Bandeja de salida</a></li>
+                            <li><a href="{% url 'messages-details' 'draft' %}">Papelera</a></li>
                         </ul>
                     </li>
                     <li>

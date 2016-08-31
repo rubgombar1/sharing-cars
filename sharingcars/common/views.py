@@ -95,3 +95,25 @@ class MessageCreateView(SuccessMessageMixin, CreateView):
 
     def get_success_message(self, cleaned_data):
         return 'Su mensaje a "%s" se ha enviado correctamente' % cleaned_data.get('recipient').user_account.username
+
+
+class MessageDetailsView(DetailView):
+    model = Message
+    template_name = 'common/message/show.html'
+
+    def get_object(self, queryset=None):
+        type = self.kwargs.get('type')
+        try:
+            user = User.objects.get(user_account__pk=self.request.user.id)
+            if type == 'income':
+                obj = user.folder_set.get(name='Bandeja de entrada')
+            elif type == 'outcome':
+                obj = user.folder_set.get(name='Bandeja de salida')
+            elif type == 'draft':
+                obj = user.folder_set.get(name='Papelera')
+            else:
+                raise Http404(_("No se ha encontrado la bandeja de mensajes"))
+        except queryset.model.DoesNotExist:
+            raise Http404(_("No %(verbose_name)s found matching the query") %
+                          {'verbose_name': User._meta.verbose_name})
+        return obj
