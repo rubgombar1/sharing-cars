@@ -5,10 +5,11 @@ from django.db.models import Q
 from django.shortcuts import redirect
 from django.contrib.auth.decorators import login_required
 from django.views.generic.detail import DetailView
+from django.views.generic.edit import UpdateView
 
 from announcements.models import Announcement, ApplyAnnouncement
 from common.models import User
-from announcements.forms import AnnouncementCreateForm
+from announcements.forms import AnnouncementCreateForm, ApplyAnnouncementCreateForm
 
 
 class AnnouncementCreateView(CreateView):
@@ -62,7 +63,7 @@ class ApplyAnnouncementsUser(ListView):
 class AnnouncementApplyCreate(CreateView):
     model = ApplyAnnouncement
     template_name = 'common/form.html'
-    fields = ['comment']
+    form_class = ApplyAnnouncementCreateForm
     success_url = reverse_lazy('index')
 
     def form_valid(self, form):
@@ -95,3 +96,13 @@ class AnnouncementDetailsView(DetailView):
 
     def get_queryset(self):
         return Announcement.objects.filter(Q(visibility=True) | Q(user__user_account__pk=self.request.user.pk))
+
+
+class EditAnnouncementView(UpdateView):
+    model = Announcement
+    template_name = 'announcements/announcement/create.html'
+    success_url = reverse_lazy('index')
+    form_class = AnnouncementCreateForm
+
+    def get_success_url(self):
+        return self.success_url.format()

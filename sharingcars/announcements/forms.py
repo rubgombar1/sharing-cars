@@ -4,7 +4,7 @@ from django.core.validators import MinValueValidator
 from django.utils.translation import ugettext as _
 
 from datetimewidget.widgets import DateTimeWidget
-from announcements.models import Announcement
+from announcements.models import Announcement, ApplyAnnouncement
 
 
 
@@ -12,8 +12,10 @@ class AnnouncementCreateForm(forms.ModelForm):
 
     class Meta:
         model = Announcement
-        exclude = ('visibility', 'creationMoment', 'user')
+        exclude = ('creationMoment', 'user')
 
+    visibility = forms.BooleanField(widget=forms.CheckboxInput(),
+                                    label=_('Visible'), required=False)
     origin = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control col-lg-6',
                                                            'placeholder': _('Origin')}),
                              max_length=256, label=_('Origin'), required=True)
@@ -35,3 +37,11 @@ class AnnouncementCreateForm(forms.ModelForm):
     description = forms.CharField(widget=forms.Textarea(attrs={'class': 'form-control col-lg-12',
                                                                'placeholder': _('Description')}),
                                   label=_('Description'), required=True)
+
+
+class ApplyAnnouncementCreateForm(forms.ModelForm):
+    comment = forms.CharField(widget=forms.Textarea(attrs={'class': 'form-control', 'placeholder': 'Escriba lo que quiera comunicarle al dueño del anuncio.'}), label="Comentario", required=True)
+
+    class Meta:
+        model = ApplyAnnouncement
+        fields = ('comment', )

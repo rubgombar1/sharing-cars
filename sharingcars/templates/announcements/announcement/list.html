@@ -64,6 +64,8 @@
                     <a href="{% url 'details-announcement' announcement.pk %}" class="btn btn-system btn-large">Ver m&aacute;s detalles</a>
                     {% if request.user.id != announcement.user.user_account.id and user.is_authenticated %}
                         <a href="{% url 'create-apply-announcement' announcement.pk %}" class="btn btn-system btn-large">Solicitar</a>
+                    {% else %}
+                        <a href="{% url 'edit-announcement' announcement.pk %}" class="btn btn-system btn-large">Editar</a>
                     {% endif %}
                 </div>
                 <div class="col-lg-12"><br></div>

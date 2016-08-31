@@ -1,7 +1,7 @@
 from django.conf.urls import url
 from announcements.views import (AnnouncementCreateView, AnnouncementListView, AnnouncementUserListView,
                                  ApplyAnnouncementsUser, AnnouncementApplyCreate, resolve_apply,
-                                 AnnouncementDetailsView)
+                                 AnnouncementDetailsView, EditAnnouncementView)
 
 urlpatterns = [
     url(r'^create$', AnnouncementCreateView.as_view(), name='create-announcement'),
@@ -12,4 +12,6 @@ urlpatterns = [
     url(r'^apply/resolve/(?P<pk>[-\w]+)/(?P<action>[-\w]+)$', resolve_apply, name='resolve-apply-announcement'),
     url(r'^details/(?P<pk>[-\w]+)$', AnnouncementDetailsView.as_view(),
         name='details-announcement'),
+    url(r'^edit/(?P<pk>[-\w]+)$', EditAnnouncementView.as_view(),
+            name='edit-announcement'),
 ]
