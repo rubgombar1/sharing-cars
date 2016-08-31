@@ -28,14 +28,18 @@ class RouteCreateView(CreateView):
 
 
 class RouteListView(ListView):
-    queryset = Route.objects.filter(visibility=True).order_by('-creationMoment')
     model = Route
     template_name = 'routes/list.html'
+
+    def get_queryset(self):
+        return Route.objects.filter(visibility=True).order_by('-creationMoment')
 
 
 class RouteDetailsView(DetailView):
     template_name = 'routes/show.html'
-    queryset = Route.objects.filter(visibility=True)
+
+    def get_queryset(self):
+        return Route.objects.filter(Q(visibility=True) | Q(user__user_account__pk=self.request.user.pk))
 
 
 class RouteUserListView(ListView):
@@ -43,7 +47,7 @@ class RouteUserListView(ListView):
     template_name = 'routes/list.html'
 
     def get_queryset(self):
-        return Route.objects.filter(user__user_account__id=self.request.user.id, visibility=True)
+        return Route.objects.filter(user__user_account__id=self.request.user.id)
 
 
 class RouteUserRecommendationsListView(ListView):

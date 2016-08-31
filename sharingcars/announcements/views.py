@@ -40,7 +40,7 @@ class AnnouncementUserListView(ListView):
     template_name = 'announcements/announcement/list.html'
 
     def get_queryset(self):
-        return Announcement.objects.filter(visibility=True, user__user_account__id=self.request.user.id)
+        return Announcement.objects.filter(user__user_account__id=self.request.user.id)
 
 
 class ApplyAnnouncementsUser(ListView):
@@ -92,4 +92,6 @@ def resolve_apply(request, pk, action):
 class AnnouncementDetailsView(DetailView):
     template_name = 'announcements/announcement/show.html'
     model = Announcement
-    queryset = Announcement.objects.filter(visibility=True)
+
+    def get_queryset(self):
+        return Announcement.objects.filter(Q(visibility=True) | Q(user__user_account__pk=self.request.user.pk))
