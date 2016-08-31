@@ -26,4 +26,7 @@ urlpatterns = [
     url(r'^user/register$', UserCreateView.as_view(), name='create-user'),
     url(r'^user/(?P<username>.*)/$', UserProfileView.as_view(), name='user-profile'),
     url(r'^user/(?P<username>.*)/update/', UserUpdateView.as_view(), name='user-update'),
+    url(r'^messages/income/$', UserUpdateView.as_view(), name='messages-income'),
+    url(r'^messages/outcome/$', UserUpdateView.as_view(), name='messages-outcome'),
+    url(r'^messages/draft/$', UserUpdateView.as_view(), name='messages-draft'),
 ]
