@@ -96,6 +96,9 @@ class Folder(models.Model):
     name = models.CharField(max_length=256, blank=False)
     actor = models.ForeignKey(Actor)
 
+    def __unicode__(self):
+        return '%s - %s' % (self.name, self.actor.user_account.username)
+
 
 class Message(models.Model):
     subject = models.CharField(max_length=256, blank=False)

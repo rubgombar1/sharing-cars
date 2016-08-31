@@ -199,3 +199,7 @@ h3{
 .dataTables_filter{
     float: right;
 }
+
+.fields{
+    min-height: 60px;
+}

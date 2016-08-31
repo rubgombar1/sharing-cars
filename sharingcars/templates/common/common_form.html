@@ -6,7 +6,7 @@
           {% if field.is_hidden %}
             {{ field }}
           {% else %}
-            <div class="col-lg-6">
+            <div class="col-lg-6 fields">
               {{ field.errors }}
               {{ field.label_tag }} {{field|required_field|safe}}
               {{ field }}

@@ -15,7 +15,7 @@ Including another URLconf
 """
 from django.conf.urls import url
 from django.views.generic import TemplateView
-from common.views import UserCreateView, UserProfileView, UserUpdateView
+from common.views import UserCreateView, UserProfileView, UserUpdateView, MessageCreateView
 
 urlpatterns = [
     url(r'^$', TemplateView.as_view(template_name='common/index.html'),
@@ -29,4 +29,5 @@ urlpatterns = [
     url(r'^messages/income/$', UserUpdateView.as_view(), name='messages-income'),
     url(r'^messages/outcome/$', UserUpdateView.as_view(), name='messages-outcome'),
     url(r'^messages/draft/$', UserUpdateView.as_view(), name='messages-draft'),
+    url(r'^messages/send/$', MessageCreateView.as_view(), name='messages-send'),
 ]

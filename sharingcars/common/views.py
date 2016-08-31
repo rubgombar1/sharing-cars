@@ -8,8 +8,8 @@ from django.http import Http404
 from django.utils.translation import ugettext as _
 from django.views.generic.edit import UpdateView
 
-from common.models import User
-from common.forms import UserRegisterForm, UserBaseForm
+from common.models import User, Message, Folder
+from common.forms import UserRegisterForm, UserBaseForm, MessageForm
 from routes.models import CommentRoute
 from announcements.models import CommentAnnouncement
 
@@ -69,3 +69,29 @@ class UserUpdateView(SuccessMessageMixin, UpdateView):
             raise Http404(_("No %(verbose_name)s found matching the query") %
                           {'verbose_name': User._meta.verbose_name})
         return obj
+
+
+class MessageCreateView(SuccessMessageMixin, CreateView):
+    model = User
+    form_class = MessageForm
+    template_name = 'common/message/create.html'
+    success_url = reverse_lazy('index')
+
+    def get_success_url(self):
+        return self.success_url.format()
+
+    def get_initial(self):
+        initial = super(MessageCreateView, self).get_initial()
+        initial['user'] = self.request.user
+        return initial
+
+    def form_valid(self, form):
+        instance = form.save(commit=False)
+        sender = User.objects.get(user_account__id=self.request.user.id)
+        folder = sender.folder_set.get(name="Bandeja de salida")
+        instance.sender = sender
+        instance.folder = folder
+        return super(MessageCreateView, self).form_valid(form)
+
+    def get_success_message(self, cleaned_data):
+        return 'Su mensaje a "%s" se ha enviado correctamente' % cleaned_data.get('recipient').user_account.username

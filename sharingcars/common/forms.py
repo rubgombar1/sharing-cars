@@ -3,7 +3,7 @@ from datetime import date
 from django import forms
 from django.utils.translation import ugettext as _
 from django.contrib.auth.models import User as DjangoUser
-from common.models import User, Folder
+from common.models import User, Folder, Message, Actor
 from django.core.validators import RegexValidator
 
 phone_regex = RegexValidator(regex=r'^\+?1?\d{9,15}$',
@@ -84,3 +84,38 @@ class UserRegisterForm(UserBaseForm):
 
         if DjangoUser.objects.filter(email = self.cleaned_data['email']).exists():
             self.add_error('email', "Ya existe un usuario con ese email")
+
+
+class MessageForm(forms.ModelForm):
+
+    subject = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control',
+                                                  'placeholder': _('Asunto')}),
+                           max_length=128, label=_('Asunto'), required=True)
+    recipient = forms.ModelChoiceField(widget=forms.Select(attrs={'class': 'form-control select-2'}),
+                                  label=_('Receptor'), required=True, queryset=Actor.objects.none())
+    body = forms.CharField(widget=forms.Textarea(attrs={'class': 'form-control',
+                                                        'placeholder': _('Mensaje')}),
+                                  label=_('Mensaje'), required=True)
+
+
+
+    class Meta:
+        model = Message
+        exclude = ('folder', 'creationMoment', 'sender')
+        fields = ['subject', 'recipient', 'body']
+
+    def __init__(self, *args, **kwargs):
+        super(MessageForm, self).__init__(*args, **kwargs)
+        user = kwargs['initial'].pop('user')
+        self.fields['recipient'].queryset = Actor.objects.all().exclude(user_account__pk=user.pk)
+        self.fields['recipient'].choices = ((x.pk, x.user_account.username) for x in Actor.objects.all().exclude(user_account__pk=user.pk))
+
+    def save(self, commit=True):
+        instance = super(MessageForm, self).save(commit)
+        if commit:
+            clone_message = instance
+            clone_message.pk = None
+            folder = instance.recipient.folder_set.get(name="Bandeja de entrada")
+            clone_message.folder = folder
+            clone_message.save()
+        return instance
