@@ -7,6 +7,7 @@ from django.views.generic.detail import DetailView
 from django.http import Http404
 from django.utils.translation import ugettext as _
 from django.views.generic.edit import UpdateView
+from django.http import HttpResponse
 
 from common.models import User, Message, Folder
 from common.forms import UserRegisterForm, UserBaseForm, MessageForm
@@ -72,7 +73,7 @@ class UserUpdateView(SuccessMessageMixin, UpdateView):
 
 
 class MessageCreateView(SuccessMessageMixin, CreateView):
-    model = User
+    model = Message
     form_class = MessageForm
     template_name = 'common/message/create.html'
     success_url = reverse_lazy('index')
@@ -97,7 +98,7 @@ class MessageCreateView(SuccessMessageMixin, CreateView):
         return 'Su mensaje a "%s" se ha enviado correctamente' % cleaned_data.get('recipient').user_account.username
 
 
-class MessageDetailsView(DetailView):
+class FolderDetailsView(DetailView):
     model = Message
     template_name = 'common/message/show.html'
 
@@ -112,8 +113,56 @@ class MessageDetailsView(DetailView):
             elif type == 'draft':
                 obj = user.folder_set.get(name='Papelera')
             else:
-                raise Http404(_("No se ha encontrado la bandeja de mensajes"))
+                raise Http404(_("No se ha encontrado la bandeja de mensajes que busca"))
         except queryset.model.DoesNotExist:
             raise Http404(_("No %(verbose_name)s found matching the query") %
                           {'verbose_name': User._meta.verbose_name})
         return obj
+
+    def get_context_data(self, **kwargs):
+        context = super(FolderDetailsView, self).get_context_data(**kwargs)
+        context['type'] = self.kwargs.get('type')
+        return context
+
+
+class MessageDetailsView(FolderDetailsView):
+
+    def get_context_data(self, **kwargs):
+        context = super(MessageDetailsView, self).get_context_data(**kwargs)
+        message = self.object.message_set.get(pk=self.kwargs.get('pk', 0))
+        message.open = True
+        message.save()
+        context['message_see'] = message
+        return context
+
+
+def ajax_delete_message(request, pk):
+    result = Message.objects.filter(pk=pk)
+    if request.is_ajax() and result:
+        message = result[0]
+        user = User.objects.get(user_account__pk=request.user.pk)
+        message.folder =user.folder_set.get(name='Papelera')
+        message.save()
+        return HttpResponse(reverse_lazy('messages-see', kwargs={'type': 'draft', 'pk': pk}))
+    else:
+        return HttpResponse('Error')
+
+
+def ajax_hide_message(request, pk, type):
+    result = Message.objects.filter(pk=pk)
+    if request.is_ajax() and result:
+        message = result[0]
+        message.open = False
+        message.save()
+        return HttpResponse(reverse_lazy('messages-details', kwargs={'type': type }))
+    else:
+        return HttpResponse('Error')
+
+
+class ReplyMessageView(MessageCreateView):
+
+    def get_initial(self):
+        initial = super(ReplyMessageView, self).get_initial()
+        initial['user'] = self.request.user
+        initial['sender_id'] = Message.objects.get(pk=self.kwargs.get('pk', 0)).sender.pk
+        return initial

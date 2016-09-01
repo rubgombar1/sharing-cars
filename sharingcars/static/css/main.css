@@ -203,3 +203,31 @@ h3{
 .fields{
     min-height: 60px;
 }
+
+.message-list{
+    border-style: solid;
+    border-width: 2px;
+}
+
+.padding-15{
+    padding: 15px;
+}
+
+.message{
+    border-bottom-style: solid;
+    border-bottom-width: 2px;
+}
+
+.message-list a{
+    color: #666;
+    border-bottom-color: #666;
+}
+
+.message-item:hover {
+    background-color: #ccc;
+}
+
+.envelope{
+    position: absolute;
+    right: 15px;
+}

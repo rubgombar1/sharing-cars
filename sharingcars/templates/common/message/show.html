@@ -6,11 +6,97 @@
     <div class="container">
         <div class="row">
             <div class="col-lg-10 col-lg-offset-1">
-                <h2 class="text-center margin-top-35">Mandar mensaje</h2>
+                <h2 class="text-center margin-top-35">
+                    {% if type == 'income' %}
+                        Bandeja de Entrada
+                    {% elif type == 'outcome' %}
+                        Bandeja de Salida
+                    {% elif type == 'draft' %}
+                        Papelera
+                    {% endif %}
+                </h2>
+                {% if folder.message_set.all %}
+                <div class="col-lg-12 padding-0 folder-details">
+                    <div class="col-lg-3 message-list padding-0">
+                        {% for message in folder.message_set.all %}
+                            <a href="{% url 'messages-see' type message.pk %}">
+                                <div class="col-lg-12 padding-15 message-item {% if not forloop.last %}message{% endif %} {% if message.open %}background-ddd{% endif %}">
+                                    {% if not message.open %}
+                                        <i class="fa fa-envelope envelope"></i>
+                                    {% else %}
+                                        <i class="fa fa-envelope-o envelope"></i>
+                                    {% endif %}
+                                    <div class="col-lg-12 padding-0">
+                                        <strong>Asunto: </strong> {{message.subject|truncatechars:22}}
+                                    </div>
+                                    <div class="col-lg-12 padding-0">
+                                        <strong>Usuario: </strong> {{message.sender.user_account}}
+                                    </div>
+                                    <div class="col-lg-12 padding-0">
+                                        <strong>Fecha: </strong> {{message.creationMoment|date:"d/m/y H:i"}}
+                                    </div>
+                                </div>
+                            </a>
+                        {% endfor %}
+                    </div>
+                    <div class="col-lg-9 padding-15">
+                        {% if message_see %}
+                            <h3 class="text-center">{{ message_see.subject }}
+                                {% if type != 'draft' %}
+                                    <a class="delete-message" href="{% url 'messages-delete' message_see.pk%}"><i title="Mandar a la papelera" class="fa fa-trash"></i></a>
+                                {% endif %}
+                                <a class="mark-as-not-see" href="{% url 'messages-mark-not-see' message_see.pk type %}" title="Marcar como no le&iacute;do"><i class="fa fa-eye-slash"></i></a>
+                            </h3>
 
+
+                            <div class="col-lg-12">
+                                {{ message_see.body }}
+                            </div>
+                            {% if message_see.sender.user_account.pk != user.pk%}
+                                <div class="col-lg-12 text-center margin-top-20">
+                                    <a href="{% url 'messages-reply' message_see.pk%}" class="btn btn-system btn-large">Responder</a>
+                                </div>
+                            {% endif %}
+                        {% endif %}
+                    </div>
+                </div>
+                {% else %}
+                    <h3 class="text-center margin-top-35 text-danger">
+                        {% if type == 'income' %}
+                            No hay mensajes en su bandeja de entrada
+                        {% elif type == 'outcome' %}
+                            No hay mensajes en su bandeja de salida
+                        {% elif type == 'draft' %}
+                            No hay mensajes en su papelera
+                        {% endif %}
+                    </h3>
+                {% endif %}
             </div>
         </div>
     </div>
 </div>
-
+<script>
+    $(document).ready(function () {
+        $('.delete-message').on('click', function (event) {
+            event.preventDefault();
+            $.ajax({
+                    url:   $('.delete-message').attr('href'),
+                    type:  'get',
+                    success:  function (response) {
+                        $( location ).attr("href", response);
+                    }
+            });
+        });
+        $('.mark-as-not-see').on('click', function (event) {
+            event.preventDefault();
+            $.ajax({
+                    url:   $('.mark-as-not-see').attr('href'),
+                    type:  'get',
+                    success:  function (response) {
+                        $( location ).attr("href", response);
+                    }
+            });
+        });
+    });
+</script>
 {% endblock %}

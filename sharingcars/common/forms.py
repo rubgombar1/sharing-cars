@@ -107,8 +107,11 @@ class MessageForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super(MessageForm, self).__init__(*args, **kwargs)
         user = kwargs['initial'].pop('user')
+        sender_id = kwargs['initial'].pop('sender_id', None)
         self.fields['recipient'].queryset = Actor.objects.all().exclude(user_account__pk=user.pk)
         self.fields['recipient'].choices = ((x.pk, x.user_account.username) for x in Actor.objects.all().exclude(user_account__pk=user.pk))
+        if sender_id:
+            self.fields['recipient'].initial = sender_id
 
     def save(self, commit=True):
         instance = super(MessageForm, self).save(commit)

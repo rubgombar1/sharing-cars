@@ -104,6 +104,10 @@ class Message(models.Model):
     subject = models.CharField(max_length=256, blank=False)
     body = models.TextField(max_length=256, blank=False)
     creationMoment = models.DateTimeField(auto_now=False, auto_now_add=True)
+    open = models.BooleanField(default=False)
     folder = models.ForeignKey(Folder)
     sender = models.ForeignKey(Actor, related_name='sender')
     recipient = models.ForeignKey(Actor, related_name='recipient')
+
+    class Meta:
+        ordering = ('-creationMoment',)

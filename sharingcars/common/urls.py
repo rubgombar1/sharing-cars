@@ -15,7 +15,8 @@ Including another URLconf
 """
 from django.conf.urls import url
 from django.views.generic import TemplateView
-from common.views import UserCreateView, UserProfileView, UserUpdateView, MessageCreateView, MessageDetailsView
+from common.views import (UserCreateView, UserProfileView, UserUpdateView, MessageCreateView, MessageDetailsView,
+                          FolderDetailsView, ajax_delete_message, ajax_hide_message, ReplyMessageView)
 
 urlpatterns = [
     url(r'^$', TemplateView.as_view(template_name='common/index.html'),
@@ -26,6 +27,12 @@ urlpatterns = [
     url(r'^user/register$', UserCreateView.as_view(), name='create-user'),
     url(r'^user/(?P<username>.*)/$', UserProfileView.as_view(), name='user-profile'),
     url(r'^user/(?P<username>.*)/update/', UserUpdateView.as_view(), name='user-update'),
-    url(r'^messages/(?P<type>[-\w]+)/$', MessageDetailsView.as_view(), name='messages-details'),
     url(r'^messages/send/$', MessageCreateView.as_view(), name='messages-send'),
+    url(r'^messages/delete/(?P<pk>[-\d]+)$', ajax_delete_message, name='messages-delete'),
+    url(r'^messages/reply/(?P<pk>[-\d]+)$', ReplyMessageView.as_view(), name='messages-reply'),
+    url(r'^messages/hide/(?P<pk>[-\d]+)/(?P<type>[-\w]+)$', ajax_hide_message, name='messages-mark-not-see'),
+    url(r'^messages/(?P<type>[-\w]+)/$', FolderDetailsView.as_view(), name='messages-details'),
+    url(r'^messages/(?P<type>[-\w]+)/(?P<pk>[-\w]+)$', MessageDetailsView.as_view(), name='messages-see'),
+
+
 ]
