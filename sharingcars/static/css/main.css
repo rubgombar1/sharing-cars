@@ -86,6 +86,15 @@ ul.social-list {
     background-color: #cccccc;
 }
 
+.messages .error{
+    background-color: rgba(206, 0, 11, 0.46);
+    opacity: 0.6;
+    margin-bottom: 0;
+    padding: 10px;
+    color: #111111;
+    font-size: 16px;
+}
+
 .color-orange{
     color: #ee3733;
 }

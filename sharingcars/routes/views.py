@@ -7,6 +7,7 @@ from django.db.models import Q
 from django.contrib.auth.decorators import login_required
 from django.views.generic.edit import UpdateView
 from django.views.generic import DeleteView
+from django.contrib import messages
 
 from routes.models import Route, ApplyRoute, StopRoute
 from common.models import User
@@ -123,12 +124,33 @@ class RouteApplyCreate(CreateView):
         instance.route = route
         return super(RouteApplyCreate, self).form_valid(form)
 
+    def dispatch(self, request, *args, **kwargs):
+        dispatch = super(RouteApplyCreate, self).dispatch(request, *args, **kwargs)
+        user = User.objects.get(user_account__id=self.request.user.id)
+        route = Route.objects.get(pk=self.kwargs['pk'])
+        if route.applyroute_set.filter(user=user).exists():
+            previous_url = self.request.META.get('HTTP_REFERER', None)
+            messages.add_message(self.request, messages.ERROR,
+                                 'Ya tiene una solicitud para esta ruta')
+
+            if previous_url:
+                return redirect(previous_url)
+            else:
+                return redirect('all-routes')
+        else:
+            return dispatch
+
 
 @login_required
 def resolve_apply(request, pk, action):
     apply_route = ApplyRoute.objects.get(pk=pk)
     if action == 'approach':
-        apply_route.state = 'approach'
+        if apply_route.route.get_seats_free() > 0:
+            apply_route.state = 'approach'
+        else:
+            previous_url = request.META.get('HTTP_REFERER', None)
+            messages.add_message(request, messages.ERROR, 'No puede aceptar esta solicitud porque no hay asientos libres')
+            return redirect(previous_url)
     elif action == 'reject':
         apply_route.state = 'rejected'
     apply_route.save()

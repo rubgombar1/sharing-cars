@@ -39,6 +39,9 @@ class Announcement(models.Model):
         if self.seating == self.applyannouncement_set.filter(state='approach').count():
             self.applyannouncement_set.filter(state='waiting').update(state='rejected')
 
+    def get_seats_free(self):
+        return self.seating - self.applyannouncement_set.filter(state='approach').count()
+
 
 class ApplyAnnouncement(models.Model):
     creationDate = models.DateTimeField(auto_now_add=True)

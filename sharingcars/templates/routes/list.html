@@ -140,7 +140,9 @@
                 <div class="col-lg-12 text-center"><a href="{% url 'details-route' route.id %}" class="btn btn-system btn-large">Ver
                     m&aacute;s detalles</a>
                     {% if request.user.id != route.user.user_account.id and user.is_authenticated %}
-                    <a href="{% url 'create-apply-route' route.id %}" class="btn btn-system btn-large">Solicitar</a>
+                        {% if route.get_seats_free > 0 %}
+                            <a href="{% url 'create-apply-route' route.id %}" class="btn btn-system btn-large">Solicitar</a>
+                        {% endif %}
                     {% else %}
                         <a href="{% url 'edit-route' route.pk %}" class="btn btn-system btn-large">Editar</a>
                         <a href="{% url 'stop-route-create' route.pk %}" class="btn btn-system btn-large">A&ntilde;adir parada</a>

@@ -6,6 +6,7 @@ from django.db.models import Q
 from django.shortcuts import redirect
 from django.contrib.auth.decorators import login_required
 from django.views.generic.detail import DetailView
+from django.contrib import messages
 from django.views.generic.edit import UpdateView
 
 from announcements.models import Announcement, ApplyAnnouncement, StopAnnouncement
@@ -76,12 +77,32 @@ class AnnouncementApplyCreate(CreateView):
         instance.announcement = announcement
         return super(AnnouncementApplyCreate, self).form_valid(form)
 
+    def dispatch(self, request, *args, **kwargs):
+        dispatch = super(AnnouncementApplyCreate, self).dispatch(request, *args, **kwargs)
+        user = User.objects.get(user_account__id=self.request.user.id)
+        announcement = Announcement.objects.get(pk=self.kwargs['pk'])
+        if announcement.applyannouncement_set.filter(user=user).exists():
+            previous_url = self.request.META.get('HTTP_REFERER', None)
+            messages.add_message(self.request, messages.ERROR,
+                                 'Ya tiene una solicitud para este anuncio')
+
+            if previous_url:
+                return redirect(previous_url)
+            else:
+                return redirect('announcement-all')
+        else:
+            return dispatch
 
 @login_required
 def resolve_apply(request, pk, action):
     apply_announcement = ApplyAnnouncement.objects.get(pk=pk)
     if action == 'approach':
-        apply_announcement.state = 'approach'
+        if apply_announcement.announcement.get_seats_free() > 0:
+            apply_announcement.state = 'approach'
+        else:
+            previous_url = request.META.get('HTTP_REFERER', None)
+            messages.add_message(request, messages.ERROR, 'No puede aceptar esta solicitud porque no hay asientos libres')
+            return redirect(previous_url)
     elif action == 'reject':
         apply_announcement.state = 'rejected'
     apply_announcement.save()

@@ -34,6 +34,9 @@ class Route(models.Model):
         if self.seating == self.applyroute_set.filter(state='approach').count():
             self.applyroute_set.filter(state='waiting').update(state='rejected')
 
+    def get_seats_free(self):
+        return self.seating - self.applyroute_set.filter(state='approach').count()
+
 
 class ApplyRoute(models.Model):
     creationDate = models.DateTimeField(auto_now_add=True)
