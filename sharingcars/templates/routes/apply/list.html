@@ -1,0 +1,110 @@
+{% extends 'common/master-page/master-page.html' %}
+{% block title %} SharingCars {% endblock %}
+{% block contents %}{% load staticfiles %}
+<div id="content">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-10 col-md-offset-1">
+                <h2 class="text-center">{{ title }}</h2>
+                <br>
+                <table class="table table-responsive" id="id_table_apply">
+                    <thead>
+                    <tr>
+                        <th class="text-center">{{ kind_apply }}</th>
+                        <th class="text-center">Usuario</th>
+                        <th class="text-center">Origen</th>
+                        <th class="text-center">Destino</th>
+                        <th class="text-center">Estado</th>
+                        {% if received %}
+                            <th class="text-center" data-sortable="false">Aprobar</th>
+                            <th class="text-center" data-sortable="false">Rechazar</th>
+                        {% else %}
+                            <th class="text-center" data-sortable="false">Borrar</th>
+                        {% endif %}
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for apply in object_list %}
+                    <tr id="apply-{{apply.pk}}">
+                        <td class="text-center">
+                            <a href="">
+                                Ir al anuncio
+                            </a>
+                        </td>
+                        <td class="text-center"><a href="#">{{ apply.user.user_account }}</a></td>
+                        <td class="text-center">{{ apply.route.origin|truncatechars:20 }}</td>
+                        <td class="text-center">{{ apply.route.destination }}</td>
+                        <td class="text-center">{{ apply.get_state_display }}</td>
+
+                        <td class="text-center">
+                            {% if received %}
+                                    {% if apply.state != 'approach' %}
+                                        <a href="{% url 'resolve-apply-route' apply.pk 'approach'%}">
+                                            <i class="fa fa-check text-success"></i>
+                                        </a>
+                                    {% endif %}
+                                </td>
+                                <td class="text-center">
+                                    {% if apply.state != 'rejected' %}
+                                        <a href="{% url 'resolve-apply-route' apply.pk 'reject'%}">
+                                            <i class="fa fa-times text-danger"></i>
+                                        </a>
+                                    {% endif %}
+                            {% else %}
+                            {% if apply.state != 'approach' %}
+                                <a class="delete-apply" data-pk='{{apply.id}}' href="{% url 'remove-apply-route' apply.pk %}">
+                                    <i class="fa fa-trash"></i>
+                                </a>
+                            {% endif %}
+                        {% endif %}
+                        </td>
+
+                    </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    $(document).ready(function() {
+        $('#id_table_apply').DataTable({
+            "order": [[ 0, "asc" ]],
+            "language": {
+                "url": "//cdn.datatables.net/plug-ins/1.10.12/i18n/Spanish.json"
+            }
+        });
+        function getCookie(name) {
+            var cookieValue = null;
+            if (document.cookie && document.cookie != '') {
+                var cookies = document.cookie.split(';');
+                for (var i = 0; i < cookies.length; i++) {
+                    var cookie = jQuery.trim(cookies[i]);
+                    // Does this cookie string begin with the name we want?
+                    if (cookie.substring(0, name.length + 1) == (name + '=')) {
+                        cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                        break;
+                    }
+                }
+            }
+            return cookieValue;
+        }
+        $('.delete-apply').on('click', function (event) {
+            event.preventDefault();
+            var csrftoken = getCookie('csrftoken');
+            apply_id = this.attributes['data-pk'].value;
+            if (confirm('\u00BFEst\u00e1 seguro que desea borrar esta solicitud?')) {
+                $.ajax({
+                        url: this.href,
+                        type:  'POST',
+                        data: {csrfmiddlewaretoken: csrftoken},
+                        success:  function (response) {
+                            $('#apply-' + apply_id).remove()
+                        }
+                });
+            }
+        });
+    });
+</script>
+{% endblock %}}

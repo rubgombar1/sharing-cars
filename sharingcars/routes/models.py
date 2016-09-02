@@ -30,6 +30,10 @@ class Route(models.Model):
             rating = round(self.commentroute_set.all().aggregate(models.Sum('rating')).get('rating__sum', 0)/self.commentroute_set.all().count(), 1)
         return rating
 
+    def check_applies(self):
+        if self.seating == self.applyroute_set.filter(state='approach').count():
+            self.applyroute_set.filter(state='waiting').update(state='rejected')
+
 
 class ApplyRoute(models.Model):
     creationDate = models.DateTimeField(auto_now_add=True)

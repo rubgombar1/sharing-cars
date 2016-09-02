@@ -1,6 +1,7 @@
 from django.views.generic.edit import CreateView
 from django.core.urlresolvers import reverse_lazy
 from django.views.generic.list import ListView
+from django.views.generic import DeleteView
 from django.db.models import Q
 from django.shortcuts import redirect
 from django.contrib.auth.decorators import login_required
@@ -44,18 +45,19 @@ class AnnouncementUserListView(ListView):
         return Announcement.objects.filter(user__user_account__id=self.request.user.id)
 
 
-class ApplyAnnouncementsUser(ListView):
+class ApplyAnnouncementsReceivedUser(ListView):
     model = ApplyAnnouncement
-    template_name = 'common/apply/list.html'
+    template_name = 'announcements/apply/list.html'
 
     def get_queryset(self):
         return ApplyAnnouncement.objects.filter(~Q(state='rejected'),
                                                 announcement__user__user_account__id=self.request.user.id)
 
     def get_context_data(self, **kwargs):
-        context = super(ApplyAnnouncementsUser, self).get_context_data(**kwargs)
+        context = super(ApplyAnnouncementsReceivedUser, self).get_context_data(**kwargs)
         context['title'] = u'Solicitudes de anuncios recibidas'
         context['kind_apply'] = u'Ir al anuncio'
+        context['received'] = True
         return context
 
 
@@ -83,6 +85,7 @@ def resolve_apply(request, pk, action):
     elif action == 'reject':
         apply_announcement.state = 'rejected'
     apply_announcement.save()
+    apply_announcement.announcement.check_applies()
     previous_url = request.META.get('HTTP_REFERER', None)
     if previous_url:
         return redirect(previous_url)
@@ -132,3 +135,26 @@ class StopAnnouncementUpdateView(UpdateView):
 
     def get_success_url(self):
         return self.success_url.format()
+
+
+class ApplyAnnouncementsPerformedUser(ListView):
+    model = ApplyAnnouncement
+    template_name = 'announcements/apply/list.html'
+
+    def get_queryset(self):
+        return ApplyAnnouncement.objects.filter(user__user_account__id=self.request.user.id)
+
+    def get_context_data(self, **kwargs):
+        context = super(ApplyAnnouncementsPerformedUser, self).get_context_data(**kwargs)
+        context['title'] = u'Solicitudes de anuncios realizadas'
+        context['kind_apply'] = u'Ir al anuncio'
+        return context
+
+
+class AnnouncementApplyDelete(DeleteView):
+    model = ApplyAnnouncement
+    success_url = reverse_lazy('index')
+
+    def get_queryset(self):
+        qs = super(AnnouncementApplyDelete, self).get_queryset()
+        return qs.filter(~Q(state='approach'), user__user_account=self.request.user)

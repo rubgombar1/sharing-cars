@@ -123,7 +123,10 @@
                     <li>
                         <a href="#">Solicitudes</a>
                         <ul class="dropdown">
-                             <li><a href="{% url 'apply-announcement-user-received' %}">Recibidas</a></li>
+                            <li><a href="{% url 'apply-announcement-user-received' %}">Recibidas (Anuncios)</a></li>
+                            <li><a href="{% url 'apply-route-user-received' %}">Recibidas (Rutas)</a></li>
+                            <li><a href="{% url 'apply-announcement-user-performed' %}">Realizadas (Anuncios)</a></li>
+                            <li><a href="{% url 'apply-route-user-performed' %}">Realizadas (Rutas)</a></li>
                         </ul>
                     </li>
                     <li><a href="#">Contacto</a></li>

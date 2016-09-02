@@ -35,6 +35,10 @@ class Announcement(models.Model):
             rating = round(self.commentannouncement_set.all().aggregate(models.Sum('rating')).get('rating__sum', 0)/self.commentannouncement_set.all().count(), 1)
         return rating
 
+    def check_applies(self):
+        if self.seating == self.applyannouncement_set.filter(state='approach').count():
+            self.applyannouncement_set.filter(state='waiting').update(state='rejected')
+
 
 class ApplyAnnouncement(models.Model):
     creationDate = models.DateTimeField(auto_now_add=True)

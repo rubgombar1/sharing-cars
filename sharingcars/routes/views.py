@@ -6,6 +6,7 @@ from django.shortcuts import redirect
 from django.db.models import Q
 from django.contrib.auth.decorators import login_required
 from django.views.generic.edit import UpdateView
+from django.views.generic import DeleteView
 
 from routes.models import Route, ApplyRoute, StopRoute
 from common.models import User
@@ -131,6 +132,7 @@ def resolve_apply(request, pk, action):
     elif action == 'reject':
         apply_route.state = 'rejected'
     apply_route.save()
+    apply_route.route.check_applies()
     previous_url = request.META.get('HTTP_REFERER', None)
     if previous_url:
         return redirect(previous_url)
@@ -162,3 +164,42 @@ class StopRouteUpdateView(UpdateView):
 
     def get_success_url(self):
         return self.success_url.format()
+
+
+class ApplyRouteReceivedUser(ListView):
+    model = ApplyRoute
+    template_name = 'routes/apply/list.html'
+
+    def get_queryset(self):
+        return ApplyRoute.objects.filter(~Q(state='rejected'),
+                                         route__user__user_account__id=self.request.user.id)
+
+    def get_context_data(self, **kwargs):
+        context = super(ApplyRouteReceivedUser, self).get_context_data(**kwargs)
+        context['title'] = u'Solicitudes de rutas recibidas'
+        context['kind_apply'] = u'Ir a la ruta'
+        context['received'] = True
+        return context
+
+
+class ApplyRoutePerformedUser(ListView):
+    model = ApplyRoute
+    template_name = 'routes/apply/list.html'
+
+    def get_queryset(self):
+        return ApplyRoute.objects.filter(user__user_account__id=self.request.user.id)
+
+    def get_context_data(self, **kwargs):
+        context = super(ApplyRoutePerformedUser, self).get_context_data(**kwargs)
+        context['title'] = u'Solicitudes de rutas realizadas'
+        context['kind_apply'] = u'Ir a la ruta'
+        return context
+
+
+class RouteApplyDelete(DeleteView):
+    model = ApplyRoute
+    success_url = reverse_lazy('index')
+
+    def get_queryset(self):
+        qs = super(RouteApplyDelete, self).get_queryset()
+        return qs.filter(~Q(state='approach'), user__user_account=self.request.user)
