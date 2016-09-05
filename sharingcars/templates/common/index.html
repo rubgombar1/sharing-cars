@@ -22,12 +22,12 @@
             <div class="slider-content">
               <div class="col-md-12 text-center">
                 <h2 class="animated2">
-              <span>Welcome to <strong>Margo</strong></span>
+              <span>&#161;Bienvenido a <strong>Sharing cars!</strong></span>
           </h2>
                 <h3 class="animated3">
-           <span>The ultimate aim of your business</span>
+           <span>Aqu&iacute; podr&aacute; encontrar rutas para compartir coche</span>
        </h3>
-                <p class="animated4"><a href="#" class="slider btn btn-system btn-large">Check Now</a></p>
+                <p class="animated4"><a href="{% url 'all-routes' %}" class="slider btn btn-system btn-large">Ver rutas disponibles</a></p>
               </div>
             </div>
           </div>
@@ -37,12 +37,12 @@
             <div class="slider-content">
               <div class="col-md-12 text-center">
                 <h2 class="animated4">
-        <span><strong>Margo</strong> for the highest</span>
+        <span><strong>Sharing Cars</strong> para ahorrar</span>
     </h2>
                 <h3 class="animated5">
-     <span>The Key of your Success</span>
+     <span>Si piensa en hacer un viaje, busque en nuestros anuncios</span>
  </h3>
-                <p class="animated6"><a href="#" class="slider btn btn-system btn-large">Buy Now</a></p>
+                <p class="animated6"><a href="{% url 'announcement-all' %}" class="slider btn btn-system btn-large">Ver anuncios</a></p>
               </div>
             </div>
           </div>
@@ -51,14 +51,14 @@
             <img class="img-responsive slider-img">
             <div class="slider-content">
               <div class="col-md-12 text-center">
-                <h2 class="animated7 white">
-        <span>The way of <strong>Success</strong></span>
+                <h2 class="animated7 color-black">
+        <strong>Si usted tiene coche <strong></strong></strong>
     </h2>
-                <h3 class="animated8 white">
-     <span>Why you are waiting</span>
+                <h3 class="animated8 color-orange">
+     <span class="black">No lo piense m&aacute;s y proponga sus propias rutas o anuncios</span>
  </h3>
-                <div class="">
-                  <a class="animated4 slider btn btn-system btn-large btn-min-block" href="#">Get Now</a><a class="animated4 slider btn btn-default btn-min-block" href="#">Live Demo</a>
+                <div class="buttons-slide">
+                  <a class="animated4 slider btn btn-system btn-large btn-min-block" href="{% url 'create-announcement' %}">Crear anuncio</a><a class="animated4 slider btn btn-default btn-min-block" href="{% url 'create-route' %}">Crear ruta</a>
                 </div>
               </div>
             </div>
@@ -89,11 +89,15 @@
           <div class="col-md-3 col-sm-6 service-box service-center">
             <div class="service-boxed">
               <div class="service-icon" style="margin-top:-25px;">
-                <i class="fa fa-magic icon-medium-effect icon-effect-2"></i>
+                <i class="fa fa-user icon-medium-effect icon-effect-2"></i>
               </div>
               <div class="service-content">
-                <h4>High Quality Theme</h4>
-                <p>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Lorem Ipsum is simply dummy text of the printing.</p>
+                <h4>Como usuario sin veh&iacute;culo...</h4>
+                <p class="text-justify">
+                  Si est&aacute;s planeando realizar un viaje:
+                  Podr&aacute; buscar y encontrar veh&iacute;culo para compartir y ahorra un dinero considerado adem&aacute;s
+                  del tiempo que se ahorrar&iacute;a al no usar transporte p&uacute;blico.
+                </p>
               </div>
             </div>
           </div>
@@ -103,11 +107,14 @@
           <div class="col-md-3 col-sm-6 service-box service-center">
             <div class="service-boxed">
               <div class="service-icon" style="margin-top:-25px;">
-                <i class="fa fa-eye icon-medium-effect icon-effect-2"></i>
+                <i class="fa fa-road icon-medium-effect icon-effect-2"></i>
               </div>
               <div class="service-content">
-                <h4>Retina Display Ready</h4>
-                <p>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Lorem Ipsum is simply dummy text of the printing.</p>
+                <h4>&iquest;Hace viajes rutinarios y no tiene veh&iacute;culo?</h4>
+                <p class="text-justify">
+                  Encuentre a otras personas con veh&iacute;culo y que hagan los mismos viajes
+                  rutinarios en nuestra secci&oacute;n de rutas. Recuerde mirar las paradas.
+                </p>
               </div>
             </div>
           </div>
@@ -117,11 +124,15 @@
           <div class="col-md-3 col-sm-6 service-box service-center">
             <div class="service-boxed">
               <div class="service-icon" style="margin-top:-25px;">
-                <i class="fa fa-code icon-medium-effect icon-effect-1"></i>
+                <i class="fa fa-car icon-medium-effect icon-effect-1"></i>
               </div>
               <div class="service-content">
-                <h4>Clean Modern Code</h4>
-                <p>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Lorem Ipsum is simply dummy text of the printing.</p>
+                <h4>Como usuario con veh&iacute;culo...</h4>
+                <p class="text-justify">
+                  Si est&aacute; planeando realizar un viaje, no lleva todas las plazas de su veh&iacute;culo completas
+                  y quiere ahorrarse un dinero extra, no lo piense y publique su viaje en nuestra secci&oacute;n de anuncios.
+
+                </p>
               </div>
             </div>
           </div>
@@ -131,11 +142,15 @@
           <div class="col-md-3 col-sm-6 service-box service-center">
             <div class="service-boxed">
               <div class="service-icon" style="margin-top:-25px;">
-                <i class="fa fa-rocket icon-medium-effect icon-effect-1"></i>
+                <i class="fa fa-bus icon-medium-effect icon-effect-1"></i>
               </div>
               <div class="service-content">
-                <h4>Fast & Light Theme</h4>
-                <p>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Lorem Ipsum is simply dummy text of the printing.</p>
+                <h4>&iquest;Hace viajes rutinarios y tiene veh&iacute;culo?</h4>
+                <p class="text-justify">
+                  Proponga rutas para que los dem&aacute;s usuarios vean su anuncio o busque usuarios que no tengan veh&iacute;culo
+                  y hagan la misma ruta que usted.
+
+                </p>
               </div>
             </div>
           </div>
@@ -144,231 +159,7 @@
         </div>
         <!-- End Services Icons -->
 
-        <!-- Divider -->
-        <div class="hr1 margin-top"></div>
 
-
-        <!-- Start Recent Projects Carousel -->
-        <div class="recent-projects">
-          <h4 class="title"><span>Recent Projects</span></h4>
-          <div class="projects-carousel touch-carousel">
-
-            <div class="portfolio-item item">
-              <div class="portfolio-border">
-                <div class="portfolio-thumb">
-                  <a class="lightbox" data-lightbox-type="ajax" href="https://vimeo.com/78468485">
-                    <div class="thumb-overlay"><i class="fa fa-play"></i></div>
-                    <img alt="" src="images/portfolio-1/1.png" />
-                  </a>
-                </div>
-                <div class="portfolio-details">
-                  <a href="#">
-                    <h4>Lorem Ipsum Dolor</h4>
-                    <span>Website</span>
-                    <span>Drawing</span>
-                  </a>
-                </div>
-              </div>
-            </div>
-
-            <div class="portfolio-item item">
-              <div class="portfolio-border">
-                <div class="portfolio-thumb">
-                  <a class="lightbox" title="This is an image title" href="images/portfolio-big-01.jpg">
-                    <div class="thumb-overlay"><i class="fa fa-arrows-alt"></i></div>
-                    <img alt="" src="images/portfolio-1/2.png" />
-                  </a>
-                </div>
-                <div class="portfolio-details">
-                  <a href="#">
-                    <h4>Lorem Ipsum Dolor</h4>
-                    <span>Logo</span>
-                    <span>Animation</span>
-                  </a>
-                </div>
-              </div>
-            </div>
-
-            <div class="portfolio-item item">
-              <div class="portfolio-border">
-                <div class="portfolio-thumb">
-                  <a href="#">
-                    <div class="thumb-overlay"><i class="fa fa-arrows-alt"></i></div>
-                    <img alt="" src="images/portfolio-1/3.png" />
-                  </a>
-                </div>
-                <div class="portfolio-details">
-                  <a href="#">
-                    <h4>Lorem Ipsum Dolor</h4>
-                    <span>Drawing</span>
-                  </a>
-                </div>
-              </div>
-            </div>
-
-            <div class="portfolio-item item">
-              <div class="portfolio-border">
-                <div class="portfolio-thumb">
-                  <a href="#">
-                    <div class="thumb-overlay"><i class="fa fa-arrows-alt"></i></div>
-                    <img alt="" src="images/portfolio-1/4.png" />
-                  </a>
-                </div>
-                <div class="portfolio-details">
-                  <a href="#">
-                    <h4>Lorem Ipsum Dolor</h4>
-                    <span>Website</span>
-                    <span>Ilustration</span>
-                  </a>
-                </div>
-              </div>
-            </div>
-
-            <div class="portfolio-item item">
-              <div class="portfolio-border">
-                <div class="portfolio-thumb">
-                  <a class="lightbox" title="This is an image title" href="images/portfolio-big-02.jpg">
-                    <div class="thumb-overlay"><i class="fa fa-arrows-alt"></i></div>
-                    <img alt="" src="images/portfolio-1/5.png" />
-                  </a>
-                </div>
-                <div class="portfolio-details">
-                  <a href="#">
-                    <h4>Lorem Ipsum Dolor</h4>
-                    <span>Logo</span>
-                    <span>Drawing</span>
-                  </a>
-                </div>
-              </div>
-            </div>
-
-            <div class="portfolio-item item">
-              <div class="portfolio-border">
-                <div class="portfolio-thumb">
-                  <a href="#">
-                    <div class="thumb-overlay"><i class="fa fa-arrows-alt"></i></div>
-                    <img alt="" src="images/portfolio-1/6.png" />
-                  </a>
-                </div>
-                <div class="portfolio-details">
-                  <a href="#">
-                    <h4>Lorem Ipsum Dolor</h4>
-                    <span>Animation</span>
-                  </a>
-                </div>
-              </div>
-            </div>
-
-            <div class="portfolio-item item">
-              <div class="portfolio-border">
-                <div class="portfolio-thumb">
-                  <a class="lightbox" title="This is an image title" href="images/portfolio-big-03.jpg">
-                    <div class="thumb-overlay"><i class="fa fa-arrows-alt"></i></div>
-                    <img alt="" src="images/portfolio-1/7.png" />
-                  </a>
-                </div>
-                <div class="portfolio-details">
-                  <a href="#">
-                    <h4>Lorem Ipsum Dolor</h4>
-                    <span>Website</span>
-                  </a>
-                </div>
-              </div>
-            </div>
-
-            <div class="portfolio-item item">
-              <div class="portfolio-border">
-                <div class="portfolio-thumb">
-                  <a href="#">
-                    <div class="thumb-overlay"><i class="fa fa-arrows-alt"></i></div>
-                    <img alt="" src="images/portfolio-1/8.png" />
-                  </a>
-                </div>
-                <div class="portfolio-details">
-                  <a href="#">
-                    <h4>Lorem Ipsum Dolor</h4>
-                    <span>Ilustration</span>
-                    <span>Animation</span>
-                  </a>
-                </div>
-              </div>
-            </div>
-
-            <div class="portfolio-item item">
-              <div class="portfolio-border">
-                <div class="portfolio-thumb">
-                  <a href="#">
-                    <div class="thumb-overlay"><i class="fa fa-arrows-alt"></i></div>
-                    <img alt="" src="images/portfolio-1/9.png" />
-                  </a>
-                </div>
-                <div class="portfolio-details">
-                  <a href="#">
-                    <h4>Lorem Ipsum Dolor</h4>
-                    <span>Ilustration</span>
-                    <span>Animation</span>
-                  </a>
-                </div>
-              </div>
-            </div>
-
-            <div class="portfolio-item item">
-              <div class="portfolio-border">
-                <div class="portfolio-thumb">
-                  <a href="#">
-                    <div class="thumb-overlay"><i class="fa fa-arrows-alt"></i></div>
-                    <img alt="" src="images/portfolio-1/10.png" />
-                  </a>
-                </div>
-                <div class="portfolio-details">
-                  <a href="#">
-                    <h4>Lorem Ipsum Dolor</h4>
-                    <span>Ilustration</span>
-                    <span>Animation</span>
-                  </a>
-                </div>
-              </div>
-            </div>
-
-            <div class="portfolio-item item">
-              <div class="portfolio-border">
-                <div class="portfolio-thumb">
-                  <a href="#">
-                    <div class="thumb-overlay"><i class="fa fa-arrows-alt"></i></div>
-                    <img alt="" src="images/portfolio-1/11.png" />
-                  </a>
-                </div>
-                <div class="portfolio-details">
-                  <a href="#">
-                    <h4>Lorem Ipsum Dolor</h4>
-                    <span>Ilustration</span>
-                    <span>Animation</span>
-                  </a>
-                </div>
-              </div>
-            </div>
-
-            <div class="portfolio-item item">
-              <div class="portfolio-border">
-                <div class="portfolio-thumb">
-                  <a href="#">
-                    <div class="thumb-overlay"><i class="fa fa-arrows-alt"></i></div>
-                    <img alt="" src="images/portfolio-1/12.png" />
-                  </a>
-                </div>
-                <div class="portfolio-details">
-                  <a href="#">
-                    <h4>Lorem Ipsum Dolor</h4>
-                    <span>Ilustration</span>
-                    <span>Animation</span>
-                  </a>
-                </div>
-              </div>
-            </div>
-
-          </div>
-        </div>
-        <!-- End Recent Projects Carousel -->
 
         <!-- Divider -->
         <div class="hr1 margin-60"></div>
@@ -379,34 +170,50 @@
           <div class="col-md-4">
 
             <!-- Classic Heading -->
-            <h4 class="classic-title"><span>More About Us</span></h4>
+            <h4 class="classic-title"><span>Sobre nosotros...</span></h4>
 
             <!-- Nav Tabs -->
             <ul class="nav nav-tabs">
-              <li class="active"><a href="#tab1" data-toggle="tab"><i class="icon-award-1"></i>Shortcodes</a></li>
-              <li><a href="#tab2" data-toggle="tab"><i class="icon-beaker"></i>Sliders</a></li>
-              <li><a href="#tab3" data-toggle="tab"><i class="icon-droplet"></i>Retina</a></li>
+              <li class="active"><a href="#tab1" data-toggle="tab"><i class="icon-award-1"></i>Anuncios</a></li>
+              <li><a href="#tab2" data-toggle="tab"><i class="icon-beaker"></i>Rutas</a></li>
+              <li><a href="#tab3" data-toggle="tab"><i class="icon-droplet"></i>Caracter social</a></li>
             </ul>
 
             <!-- Tab Panels -->
             <div class="tab-content">
               <!-- Tab Content 1 -->
               <div class="tab-pane fade in active" id="tab1">
-                <p>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</p>
-                <ul class="icons-list">
-                  <li><i class="icon-check-2"></i> Duis aute irure dolor in reprehenderit voluptate.</li>
-                  <li><i class="icon-check-2"></i> Lorem Ipsum is simply dummy text of printing.</li>
-                  <li><i class="icon-check-2"></i> Excepteur sint occaecat cupidatat proident.</li>
-                  <li><i class="icon-check-2"></i> Sed ut perspiciatis unde omnis iste natus.</li>
-                </ul>
+                <p class="text-justify">
+                  Un anuncio es la publicaci&oacute;n de un viaje puntual, es decir, un viaje que se realiza una &uacute;nica
+                  vez.</p>
+                <p class="text-justify">
+                  Tanto si tiene veh&iacute;culo como si no lo tiene puede publicar anuncios para buscar otros usuarios
+                  con los que realizar el viaje y as&iacute; poder ahorrar dinero en tus viajes.
+                </p>
               </div>
               <!-- Tab Content 2 -->
               <div class="tab-pane fade" id="tab2">
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex commodo consequat. Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium dolor laudantium, totam rem aperiam, eaque ipsa quae inventore.</p>
+                <p class="text-justify">
+                  Una ruta es la publicaci&oacute;n de un viaje que se repite, por ejemplo, el viaje de casa a la universidad,
+                  al trabajo, etc.</p>
+                <p class="text-justify">
+                  Tanto si tiene veh&iacute;culo como si no lo tiene puede publicar rutas para buscar otros usuarios
+                  con los que realizar los y as&iacute; poder ahorrar dinero en tus viajes.
+                </p>
               </div>
               <!-- Tab Content 1 -->
               <div class="tab-pane fade" id="tab3">
-                <p>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat pariatur. Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullam laboris nisi ut aliquip commodo.</p>
+                <p class="text-justify">
+                  Como una red social que somos, tenemos ciertas caracter&iacute;sticas comunes a las redes sociales.
+                  Podr&aacute;s:
+                </p>
+                <p class="text-justify">
+                  - Comentar y evaluar las rutas, anuncios y a usuarios por los que contar su experiencia con los dem&aacute;s
+                  usuarios, tanto para bien como para mal.
+                </p>
+                <p class="text-justify">
+                  - Enviar y recibir mensajes de otros usuarios.
+                </p>
               </div>
             </div>
 
@@ -415,7 +222,7 @@
           <div class="col-md-4">
 
             <!-- Classic Heading -->
-            <h4 class="classic-title"><span>Why Choose Us</span></h4>
+            <h4 class="classic-title"><span>&iquest;Por qu&eacute; elegirnos?</span></h4>
 
             <!-- Accordion -->
             <div class="panel-group" id="accordion">
@@ -427,13 +234,17 @@
                   <h4 class="panel-title">
           <a data-toggle="collapse" data-parent="#accordion" href="#collapse-one">
             <i class="icon-down-open-1 control-icon"></i>
-            <i class="icon-laptop-1"></i> Fully Responsive Theme
+            <i class="icon-laptop-1"></i> Ahorro de dinero
         </a>
     </h4>
                 </div>
                 <!-- Toggle Content -->
                 <div id="collapse-one" class="panel-collapse collapse in">
-                  <div class="panel-body">Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</div>
+                  <div class="panel-body">
+                    Podr&aacute; encontrar distintos usuarios con los que compartir coche los cuales pueden haber sido
+                    evaluados por otros usuarios y podr&aacute; ver si realmente es una buena persona para compartir coche
+                    con &eacute;l.
+                  </div>
                 </div>
               </div>
               <!-- End Accordion 1 -->
@@ -445,34 +256,39 @@
                   <h4 class="panel-title">
       <a data-toggle="collapse" data-parent="#accordion" href="#collapse-tow" class="collapsed">
          <i class="icon-down-open-1 control-icon"></i>
-         <i class="icon-gift-1"></i> Touchable Slider
+         <i class="icon-gift-1"></i> Viajes peri&oacute;dicos
      </a>
  </h4>
                 </div>
                 <!-- Toggle Content -->
                 <div id="collapse-tow" class="panel-collapse collapse">
-                  <div class="panel-body">Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. The point of using Lorem Ipsum is that it has a <strong>more-or-less</strong> normal distribution of letters.</div>
+                  <div class="panel-body">
+                    Adem&aacute;s de anuncios para viajes puntuales, nuestro punto fuerte son los viajes peri&oacute;dicos
+                    mediante los cuales podr&aacute; ahorrar dinero y tiempo en tus viajes hacia la universidad, el trabajo,
+                    en definitiva, unos gastos fijos que todos tenemos y mediante nosotros podr&aacute; encontrar otro usuarios
+                    mediente los cuales compartir y ahorrar.
+                  </div>
                 </div>
               </div>
               <!-- End Accordion 2 -->
 
-              <!-- Start Accordion 3 -->
-              <div class="panel panel-default">
-                <!-- Toggle Heading -->
-                <div class="panel-heading">
-                  <h4 class="panel-title">
-        <a data-toggle="collapse" data-parent="#accordion" href="#collapse-three" class="collapsed">
-          <i class="icon-down-open-1 control-icon"></i>
-          <i class="icon-tint"></i> Retina Ready
-      </a>
-  </h4>
-                </div>
-                <!-- Toggle Content -->
-                <div id="collapse-three" class="panel-collapse collapse">
-                  <div class="panel-body">Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</div>
-                </div>
-              </div>
-              <!-- End Accordion 3 -->
+              <!--&lt;!&ndash; Start Accordion 3 &ndash;&gt;-->
+              <!--<div class="panel panel-default">-->
+                <!--&lt;!&ndash; Toggle Heading &ndash;&gt;-->
+                <!--<div class="panel-heading">-->
+                  <!--<h4 class="panel-title">-->
+        <!--<a data-toggle="collapse" data-parent="#accordion" href="#collapse-three" class="collapsed">-->
+          <!--<i class="icon-down-open-1 control-icon"></i>-->
+          <!--<i class="icon-tint"></i> Retina Ready-->
+      <!--</a>-->
+  <!--</h4>-->
+                <!--</div>-->
+                <!--&lt;!&ndash; Toggle Content &ndash;&gt;-->
+                <!--<div id="collapse-three" class="panel-collapse collapse">-->
+                  <!--<div class="panel-body">Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</div>-->
+                <!--</div>-->
+              <!--</div>-->
+              <!--&lt;!&ndash; End Accordion 3 &ndash;&gt;-->
 
             </div>
 
@@ -480,76 +296,15 @@
 
           <div class="col-md-4">
             <!-- Classic Heading -->
-            <h4 class="classic-title"><span>Vimeo Video</span></h4>
+            <h4 class="classic-title"><span>Sharing Cars</span></h4>
             <!-- Vimeo Iframe -->
-            <iframe src="https://player.vimeo.com/video/63322694?title=0&amp;byline=0&amp;portrait=0" width="800" height="450"></iframe>
+            <!--<iframe src="https://vimeo.com/76843270?title=0&amp;byline=0&amp;portrait=0" width="800" height="450"></iframe>-->
+            <iframe src="https://player.vimeo.com/video/76843270?title=0" width="640" height="360" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
+
           </div>
 
         </div>
 
-        <!-- Divider -->
-        <div class="hr1 margin-60"></div>
-
-
-        <div class="row">
-          <div class="col-md-9">
-            <!-- Start Clients Carousel -->
-            <div class="our-clients">
-
-              <!-- Classic Heading -->
-              <h4 class="classic-title"><span>Our Clients</span></h4>
-
-              <div class="clients-carousel custom-carousel touch-carousel" data-appeared-items="4">
-
-                <!-- Client 1 -->
-                <div class="client-item item">
-                  <a href="#"><img src="images/c1.png" alt="" /></a>
-                </div>
-
-                <!-- Client 2 -->
-                <div class="client-item item">
-                  <a href="#"><img src="images/c2.png" alt="" /></a>
-                </div>
-
-                <!-- Client 3 -->
-                <div class="client-item item">
-                  <a href="#"><img src="images/c3.png" alt="" /></a>
-                </div>
-
-                <!-- Client 4 -->
-                <div class="client-item item">
-                  <a href="#"><img src="images/c4.png" alt="" /></a>
-                </div>
-
-                <!-- Client 5 -->
-                <div class="client-item item">
-                  <a href="#"><img src="images/c5.png" alt="" /></a>
-                </div>
-
-                <!-- Client 6 -->
-                <div class="client-item item">
-                  <a href="#"><img src="images/c6.png" alt="" /></a>
-                </div>
-
-                <!-- Client 7 -->
-                <div class="client-item item">
-                  <a href="#"><img src="images/c7.png" alt="" /></a>
-                </div>
-
-                <!-- Client 8 -->
-                <div class="client-item item">
-                  <a href="#"><img src="images/c8.png" alt="" /></a>
-                </div>
-
-              </div>
-            </div>
-            <!--End Clients Carousel-->
-          </div>
-          <div class="col-md-3">
-            <h4 class="classic-title"><span>Partners We Work With</span></h4>
-            <p>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat. </p>
-          </div>
-        </div>
 
       </div>
     </div>

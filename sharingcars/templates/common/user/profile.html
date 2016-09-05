@@ -5,7 +5,11 @@
     <div class="container">
         <div class="row">
             <div class="col-md-10 col-md-offset-1">
-                <h2 class="text-center">Perfil de usuario de {{ custom_user.user_account.username }}</h2>
+                <h2 class="text-center">Perfil de usuario de {{ custom_user.user_account.username }}
+                {% if user == custom_user.user_account %}
+                    <a href="{% url 'user-update' custom_user.user_account.username %}"><i class="fa fa-pencil"></i></a>
+                {% endif %}
+                </h2>
                 <div class="col-lg-12">
                     <div class="col-lg-3">
                         {% if custom_user.photo == 'default' %}

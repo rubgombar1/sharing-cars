@@ -240,3 +240,7 @@ h3{
     position: absolute;
     right: 15px;
 }
+
+.buttons-slide{
+    margin-top: 40px !important;
+}

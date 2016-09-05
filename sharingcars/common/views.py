@@ -46,8 +46,8 @@ class UserProfileView(DetailView):
 
     def get_context_data(self, **kwargs):
         context = super(UserProfileView, self).get_context_data(**kwargs)
-        context['comments_routes'] = CommentRoute.objects.filter(route__user__user_account__pk=self.request.user.pk)
-        context['comments_announcements'] = CommentAnnouncement.objects.filter(announcement__user__user_account__pk=self.request.user.pk)
+        context['comments_routes'] = CommentRoute.objects.filter(route__user__user_account__username=self.kwargs.get('username', ''))
+        context['comments_announcements'] = CommentAnnouncement.objects.filter(announcement__user__user_account__username=self.kwargs.get('username', ''))
         return context
 
 

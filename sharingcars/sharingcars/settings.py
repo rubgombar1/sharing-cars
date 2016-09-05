@@ -67,6 +67,8 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'sharingcars.context_processors.check_menu',
+                'sharingcars.context_processors.user_more_evaluated',
             ],
         },
     },

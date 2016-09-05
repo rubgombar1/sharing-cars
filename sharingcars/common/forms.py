@@ -30,10 +30,14 @@ class UserBaseForm(forms.ModelForm):
                             validators=[phone_regex], label=_('Phone number'),
                             max_length=64)
 
+    biography = forms.CharField(widget=forms.Textarea(attrs={'class': 'form-control',
+                                                  'placeholder': _('Biografia')}),
+                           max_length=128, label=_('Biografia'), required=True)
+
 
     class Meta:
         model = User
-        exclude = ('user_account', )
+        exclude = ('user_account', 'searchingCar')
 
 
 
@@ -41,7 +45,7 @@ class UserBaseForm(forms.ModelForm):
 class UserRegisterForm(UserBaseForm):
     class Meta:
         model = User
-        exclude = ('user_account',)
+        exclude = ('user_account', 'searchingCar')
 
     username = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control',
                                                              'placeholder': _('User name')}),

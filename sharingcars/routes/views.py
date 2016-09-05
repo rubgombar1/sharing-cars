@@ -8,6 +8,7 @@ from django.contrib.auth.decorators import login_required
 from django.views.generic.edit import UpdateView
 from django.views.generic import DeleteView
 from django.contrib import messages
+from django.contrib.auth.mixins import LoginRequiredMixin
 
 from routes.models import Route, ApplyRoute, StopRoute
 from common.models import User
@@ -108,7 +109,7 @@ class RouteUserRecommendationsListView(ListView):
         return context
 
 
-class RouteApplyCreate(CreateView):
+class RouteApplyCreate(LoginRequiredMixin, CreateView):
     model = ApplyRoute
     template_name = 'common/form.html'
     form_class = ApplyRouteCreateForm
@@ -125,20 +126,19 @@ class RouteApplyCreate(CreateView):
         return super(RouteApplyCreate, self).form_valid(form)
 
     def dispatch(self, request, *args, **kwargs):
-        dispatch = super(RouteApplyCreate, self).dispatch(request, *args, **kwargs)
-        user = User.objects.get(user_account__id=self.request.user.id)
-        route = Route.objects.get(pk=self.kwargs['pk'])
-        if route.applyroute_set.filter(user=user).exists():
-            previous_url = self.request.META.get('HTTP_REFERER', None)
-            messages.add_message(self.request, messages.ERROR,
-                                 'Ya tiene una solicitud para esta ruta')
+        if not self.request.user.is_anonymous:
+            user = User.objects.get(user_account__id=self.request.user.id)
+            route = Route.objects.get(pk=self.kwargs['pk'])
+            if route.applyroute_set.filter(user=user).exists():
+                previous_url = self.request.META.get('HTTP_REFERER', None)
+                messages.add_message(self.request, messages.ERROR,
+                                     'Ya tiene una solicitud para esta ruta')
 
-            if previous_url:
-                return redirect(previous_url)
-            else:
-                return redirect('all-routes')
-        else:
-            return dispatch
+                if previous_url:
+                    return redirect(previous_url)
+                else:
+                    return redirect('all-routes')
+        return super(RouteApplyCreate, self).dispatch(request, *args, **kwargs)
 
 
 @login_required

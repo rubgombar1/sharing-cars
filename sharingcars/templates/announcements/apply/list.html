@@ -27,11 +27,11 @@
                     {% for apply in object_list %}
                     <tr id="apply-{{apply.pk}}">
                         <td class="text-center">
-                            <a href="">
+                            <a href="{% url 'details-announcement' apply.announcement.pk%}">
                                 Ir al anuncio
                             </a>
                         </td>
-                        <td class="text-center"><a href="#">{{ apply.user.user_account }}</a></td>
+                        <td class="text-center"><a href="{% url 'user-profile' apply.user.user_account.username %}">{{ apply.user.user_account }}</a></td>
                         <td class="text-center">{{ apply.announcement.origin|truncatechars:20 }}</td>
                         <td class="text-center">{{ apply.announcement.destination }}</td>
                         <td class="text-center">{{ apply.get_state_display }}</td>
