@@ -2,7 +2,8 @@ from django.conf.urls import url
 from announcements.views import (AnnouncementCreateView, AnnouncementListView, AnnouncementUserListView,
                                  ApplyAnnouncementsReceivedUser, AnnouncementApplyCreate, resolve_apply,
                                  AnnouncementDetailsView, EditAnnouncementView, StopAnnouncementCreateView,
-                                 StopAnnouncementUpdateView, ApplyAnnouncementsPerformedUser, AnnouncementApplyDelete)
+                                 StopAnnouncementUpdateView, ApplyAnnouncementsPerformedUser, AnnouncementApplyDelete,
+                                 AnnouncementUserRecommendationsListView)
 
 urlpatterns = [
     url(r'^create$', AnnouncementCreateView.as_view(), name='create-announcement'),
@@ -21,4 +22,5 @@ urlpatterns = [
             name='stop-announcement-create'),
     url(r'^stop/edit/(?P<pk>[-\w]+)$', StopAnnouncementUpdateView.as_view(),
             name='stop-announcement-edit'),
+    url(r'^recommendations$', AnnouncementUserRecommendationsListView.as_view(), name='recommendations-announcements'),
 ]

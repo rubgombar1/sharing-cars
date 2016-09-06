@@ -96,7 +96,7 @@
                             {% if user.is_authenticated %}
                                 <li><a href="{% url 'create-announcement' %}">Crear anuncio</a></li>
                                 <li><a href="{% url 'announcement-user' %}">Mis anuncios</a></li>
-                                <li><a href="#">Anuncios recomendados para mi</a></li>
+                                <li><a href="{% url 'recommendations-announcements' %}">Anuncios recomendados para mi</a></li>
                             {% endif %}
                         </ul>
                     </li>

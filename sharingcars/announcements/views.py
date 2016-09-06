@@ -181,3 +181,29 @@ class AnnouncementApplyDelete(DeleteView):
     def get_queryset(self):
         qs = super(AnnouncementApplyDelete, self).get_queryset()
         return qs.filter(~Q(state='approach'), user__user_account=self.request.user)
+
+
+class AnnouncementUserRecommendationsListView(ListView):
+    model = Announcement
+    template_name = 'routes/list.html'
+
+    def get_context_data(self):
+        context = super(AnnouncementUserRecommendationsListView, self).get_context_data()
+        userId = self.request.user.id
+        userAnnouncements = Announcement.objects.filter(user__user_account__id=userId)
+        announcements = Announcement.objects.filter(~Q(user__user_account__id=userId), visibility=1)
+        recommendations = set()
+        for userAnnouncement in userAnnouncements:
+            for announcement in announcements:
+                if userAnnouncement.origin == announcement.origin and userAnnouncement.destination == announcement.destination:
+                    recommendations.add(announcement)
+                stop_origin = announcement.stopannouncement_set.filter(stop=userAnnouncement.origin)
+                stop_destination = announcement.stopannouncement_set.filter(stop=userAnnouncement.destination)
+                if stop_origin and userAnnouncement.destination == announcement.destination:
+                    recommendations.add(announcement)
+                if stop_origin and stop_destination and (stop_origin[0].sequence < stop_destination[0].sequence):
+                    recommendations.add(announcement)
+                if userAnnouncement.origin == announcement.origin and stop_destination:
+                    recommendations.add(announcement)
+        context['announcement_list'] = recommendations
+        return context

@@ -105,6 +105,14 @@ class RouteUserRecommendationsListView(ListView):
             for route in routes:
                 if userRoute.origin == route.origin and userRoute.destination == route.destination:
                     recommendations.add(route)
+                stop_origin = route.stoproute_set.filter(stop=userRoute.origin)
+                stop_destination = route.stoproute_set.filter(stop=userRoute.destination)
+                if stop_origin and userRoute.destination == route.destination:
+                    recommendations.add(route)
+                if stop_origin and stop_destination and (stop_origin[0].sequence < stop_destination[0].sequence):
+                    recommendations.add(route)
+                if userRoute.origin == route.origin and stop_destination:
+                    recommendations.add(route)
         context['route_list'] = recommendations
         return context
 
