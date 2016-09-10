@@ -32,7 +32,7 @@ class Announcement(models.Model):
     def get_rating(self):
         rating = 0
         if self.commentannouncement_set.all():
-            rating = round(self.commentannouncement_set.all().aggregate(models.Sum('rating')).get('rating__sum', 0)/self.commentannouncement_set.all().count(), 1)
+            rating = round(self.commentannouncement_set.all().aggregate(models.Sum('rating')).get('rating__sum', 0)/float(self.commentannouncement_set.all().count()), 1)
         return rating
 
     def check_applies(self):

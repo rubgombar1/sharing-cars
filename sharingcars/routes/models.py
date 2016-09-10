@@ -27,7 +27,7 @@ class Route(models.Model):
     def get_rating(self):
         rating = 0
         if self.commentroute_set.all():
-            rating = round(self.commentroute_set.all().aggregate(models.Sum('rating')).get('rating__sum', 0)/self.commentroute_set.all().count(), 1)
+            rating = round(self.commentroute_set.all().aggregate(models.Sum('rating')).get('rating__sum', 0)/float(self.commentroute_set.all().count()), 1)
         return rating
 
     def check_applies(self):

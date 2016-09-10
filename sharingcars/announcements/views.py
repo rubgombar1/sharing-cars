@@ -185,7 +185,7 @@ class AnnouncementApplyDelete(DeleteView):
 
 class AnnouncementUserRecommendationsListView(ListView):
     model = Announcement
-    template_name = 'routes/list.html'
+    template_name = 'announcements/announcement/list.html'
 
     def get_context_data(self):
         context = super(AnnouncementUserRecommendationsListView, self).get_context_data()
@@ -205,5 +205,5 @@ class AnnouncementUserRecommendationsListView(ListView):
                     recommendations.add(announcement)
                 if userAnnouncement.origin == announcement.origin and stop_destination:
                     recommendations.add(announcement)
-        context['announcement_list'] = recommendations
+        context['object_list'] = recommendations
         return context
