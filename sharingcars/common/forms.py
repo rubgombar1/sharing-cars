@@ -3,8 +3,9 @@ from datetime import date
 from django import forms
 from django.utils.translation import ugettext as _
 from django.contrib.auth.models import User as DjangoUser
-from common.models import User, Folder, Message, Actor
+from common.models import User, Folder, Message, Actor, Comment
 from django.core.validators import RegexValidator
+from django.core.validators import MinValueValidator, MaxValueValidator
 
 phone_regex = RegexValidator(regex=r'^\+?1?\d{9,15}$',
                              message=_("The phone numver must be in this format: "
@@ -126,3 +127,23 @@ class MessageForm(forms.ModelForm):
             clone_message.folder = folder
             clone_message.save()
         return instance
+
+
+class CommentCreateForm(forms.ModelForm):
+
+    subject = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control',
+                                                  'placeholder': _('Asunto')}),
+                           max_length=128, label=_('Asunto'), required=True)
+    rating = forms.IntegerField(widget=forms.NumberInput(attrs={'class': 'form-control',
+                                                                 'placeholder': _(u'Evaluación'),
+                                                                 'min': '0'}),
+                                 validators=[MinValueValidator(0), MaxValueValidator(10)], label=_(u'Evaluación'))
+    comment = forms.CharField(widget=forms.Textarea(attrs={'class': 'form-control',
+                                                        'placeholder': _('Comentario')}),
+                                  label=_('Comentario'), required=True)
+
+
+    class Meta:
+        model = Comment
+        exclude = ('referrer', 'evaluated')
+        fields = ['subject', 'rating', 'comment']

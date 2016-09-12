@@ -28,7 +28,7 @@ def check_menu(request):
 
 
 def user_more_evaluated(request):
-    if not request.user.is_anonymous():
+    if not request.user.is_anonymous() and request.user.username != 'admin':
         prefs = {}
         comments = Comment.objects.all()
         comments_routes = CommentRoute.objects.all()

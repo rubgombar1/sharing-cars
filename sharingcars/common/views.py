@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 from django.views.generic.edit import CreateView
-from django.core.urlresolvers import reverse_lazy
+from django.core.urlresolvers import reverse_lazy, reverse
 from django.contrib.auth import authenticate, login
 from django.contrib.messages.views import SuccessMessageMixin
 from django.views.generic.detail import DetailView
@@ -8,9 +8,10 @@ from django.http import Http404
 from django.utils.translation import ugettext as _
 from django.views.generic.edit import UpdateView
 from django.http import HttpResponse
+from django.contrib.auth.mixins import LoginRequiredMixin
 
-from common.models import User, Message, Folder
-from common.forms import UserRegisterForm, UserBaseForm, MessageForm
+from common.models import User, Message, Folder, Comment
+from common.forms import UserRegisterForm, UserBaseForm, MessageForm, CommentCreateForm
 from routes.models import CommentRoute
 from announcements.models import CommentAnnouncement
 
@@ -166,3 +167,20 @@ class ReplyMessageView(MessageCreateView):
         initial['user'] = self.request.user
         initial['sender_id'] = Message.objects.get(pk=self.kwargs.get('pk', 0)).sender.pk
         return initial
+
+
+class CommentCreateView(LoginRequiredMixin, CreateView):
+    model = Comment
+    template_name = 'common/comments/create.html'
+    form_class = CommentCreateForm
+
+    def get_success_url(self):
+        return reverse('user-profile', kwargs={'username': self.kwargs['username']})
+
+    def form_valid(self, form):
+        instance = form.save(commit=False)
+        referrer = User.objects.get(user_account__id=self.request.user.id)
+        evaluated = User.objects.get(user_account__username=self.kwargs['username'])
+        instance.referrer = referrer
+        instance.evaluated = evaluated
+        return super(CommentCreateView, self).form_valid(form)

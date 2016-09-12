@@ -4,7 +4,8 @@ from django.core.validators import MinValueValidator
 from django.utils.translation import ugettext as _
 
 from datetimewidget.widgets import DateTimeWidget
-from announcements.models import Announcement, ApplyAnnouncement, StopAnnouncement
+from announcements.models import Announcement, ApplyAnnouncement, StopAnnouncement, CommentAnnouncement
+from common.forms import CommentCreateForm
 
 
 
@@ -60,3 +61,11 @@ class StopAnnouncementForm(forms.ModelForm):
                                                                  'placeholder': _('Orden'),
                                                                  'min': '0'}),
                                  validators=[MinValueValidator(0)], label=_('Orden'))
+
+
+class CommentAnnouncementCreateForm(CommentCreateForm):
+
+    class Meta:
+        model = CommentAnnouncement
+        exclude = ('user', 'route')
+        fields = ['subject', 'rating', 'comment']

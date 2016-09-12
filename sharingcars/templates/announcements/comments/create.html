@@ -1,0 +1,14 @@
+{% extends 'common/master-page/master-page.html' %}
+{% block title %} SharingCars {% endblock %}
+{% block contents %}
+<div id="content">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2">
+                <h2 class="text-center">Escriba su comentario</h2>
+                {% include "common/common_form.html" with form=form %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

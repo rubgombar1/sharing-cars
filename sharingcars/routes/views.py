@@ -10,9 +10,9 @@ from django.views.generic import DeleteView
 from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin
 
-from routes.models import Route, ApplyRoute, StopRoute
+from routes.models import Route, ApplyRoute, StopRoute, CommentRoute
 from common.models import User
-from routes.forms import RouteCreateForm, ApplyRouteCreateForm, RouteEditForm, StopRouteForm
+from routes.forms import RouteCreateForm, ApplyRouteCreateForm, RouteEditForm, StopRouteForm, CommentRouteCreateForm
 
 
 
@@ -233,3 +233,20 @@ class RouteApplyDelete(DeleteView):
     def get_queryset(self):
         qs = super(RouteApplyDelete, self).get_queryset()
         return qs.filter(~Q(state='approach'), user__user_account=self.request.user)
+
+
+class CommentRouteCreateView(LoginRequiredMixin, CreateView):
+    model = CommentRoute
+    template_name = 'routes/comments/create.html'
+    form_class = CommentRouteCreateForm
+
+    def get_success_url(self):
+        return reverse('details-route', kwargs={'pk': self.kwargs['route_pk']})
+
+    def form_valid(self, form):
+        instance = form.save(commit=False)
+        user = User.objects.get(user_account__id=self.request.user.id)
+        route = Route.objects.get(pk=self.kwargs['route_pk'])
+        instance.user = user
+        instance.route = route
+        return super(CommentRouteCreateView, self).form_valid(form)

@@ -3,7 +3,7 @@ from announcements.views import (AnnouncementCreateView, AnnouncementListView, A
                                  ApplyAnnouncementsReceivedUser, AnnouncementApplyCreate, resolve_apply,
                                  AnnouncementDetailsView, EditAnnouncementView, StopAnnouncementCreateView,
                                  StopAnnouncementUpdateView, ApplyAnnouncementsPerformedUser, AnnouncementApplyDelete,
-                                 AnnouncementUserRecommendationsListView)
+                                 AnnouncementUserRecommendationsListView, CommentAnnouncementCreateView)
 
 urlpatterns = [
     url(r'^create$', AnnouncementCreateView.as_view(), name='create-announcement'),
@@ -23,4 +23,5 @@ urlpatterns = [
     url(r'^stop/edit/(?P<pk>[-\w]+)$', StopAnnouncementUpdateView.as_view(),
             name='stop-announcement-edit'),
     url(r'^recommendations$', AnnouncementUserRecommendationsListView.as_view(), name='recommendations-announcements'),
+    url(r'^comment/create/(?P<announcement_pk>[-\w]+)$', CommentAnnouncementCreateView.as_view(), name='create-comment-announcement'),
 ]

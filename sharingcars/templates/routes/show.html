@@ -217,6 +217,11 @@
                             </tbody>
                         </table>
                     {% endif %}
+                    {% if user != route.user.user_account %}
+                        <div class="col-lg-12 text-center margin-top-20">
+                            <a href="{% url 'create-comment-route' route.pk %}" class="btn btn-system btn-large">Escribir comentario</a>
+                        </div>
+                    {% endif %}
                     {% if route.stoproute_set.all %}
                       <div class="col-lg-12"><br></div>
                       <div class="col-lg-12 text-center"><h2>Paradas</h2></div>

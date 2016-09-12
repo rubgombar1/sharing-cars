@@ -10,9 +10,10 @@ from django.views.generic.edit import UpdateView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.decorators import login_required
 
-from announcements.models import Announcement, ApplyAnnouncement, StopAnnouncement
+from announcements.models import Announcement, ApplyAnnouncement, StopAnnouncement, CommentAnnouncement
 from common.models import User
-from announcements.forms import AnnouncementCreateForm, ApplyAnnouncementCreateForm, StopAnnouncementForm
+from announcements.forms import (AnnouncementCreateForm, ApplyAnnouncementCreateForm, StopAnnouncementForm,
+                                 CommentAnnouncementCreateForm)
 
 
 class AnnouncementCreateView(CreateView):
@@ -207,3 +208,20 @@ class AnnouncementUserRecommendationsListView(ListView):
                     recommendations.add(announcement)
         context['object_list'] = recommendations
         return context
+
+
+class CommentAnnouncementCreateView(LoginRequiredMixin, CreateView):
+    model = CommentAnnouncement
+    template_name = 'announcements/comments/create.html'
+    form_class = CommentAnnouncementCreateForm
+
+    def get_success_url(self):
+        return reverse('details-announcement', kwargs={'pk': self.kwargs['announcement_pk']})
+
+    def form_valid(self, form):
+        instance = form.save(commit=False)
+        user = User.objects.get(user_account__id=self.request.user.id)
+        announcement = Announcement.objects.get(pk=self.kwargs['announcement_pk'])
+        instance.user = user
+        instance.announcement = announcement
+        return super(CommentAnnouncementCreateView, self).form_valid(form)

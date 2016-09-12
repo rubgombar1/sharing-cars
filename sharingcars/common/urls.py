@@ -16,7 +16,8 @@ Including another URLconf
 from django.conf.urls import url
 from django.views.generic import TemplateView
 from common.views import (UserCreateView, UserProfileView, UserUpdateView, MessageCreateView, MessageDetailsView,
-                          FolderDetailsView, ajax_delete_message, ajax_hide_message, ReplyMessageView)
+                          FolderDetailsView, ajax_delete_message, ajax_hide_message, ReplyMessageView,
+                          CommentCreateView)
 
 urlpatterns = [
     url(r'^$', TemplateView.as_view(template_name='common/index.html'),
@@ -33,6 +34,7 @@ urlpatterns = [
     url(r'^messages/hide/(?P<pk>[-\d]+)/(?P<type>[-\w]+)$', ajax_hide_message, name='messages-mark-not-see'),
     url(r'^messages/(?P<type>[-\w]+)/$', FolderDetailsView.as_view(), name='messages-details'),
     url(r'^messages/(?P<type>[-\w]+)/(?P<pk>[-\w]+)$', MessageDetailsView.as_view(), name='messages-see'),
+    url(r'^comment/(?P<username>.*)/$', CommentCreateView.as_view(), name='comment-create'),
 
 
 ]

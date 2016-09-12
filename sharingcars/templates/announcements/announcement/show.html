@@ -144,6 +144,11 @@
                             </tbody>
                         </table>
                     {% endif %}
+                    {% if user != announcment.user.user_account %}
+                        <div class="col-lg-12 text-center margin-top-20">
+                            <a href="{% url 'create-comment-announcement' announcement.pk %}" class="btn btn-system btn-large">Escribir comentario</a>
+                        </div>
+                    {% endif %}
                     {% if announcement.stopannouncement_set.all %}
                       <div class="col-lg-12"><br></div>
                       <div class="col-lg-12 text-center"><h2>Paradas</h2></div>

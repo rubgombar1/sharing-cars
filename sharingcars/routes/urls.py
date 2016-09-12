@@ -3,7 +3,7 @@ from routes.views import (RouteCreateView, RouteUserListView,
                           RouteUserRecommendationsListView, RouteApplyCreate,
                           RouteDetailsView, resolve_apply, RouteListView, RouteEditView,
                           StopRouteCreateView, StopRouteUpdateView, ApplyRouteReceivedUser, ApplyRoutePerformedUser,
-                          RouteApplyDelete)
+                          RouteApplyDelete, CommentRouteCreateView)
 
 
 urlpatterns = [
@@ -24,4 +24,5 @@ urlpatterns = [
             name='stop-route-create'),
     url(r'^stop/edit/(?P<pk>[-\w]+)$', StopRouteUpdateView.as_view(),
             name='stop-route-edit'),
+    url(r'^comment/create/(?P<route_pk>[-\w]+)$', CommentRouteCreateView.as_view(), name='create-comment-route'),
 ]

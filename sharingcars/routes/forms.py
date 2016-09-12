@@ -3,7 +3,8 @@ from django import forms
 from django.core.validators import MinValueValidator
 from django.utils.translation import ugettext as _
 
-from routes.models import Route, Day, ApplyRoute, StopRoute
+from routes.models import Route, Day, ApplyRoute, StopRoute, CommentRoute
+from common.forms import CommentCreateForm
 
 
 class RouteBaseForm(forms.ModelForm):
@@ -311,3 +312,11 @@ class StopRouteForm(forms.ModelForm):
                                                                  'placeholder': _('Orden'),
                                                                  'min': '0'}),
                                  validators=[MinValueValidator(0)], label=_('Orden'))
+
+
+class CommentRouteCreateForm(CommentCreateForm):
+
+    class Meta:
+        model = CommentRoute
+        exclude = ('user', 'route')
+        fields = ['subject', 'rating', 'comment']
