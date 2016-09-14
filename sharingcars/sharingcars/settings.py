@@ -69,6 +69,7 @@ TEMPLATES = [
                 'django.contrib.messages.context_processors.messages',
                 'sharingcars.context_processors.check_menu',
                 'sharingcars.context_processors.user_more_evaluated',
+                'sharingcars.context_processors.get_tweets',
             ],
         },
     },
@@ -111,7 +112,6 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
-STATIC_URL = '/static/'
 STATICFILES_DIRS = (
     os.path.join(BASE_DIR, "static"),
 )
@@ -126,3 +126,8 @@ MEDIA_URL = '/static/item/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'static')
 
 MESSAGE_STORAGE = 'django.contrib.messages.storage.cookie.CookieStorage'
+
+try:
+    from sharingcars.local_settings import *
+except ImportError:
+    pass

@@ -18,26 +18,26 @@ class AnnouncementCreateForm(forms.ModelForm):
     visibility = forms.BooleanField(widget=forms.CheckboxInput(),
                                     label=_('Visible'), required=False)
     origin = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control col-lg-6',
-                                                           'placeholder': _('Origin')}),
-                             max_length=256, label=_('Origin'), required=True)
+                                                           'placeholder': _('Origen')}),
+                             max_length=256, label=_('Origen'), required=True)
     destination = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control col-lg-6',
-                                                                'placeholder': _('Destination')}),
-                                  max_length=256, label=_('Destination'), required=True)
+                                                                'placeholder': _('Destino')}),
+                                  max_length=256, label=_('Destino'), required=True)
     kind = forms.ChoiceField(widget=forms.Select(attrs={'class': 'form-control col-lg-6'}),
-                             label=_('Kind'), required=True, choices=Announcement.KINDS)
+                             label=_('Tipo'), required=True, choices=Announcement.KINDS)
     seating = forms.IntegerField(widget=forms.NumberInput(attrs={'class': 'form-control col-lg-6',
-                                                                 'placeholder': _('Number of seats'),
+                                                                 'placeholder': _('Plazas'),
                                                                  'min': '0'}),
-                                 validators=[MinValueValidator(0)], label=_('Seats'))
+                                 validators=[MinValueValidator(0)], label=_('Plazas'))
     unitPrice = forms.DecimalField(widget=forms.NumberInput(attrs={'class': 'form-control col-lg-6',
-                                                                   'placeholder': _('Price for seat'),
+                                                                   'placeholder': _('Precio por plaza'),
                                                                    'min': '0'}),
                                    max_digits=5, decimal_places=2,
-                                   validators=[MinValueValidator(0)], label=_('Price'))
-    date = forms.DateTimeField(widget=DateTimeWidget(usel10n=True, bootstrap_version=3))
+                                   validators=[MinValueValidator(0)], label=_('Precio por plaza'))
+    date = forms.DateTimeField(widget=DateTimeWidget(usel10n=True, bootstrap_version=3), label=_('Fecha'))
     description = forms.CharField(widget=forms.Textarea(attrs={'class': 'form-control col-lg-12',
-                                                               'placeholder': _('Description')}),
-                                  label=_('Description'), required=True)
+                                                               'placeholder': _(u'Descripción')}),
+                                  label=_(u'Descripción'), required=True)
 
 
 class ApplyAnnouncementCreateForm(forms.ModelForm):

@@ -8,8 +8,8 @@ from common.models import User
 
 class Route(models.Model):
     KINDS = (
-        ('offer', _('Offer')),
-        ('demand', _('Demand')),
+        ('offer', _('Oferta')),
+        ('demand', _('Demanda')),
     )
     origin = models.CharField(max_length=256, blank=False)
     destination = models.CharField(max_length=256, blank=False)

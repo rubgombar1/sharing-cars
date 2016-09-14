@@ -8,8 +8,8 @@ from common.models import User
 
 class Announcement(models.Model):
     KINDS = (
-        ('offer', 'Offer'),
-        ('demand', 'Demand'),
+        ('offer', 'Oferta'),
+        ('demand', 'Demanda'),
     )
     origin = models.CharField(max_length=256, blank=False)
     destination = models.CharField(max_length=256, blank=False)

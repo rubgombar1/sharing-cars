@@ -12,76 +12,79 @@ class RouteBaseForm(forms.ModelForm):
         model = Route
         exclude = ('creationMoment', 'user')
 
+    visibility = forms.BooleanField(widget=forms.CheckboxInput(),
+                                    label=_('Visible'), required=False)
+
     origin = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control',
-                                                           'placeholder': _('Origin')}),
-                             max_length=256, label=_('Origin'), required=True)
+                                                           'placeholder': _('Origen')}),
+                             max_length=256, label=_('Origen'), required=True)
     destination = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control',
-                                                                'placeholder': _('Destination')}),
-                                  max_length=256, label=_('Destination'), required=True)
+                                                                'placeholder': _('Destino')}),
+                                  max_length=256, label=_('Destino'), required=True)
     kind = forms.ChoiceField(widget=forms.Select(attrs={'class': 'form-control'}),
                              label=_('Kind'), required=True, choices=Route.KINDS)
     seating = forms.IntegerField(widget=forms.NumberInput(attrs={'class': 'form-control',
-                                                                 'placeholder': _('Number of seats'),
+                                                                 'placeholder': _('Plazas'),
                                                                  'min': '0'}),
-                                 validators=[MinValueValidator(0)], label=_('Seats'))
+                                 validators=[MinValueValidator(0)], label=_('Plazas'))
     unitPrice = forms.DecimalField(widget=forms.NumberInput(attrs={'class': 'form-control',
-                                                                   'placeholder': _('Price for seat'),
+                                                                   'placeholder': _('Precio por plaza'),
                                                                    'min': '0'}),
                                    max_digits=5, decimal_places=2,
-                                   validators=[MinValueValidator(0)], label=_('Price'))
+                                   validators=[MinValueValidator(0)], label=_('Precio por plaza'))
     description = forms.CharField(widget=forms.Textarea(attrs={'class': 'form-control',
-                                                               'placeholder': _('Description')}),
-                                  label=_('Description'), required=True)
+                                                               'placeholder': _(u'Descripción')}),
+                                  label=_(u'Descripción'), required=True)
 
     # Monday
     monday_departTime = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control',
-                                                                      'placeholder': _('Depart time')}),
-                                        max_length=32, label=_('Depart time'), required=False)
+                                                                      'placeholder': _('Hora de salida')}),
+                                        max_length=32, label=_('Hora de salida'), required=False)
     monday_returnTime = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control',
-                                                                      'placeholder': _('Return time')}),
-                                        max_length=32, label=_('Return time'), required=False)
+                                                                      'placeholder': _('Hora de vuelta')}),
+                                        max_length=32, label=_('Hora de vuelta'), required=False)
     # Tuesday
     tuesday_departTime = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control',
-                                                                       'placeholder': _('Depart time')}),
-                                         max_length=32, label=_('Depart time'), required=False)
+                                                                       'placeholder': _('Hora de salida')}),
+                                         max_length=32, label=_('Hora de salida'), required=False)
     tuesday_returnTime = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control',
-                                                                       'placeholder': _('Return time')}),
-                                         max_length=32, label=_('Return time'), required=False)
+                                                                       'placeholder': _('Hora de vuelta')}),
+                                         max_length=32, label=_('Hora de vuelta'), required=False)
     # Wednesday
     wednesday_departTime = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control',
-                                                                         'placeholder': _('Depart time')}),
-                                           max_length=32, label=_('Depart time'), required=False)
+                                                                         'placeholder': _('Hora de salida')}),
+                                           max_length=32, label=_('Hora de salida'), required=False)
     wednesday_returnTime = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control',
-                                                                         'placeholder': _('Return time')}),
-                                           max_length=32, label=_('Return time'), required=False)
+                                                                         'placeholder': _('Hora de vuelta')}),
+                                           max_length=32, label=_('Hora de vuelta'), required=False)
     # Thursday
     thursday_departTime = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control',
-                                                                        'placeholder': _('Depart time')}),
-                                          max_length=32, label=_('Depart time'), required=False)
+                                                                        'placeholder': _('Hora de salida')}),
+                                          max_length=32, label=_('Hora de salida'), required=False)
     thursday_returnTime = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control',
-                                                                        'placeholder': _('Return time')}),
-                                          max_length=32, label=_('Return time'), required=False)
+                                                                        'placeholder': _('Hora de vuelta')}),
+                                          max_length=32, label=_('Hora de vuelta'), required=False)
     # Friday
     friday_departTime = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control',
-                                                                      'placeholder': _('Depart time')}),
-                                        max_length=32, label=_('Depart time'), required=False)
+                                                                      'placeholder': _('Hora de salida')}),
+                                        max_length=32, label=_('Hora de salida'), required=False)
     friday_returnTime = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control',
-                                                                      'placeholder': _('Return time')}),
-                                        max_length=32, label=_('Return time'), required=False)
+                                                                      'placeholder': _('Hora de vuelta')}),
+                                        max_length=32, label=_('Hora de vuelta'), required=False)
     # Saturday
     saturday_departTime = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control',
-                                                                        'placeholder': _('Depart time')}),
-                                          max_length=32, label=_('Depart time'), required=False)
+                                                                        'placeholder': _('Hora de salida')}),
+                                          max_length=32, label=_('Hora de salida'), required=False)
     saturday_returnTime = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control',
-                                                                        'placeholder': _('Return time')}),
-                                          max_length=32, label=_('Return time'), required=False)
+                                                                        'placeholder': _('Hora de vuelta')}),
+                                          max_length=32, label=_('Hora de vuelta'), required=False)
     # Sunday
     sunday_departTime = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control',
-                                                                      'placeholder': _('Depart time')}),
-                                        max_length=32, label=_('Depart time'), required=False)
+                                                                      'placeholder': _('Hora de salida')}),
+                                        max_length=32, label=_('Hora de salida'), required=False)
     sunday_returnTime = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control',
-                                                                      'placeholder': _('Return time')}),
-                                        max_length=32, label=_('Return time'), required=False)
+                                                                      'placeholder': _('Hora de vuelta')}),
+                                        max_length=32, label=_('Hora de vuelta'), required=False)
 
     def clean(self):
         monday_departTime = self.cleaned_data['monday_departTime']

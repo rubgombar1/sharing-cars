@@ -3,6 +3,9 @@ from sharingcars import colaborative_recommendations
 from common.models import User, Comment
 from routes.models import CommentRoute
 from announcements.models import CommentAnnouncement
+from django.conf import settings
+from django.core.cache import cache
+import tweepy
 
 VIEWS_NAMES = {'announcements': ['create-announcement', 'announcement-all', 'announcement-user',
                                'details-announcement', 'edit-announcement', 'stop-announcement-create',
@@ -25,6 +28,20 @@ def check_menu(request):
         if view_name in VIEWS_NAMES[key]:
             return {'active': key}
     return {}
+
+
+def get_tweets(request):
+    try:
+        if settings.TWITTER_CONSUMER_KEY and settings.TWITTER_CONSUMER_SECRET and settings.TWITTER_ACCESS_KEY and settings.TWITTER_ACCESS_SECRET:
+            auth = tweepy.OAuthHandler(settings.TWITTER_CONSUMER_KEY, settings.TWITTER_CONSUMER_SECRET)
+            auth.set_access_token(settings.TWITTER_ACCESS_KEY, settings.TWITTER_ACCESS_SECRET)
+
+            api = tweepy.API(auth)
+            public_tweets = api.home_timeline()
+            cache.set('tweets', public_tweets, 3600)
+            return {'tweets': public_tweets}
+    except:
+        return {'tweets': cache.get('tweets')}
 
 
 def user_more_evaluated(request):
